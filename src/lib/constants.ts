@@ -1,0 +1,160 @@
+// All Hebrew UI strings as constants for i18n readiness
+
+// ==================== General ====================
+export const SITE_NAME = "שווארמה טרייל";
+export const SITE_TAGLINE = "מצאו את השווארמה הטובה בישראל";
+export const SITE_DESCRIPTION =
+  "מפה אינטראקטיבית של מקומות השווארמה הטובים בישראל — דירוגים, ביקורות, ופילטרים חכמים";
+
+// ==================== Navigation ====================
+export const NAV = {
+  home: "דף הבית",
+  map: "מפה",
+  topLists: "דירוגים",
+  about: "אודות",
+  addPlace: "הוסיפו מקום",
+} as const;
+
+// ==================== Kashrut Labels ====================
+export const KASHRUT_LABELS: Record<string, string> = {
+  none: "ללא כשרות",
+  regular: "כשר",
+  mehadrin: "מהדרין",
+  badatz: 'בד"ץ',
+};
+
+export const KASHRUT_OPTIONS = [
+  { value: "none", label: "ללא כשרות" },
+  { value: "regular", label: "כשר" },
+  { value: "mehadrin", label: "מהדרין" },
+  { value: "badatz", label: 'בד"ץ' },
+] as const;
+
+// ==================== Region Labels ====================
+export const REGION_LABELS: Record<string, string> = {
+  north: "צפון",
+  center: "מרכז",
+  south: "דרום",
+  jerusalem: "ירושלים",
+  shfela: "שפלה",
+};
+
+export const REGION_OPTIONS = [
+  { value: "north", label: "צפון" },
+  { value: "center", label: "מרכז" },
+  { value: "south", label: "דרום" },
+  { value: "jerusalem", label: "ירושלים" },
+  { value: "shfela", label: "שפלה" },
+] as const;
+
+// ==================== Meat Type Labels ====================
+export const MEAT_TYPE_LABELS: Record<string, string> = {
+  lamb: "כבש",
+  beef: "עגל",
+  turkey: "הודו",
+  mixed: "מעורב",
+  chicken: "עוף",
+};
+
+export const MEAT_TYPE_OPTIONS = [
+  { value: "lamb", label: "כבש" },
+  { value: "beef", label: "עגל" },
+  { value: "turkey", label: "הודו" },
+  { value: "mixed", label: "מעורב" },
+  { value: "chicken", label: "עוף" },
+] as const;
+
+// ==================== Style Labels ====================
+export const STYLE_LABELS: Record<string, string> = {
+  laffa: "לאפה",
+  pita: "פיתה",
+  plate: "צלחת",
+  fire: "על האש",
+};
+
+export const STYLE_OPTIONS = [
+  { value: "laffa", label: "לאפה" },
+  { value: "pita", label: "פיתה" },
+  { value: "plate", label: "צלחת" },
+  { value: "fire", label: "על האש" },
+] as const;
+
+// ==================== Price Range Labels ====================
+export const PRICE_RANGE_LABELS: Record<number, string> = {
+  1: "₪",
+  2: "₪₪",
+  3: "₪₪₪",
+};
+
+export const PRICE_RANGE_OPTIONS = [
+  { value: 1, label: "₪ — זול" },
+  { value: 2, label: "₪₪ — ממוצע" },
+  { value: 3, label: "₪₪₪ — יקר" },
+] as const;
+
+// ==================== Review Rating Categories ====================
+export const RATING_CATEGORIES = {
+  ratingMeat: "טעם הבשר",
+  ratingBread: "הלאפה / פיתה",
+  ratingSides: "תוספות",
+  ratingService: "שירות",
+  ratingValue: "תמורה למחיר",
+} as const;
+
+// ==================== UI Strings ====================
+export const UI = {
+  // Hero
+  heroTitle: "מצאו את השווארמה הטובה בישראל",
+  heroSubtitle: "מפה אינטראקטיבית, דירוגים וביקורות — הכל במקום אחד",
+  heroSearch: "חפשו מקום, עיר או אזור...",
+
+  // Filters
+  filtersTitle: "סינון",
+  filterKashrut: "כשרות",
+  filterMeatType: "סוג בשר",
+  filterStyle: "סגנון",
+  filterPriceRange: "טווח מחיר",
+  filterRegion: "אזור",
+  filterAll: "הכל",
+  clearFilters: "נקו פילטרים",
+
+  // Place Card
+  reviews: "ביקורות",
+  noReviews: "אין ביקורות עדיין",
+  featured: "מומלץ",
+  verified: "מאומת",
+  delivery: "משלוחים",
+  seating: "ישיבה במקום",
+
+  // Place Detail
+  aboutPlace: "אודות",
+  addressLabel: "כתובת",
+  phoneLabel: "טלפון",
+  openingHoursLabel: "שעות פתיחה",
+  navigateWaze: "נווטו עם Waze",
+  navigateGoogle: "נווטו עם Google Maps",
+  reviewsSection: "ביקורות",
+  writeReview: "כתבו ביקורת",
+  similarPlaces: "מקומות דומים באזור",
+
+  // Review Form
+  reviewFormTitle: "כתבו ביקורת",
+  reviewPlaceholder: "ספרו לנו על החוויה שלכם...",
+  submitReview: "שלחו ביקורת",
+  ratingOverall: "דירוג כולל",
+
+  // General
+  loading: "טוען...",
+  error: "שגיאה",
+  noResults: "לא נמצאו תוצאות",
+  showMore: "הצג עוד",
+  backToHome: "חזרה לדף הבית",
+  moreInfo: "מידע נוסף",
+
+  // Map
+  mapTitle: "מפת שווארמה",
+  mapNoToken: "נדרש טוקן Mapbox להצגת המפה",
+
+  // Setup
+  setupMessage: "הגדירו את NEXT_PUBLIC_CONVEX_URL כדי להתחבר ל-Convex",
+} as const;
