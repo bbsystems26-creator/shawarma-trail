@@ -196,11 +196,11 @@ export const TAG_COLORS: Record<string, string> = {
 
 // ==================== Regions Data (for RegionCards) ====================
 export const REGIONS_DATA = [
-  { name: "north", label: "צפון", gradient: "from-emerald-800 to-emerald-950" },
-  { name: "center", label: "מרכז", gradient: "from-blue-800 to-blue-950" },
-  { name: "south", label: "דרום", gradient: "from-amber-800 to-amber-950" },
-  { name: "jerusalem", label: "ירושלים", gradient: "from-purple-800 to-purple-950" },
-  { name: "shfela", label: "שפלה", gradient: "from-rose-800 to-rose-950" },
+  { name: "north", label: "צפון", gradient: "from-emerald-800 to-emerald-950", image: "/images/regions/north.png" },
+  { name: "center", label: "מרכז", gradient: "from-blue-800 to-blue-950", image: "/images/regions/center.png" },
+  { name: "south", label: "דרום", gradient: "from-amber-800 to-amber-950", image: "/images/regions/south.png" },
+  { name: "jerusalem", label: "ירושלים", gradient: "from-purple-800 to-purple-950", image: "/images/regions/jerusalem.png" },
+  { name: "shfela", label: "שפלה", gradient: "from-rose-800 to-rose-950", image: "/images/regions/shephelah.png" },
 ] as const;
 
 // ==================== Aliases (backward compat) ====================

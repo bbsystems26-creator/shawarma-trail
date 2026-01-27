@@ -10,19 +10,12 @@ import { REGIONS_DATA, TAG_LABELS, TAG_COLORS } from "@/lib/constants";
 import Link from "next/link";
 
 export default function Home() {
-  // Live Convex queries
   const featured = useQuery(api.places.listFeatured, { limit: 8 });
   const newest = useQuery(api.places.listNewest, { limit: 8 });
 
   const popularTags = [
-    "parking",
-    "delivery",
-    "seating",
-    "wifi",
-    "kids",
-    "open-friday",
-    "open-saturday",
-    "accessible",
+    "parking", "delivery", "seating", "wifi",
+    "kids", "open-friday", "open-saturday", "accessible",
   ];
 
   return (
@@ -32,47 +25,57 @@ export default function Home() {
         <HeroSection />
       </div>
 
-      {/* ===== Featured Carousel ===== */}
-      <div className="max-w-7xl mx-auto px-4 mt-12">
-        <Carousel title="🔥 שווה לנסות">
-          {featured === undefined
-            ? Array.from({ length: 4 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="snap-start shrink-0 w-[280px] sm:w-[300px] h-[340px] rounded-xl bg-shawarma-900/50 animate-pulse"
-                />
-              ))
-            : featured.map((place) => (
-                <div
-                  key={place._id}
-                  className="snap-start shrink-0 w-[280px] sm:w-[300px]"
-                >
-                  <PlaceCard place={place} />
-                </div>
-              ))}
-        </Carousel>
+      {/* ===== Region Cards Grid (moved up!) ===== */}
+      <div className="max-w-7xl mx-auto px-4 mt-10">
+        <h2 className="text-xl md:text-2xl font-bold text-white mb-5">
+          🗺️ גלו לפי אזור
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          {REGIONS_DATA.map((region) => (
+            <RegionCard key={region.name} region={region} />
+          ))}
+        </div>
       </div>
 
+      {/* ===== Featured Carousel ===== */}
+      {featured && featured.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 mt-12">
+          <Carousel title="🔥 שווה לנסות">
+            {featured.map((place) => (
+              <div key={place._id} className="snap-start shrink-0 w-[280px] sm:w-[300px]">
+                <PlaceCard place={place} />
+              </div>
+            ))}
+          </Carousel>
+        </div>
+      )}
+
       {/* ===== Newest Carousel ===== */}
-      <div className="max-w-7xl mx-auto px-4 mt-12">
-        <Carousel title="🆕 חדשים שהצטרפו">
-          {newest === undefined
-            ? Array.from({ length: 4 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="snap-start shrink-0 w-[280px] sm:w-[300px] h-[340px] rounded-xl bg-shawarma-900/50 animate-pulse"
-                />
-              ))
-            : newest.map((place) => (
-                <div
-                  key={place._id}
-                  className="snap-start shrink-0 w-[280px] sm:w-[300px]"
-                >
-                  <PlaceCard place={place} />
-                </div>
-              ))}
-        </Carousel>
-      </div>
+      {newest && newest.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 mt-12">
+          <Carousel title="🆕 חדשים שהצטרפו">
+            {newest.map((place) => (
+              <div key={place._id} className="snap-start shrink-0 w-[280px] sm:w-[300px]">
+                <PlaceCard place={place} />
+              </div>
+            ))}
+          </Carousel>
+        </div>
+      )}
+
+      {/* ===== Loading state for carousels ===== */}
+      {(featured === undefined || newest === undefined) && (
+        <div className="max-w-7xl mx-auto px-4 mt-12">
+          <div className="flex gap-4 overflow-hidden">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div
+                key={i}
+                className="shrink-0 w-[280px] sm:w-[300px] h-[340px] rounded-xl bg-shawarma-900/50 animate-pulse"
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* ===== Popular Tags ===== */}
       <div className="max-w-7xl mx-auto px-4 mt-14">
@@ -94,27 +97,15 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ===== Region Cards Grid ===== */}
-      <div className="max-w-7xl mx-auto px-4 mt-14">
-        <h2 className="text-xl md:text-2xl font-bold text-white mb-5">
-          🗺️ גלו לפי אזור
-        </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {REGIONS_DATA.map((region) => (
-            <RegionCard key={region.name} region={region} />
-          ))}
-        </div>
-      </div>
-
       {/* ===== Marketing Section ===== */}
       <div className="max-w-7xl mx-auto px-4 mt-16 mb-16">
-        <section className="bg-shawarma-900/60 border border-shawarma-800/40 rounded-2xl p-8 md:p-12">
+        <section className="bg-gradient-to-br from-orange-900/40 via-shawarma-900/60 to-amber-900/40 border border-shawarma-700/30 rounded-2xl p-8 md:p-12">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
             🥙 קצת על שווארמה טרייל
           </h2>
-          <div className="space-y-4 text-shawarma-300 text-base md:text-lg leading-relaxed max-w-3xl">
+          <div className="space-y-4 text-shawarma-200 text-base md:text-lg leading-relaxed max-w-3xl">
             <p>
-              <strong className="text-shawarma-100">שווארמה טרייל</strong> הוא
+              <strong className="text-white">שווארמה טרייל</strong> הוא
               המדריך המקיף לשווארמה בישראל. אנחנו מאמינים שכל אחד מגיע לדעת
               איפה נמצאת השווארמה הכי טובה — בין אם אתם מחפשים לאפה עסיסית
               בצפון, שווארמת הודו במרכז, או את הבשר על האש בדרום.

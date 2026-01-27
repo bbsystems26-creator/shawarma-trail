@@ -6,11 +6,10 @@ import {
   KASHRUT_LABELS,
   MEAT_TYPE_LABELS,
   PRICE_RANGE_LABELS,
+  REGION_LABELS,
   UI,
 } from "@/lib/constants";
 
-// Type matching the Convex places schema
-// Once `npx convex dev` runs, replace with Doc<"places"> from convex/_generated/dataModel
 export interface PlaceData {
   _id: string;
   name: string;
@@ -32,10 +31,24 @@ export interface PlaceData {
   reviewCount: number;
   isFeatured: boolean;
   isVerified: boolean;
+  phone?: string;
+  whatsapp?: string;
 }
 
 interface PlaceCardProps {
   place: PlaceData;
+}
+
+const GRADIENT_COLORS = [
+  "from-orange-600 via-amber-700 to-red-800",
+  "from-red-700 via-rose-800 to-amber-900",
+  "from-amber-600 via-orange-700 to-red-900",
+  "from-rose-600 via-red-700 to-orange-800",
+];
+
+function getGradient(name: string) {
+  const hash = name.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  return GRADIENT_COLORS[hash % GRADIENT_COLORS.length];
 }
 
 export default function PlaceCard({ place }: PlaceCardProps) {
@@ -51,28 +64,28 @@ export default function PlaceCard({ place }: PlaceCardProps) {
       href={`/place/${place.slug}`}
       className="group block rounded-xl overflow-hidden bg-shawarma-900/80 border border-shawarma-800/50 hover:border-shawarma-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-shawarma-500/10"
     >
-      {/* Image */}
-      <div className="relative h-48 bg-shawarma-800 overflow-hidden">
-        {place.images.length > 0 ? (
-          <div className="w-full h-full bg-gradient-to-br from-shawarma-700 to-shawarma-900 flex items-center justify-center">
-            <span className="text-5xl">🥙</span>
-          </div>
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-shawarma-700 to-shawarma-900 flex items-center justify-center">
-            <span className="text-5xl">🥙</span>
-          </div>
-        )}
+      {/* Image / Gradient Placeholder */}
+      <div className="relative h-48 overflow-hidden">
+        <div className={`w-full h-full bg-gradient-to-br ${getGradient(place.name)} flex flex-col items-center justify-center gap-2`}>
+          <span className="text-5xl drop-shadow-lg">🥙</span>
+          <span className="text-white/80 text-sm font-medium drop-shadow">{place.name}</span>
+        </div>
 
-        {/* Featured badge */}
-        {place.isFeatured && (
-          <span className="absolute top-3 right-3 bg-amber-500 text-amber-950 text-xs font-bold px-2 py-1 rounded-full">
-            ⭐ {UI.featured}
+        {/* Verified badge */}
+        {(place.isFeatured || place.isVerified) && (
+          <span className="absolute top-3 right-3 bg-amber-500 text-amber-950 text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1 shadow-md">
+            {place.isFeatured ? "⭐" : "✅"} {place.isFeatured ? UI.featured : UI.verified}
           </span>
         )}
 
         {/* Price range */}
-        <span className="absolute top-3 left-3 bg-shawarma-950/80 text-shawarma-200 text-sm font-bold px-2 py-1 rounded-full backdrop-blur-sm">
+        <span className="absolute top-3 left-3 bg-black/60 text-white text-sm font-bold px-2 py-1 rounded-full backdrop-blur-sm">
           {PRICE_RANGE_LABELS[place.priceRange]}
+        </span>
+
+        {/* Region badge */}
+        <span className="absolute bottom-3 right-3 bg-black/50 text-white/90 text-xs px-2 py-1 rounded-full backdrop-blur-sm">
+          📍 {REGION_LABELS[place.region] || place.region}
         </span>
       </div>
 
@@ -97,16 +110,14 @@ export default function PlaceCard({ place }: PlaceCardProps) {
           </span>
         </div>
 
-        {/* Kashrut badge */}
+        {/* Kashrut + Meat badges */}
         <div className="flex flex-wrap gap-2">
           <span
             className={`text-xs px-2 py-0.5 rounded-full font-medium ${kashrutBadgeColor[place.kashrut] ?? "bg-zinc-600 text-zinc-200"}`}
           >
             {KASHRUT_LABELS[place.kashrut]}
           </span>
-
-          {/* Meat types */}
-          {place.meatTypes.slice(0, 3).map((meat) => (
+          {place.meatTypes.slice(0, 2).map((meat) => (
             <span
               key={meat}
               className="text-xs px-2 py-0.5 rounded-full bg-shawarma-800 text-shawarma-300"
@@ -116,11 +127,35 @@ export default function PlaceCard({ place }: PlaceCardProps) {
           ))}
         </div>
 
-        {/* Tags row */}
-        <div className="flex gap-2 text-xs text-shawarma-500">
-          {place.hasDelivery && <span>🛵 {UI.delivery}</span>}
-          {place.hasSeating && <span>🪑 {UI.seating}</span>}
-          {place.isVerified && <span>✅ {UI.verified}</span>}
+        {/* Tags + CTA row */}
+        <div className="flex items-center justify-between">
+          <div className="flex gap-2 text-xs text-shawarma-500">
+            {place.hasDelivery && <span>🛵 {UI.delivery}</span>}
+            {place.hasSeating && <span>🪑 {UI.seating}</span>}
+          </div>
+          {/* Phone/WhatsApp CTAs */}
+          <div className="flex gap-2" onClick={(e) => e.preventDefault()}>
+            {place.phone && (
+              <a
+                href={`tel:${place.phone}`}
+                className="text-xs bg-green-600/20 text-green-400 px-2 py-1 rounded-full hover:bg-green-600/40 transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                📞
+              </a>
+            )}
+            {place.whatsapp && (
+              <a
+                href={`https://wa.me/${place.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs bg-green-600/20 text-green-400 px-2 py-1 rounded-full hover:bg-green-600/40 transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                💬
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </Link>
