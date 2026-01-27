@@ -158,3 +158,51 @@ export const UI = {
   // Setup
   setupMessage: "הגדירו את NEXT_PUBLIC_CONVEX_URL כדי להתחבר ל-Convex",
 } as const;
+
+// ==================== Aliases (backward compat) ====================
+export const UI_TEXT = {
+  search: UI.heroSearch,
+  noResults: UI.noResults,
+  loading: UI.loading,
+  reviews: UI.reviews,
+  writeReview: UI.writeReview,
+  submit: UI.submitReview,
+  featured: UI.featured,
+  verified: UI.verified,
+  openNow: "פתוח עכשיו",
+  delivery: UI.delivery,
+  seating: UI.seating,
+  showOnMap: "הצג על המפה",
+  navigate: "נווט לכאן",
+  allPlaces: "כל המקומות",
+  topRated: "הכי מדורגים",
+  nearby: "קרוב אליי",
+  filterBy: UI.filtersTitle,
+  clearFilters: UI.clearFilters,
+  viewAll: "צפה בהכל",
+  moreInfo: UI.moreInfo,
+  phone: UI.phoneLabel,
+  hours: UI.openingHoursLabel,
+  menu: "תפריט",
+  share: "שתף",
+};
+
+export const PRICE_LABELS = PRICE_RANGE_LABELS;
+
+export const FILTER_TITLES = {
+  kashrut: UI.filterKashrut,
+  region: UI.filterRegion,
+  meatType: UI.filterMeatType,
+  style: UI.filterStyle,
+  priceRange: UI.filterPriceRange,
+  rating: "דירוג מינימלי",
+};
+
+export const RATING_LABELS = {
+  overall: UI.ratingOverall,
+  meat: RATING_CATEGORIES.ratingMeat,
+  bread: RATING_CATEGORIES.ratingBread,
+  sides: RATING_CATEGORIES.ratingSides,
+  service: RATING_CATEGORIES.ratingService,
+  value: RATING_CATEGORIES.ratingValue,
+};

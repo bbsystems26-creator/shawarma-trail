@@ -20,9 +20,10 @@ export default function PlacePage() {
   const slug = params.slug as string;
 
   const place = useQuery(api.places.getBySlug, { slug });
-  const reviews = place
-    ? useQuery(api.reviews.getByPlace, { placeId: place._id })
-    : undefined;
+  const reviews = useQuery(
+    api.reviews.getByPlace,
+    place ? { placeId: place._id } : "skip"
+  );
 
   if (place === undefined) {
     return (
