@@ -7,6 +7,8 @@ import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import StarRating from "@/components/StarRating";
 import ReviewForm from "@/components/ReviewForm";
+import ActionButtons from "@/components/ActionButtons";
+import TagBadges from "@/components/TagBadges";
 import {
   KASHRUT_LABELS,
   MEAT_TYPE_LABELS,
@@ -107,8 +109,17 @@ export default function PlacePage() {
           </div>
         </div>
 
+        {/* Action Buttons */}
+        <ActionButtons
+          phone={place.phone}
+          whatsapp={place.whatsapp}
+          lat={place.lat}
+          lng={place.lng}
+          name={place.name}
+        />
+
         {/* Rating */}
-        <div className="flex items-center gap-4 mb-4">
+        <div className="flex items-center gap-4 mb-4 mt-4">
           <StarRating rating={place.avgRating} size={28} />
           <span className="text-gray-400">
             ({place.reviewCount} {UI_TEXT.reviews})
@@ -166,6 +177,36 @@ export default function PlacePage() {
                 )
               )}
             </div>
+          </div>
+        )}
+
+        {/* Tag Badges (v2) */}
+        {place.tags && place.tags.length > 0 && (
+          <TagBadges tags={place.tags} className="mb-6" />
+        )}
+
+        {/* Owner Story */}
+        {place.ownerStory && (
+          <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mb-6">
+            <h3 className="text-amber-400 font-bold mb-3">📖 הסיפור שלנו</h3>
+            <blockquote className="text-gray-300 leading-relaxed border-r-4 border-amber-500 pr-4">
+              {place.ownerStory}
+            </blockquote>
+          </div>
+        )}
+
+        {/* Tips */}
+        {place.tips && (place.tips as string[]).length > 0 && (
+          <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mb-6">
+            <h3 className="text-amber-400 font-bold mb-3">💡 מה כדאי לדעת</h3>
+            <ul className="space-y-2">
+              {(place.tips as string[]).map((tip: string, i: number) => (
+                <li key={i} className="flex items-start gap-2 text-gray-300">
+                  <span className="text-amber-500 mt-1">•</span>
+                  {tip}
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 

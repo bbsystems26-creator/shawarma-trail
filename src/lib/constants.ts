@@ -159,6 +159,41 @@ export const UI = {
   setupMessage: "הגדירו את NEXT_PUBLIC_CONVEX_URL כדי להתחבר ל-Convex",
 } as const;
 
+// ==================== Tag Labels ====================
+export const TAG_LABELS: Record<string, string> = {
+  wifi: "WiFi",
+  parking: "חניה",
+  seating: "ישיבה",
+  delivery: "משלוחים",
+  kids: "ידידותי לילדים",
+  "open-saturday": "פתוח בשבת",
+  "open-friday": "פתוח בשישי",
+  shelter: "מקלט",
+  accessible: "נגישות",
+  "air-conditioned": "מיזוג",
+  "outdoor-seating": "ישיבה בחוץ",
+  "pet-friendly": "ידידותי לחיות",
+  halal: "חלאל",
+  "reservist-discount": "הנחת מילואימניקים",
+};
+
+export const TAG_COLORS: Record<string, string> = {
+  wifi: "bg-blue-500/20 text-blue-300",
+  parking: "bg-green-500/20 text-green-300",
+  seating: "bg-amber-500/20 text-amber-300",
+  delivery: "bg-purple-500/20 text-purple-300",
+  kids: "bg-pink-500/20 text-pink-300",
+  "open-saturday": "bg-yellow-500/20 text-yellow-300",
+  "open-friday": "bg-orange-500/20 text-orange-300",
+  shelter: "bg-red-500/20 text-red-300",
+  accessible: "bg-teal-500/20 text-teal-300",
+  "air-conditioned": "bg-cyan-500/20 text-cyan-300",
+  "outdoor-seating": "bg-lime-500/20 text-lime-300",
+  "pet-friendly": "bg-emerald-500/20 text-emerald-300",
+  halal: "bg-indigo-500/20 text-indigo-300",
+  "reservist-discount": "bg-rose-500/20 text-rose-300",
+};
+
 // ==================== Aliases (backward compat) ====================
 export const UI_TEXT = {
   search: UI.heroSearch,
