@@ -1,126 +1,133 @@
 "use client";
 
-
-import { useState } from "react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
-import dynamic from "next/dynamic";
+import HeroSection from "@/components/HeroSection";
+import Carousel from "@/components/Carousel";
 import PlaceCard from "@/components/PlaceCard";
-import SearchBar from "@/components/SearchBar";
-import Filters, { FilterState, EMPTY_FILTERS } from "@/components/Filters";
-import { SITE_DESCRIPTION, SITE_TAGLINE, UI_TEXT } from "@/lib/constants";
-
-// Dynamic import to avoid SSR issues with Leaflet
-const Map = dynamic(() => import("@/components/Map"), { ssr: false });
+import RegionCard from "@/components/RegionCard";
+import { REGIONS_DATA, TAG_LABELS, TAG_COLORS } from "@/lib/constants";
+import Link from "next/link";
 
 export default function Home() {
-  const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [showFilters, setShowFilters] = useState(false);
-
   // Live Convex queries
-  const allPlaces = useQuery(api.places.listAll, { limit: 200 });
-  const searchResults = useQuery(
-    api.places.search,
-    searchTerm.length >= 2 ? { searchTerm } : "skip"
-  );
+  const featured = useQuery(api.places.listFeatured, { limit: 8 });
+  const newest = useQuery(api.places.listNewest, { limit: 8 });
 
-  // Determine which places to show
-  const basePlaces = searchTerm.length >= 2 ? searchResults : allPlaces;
-  const places = basePlaces ?? [];
-
-  // Client-side filtering
-  const filteredPlaces = places.filter((place) => {
-    if (filters.region && place.region !== filters.region) return false;
-    if (filters.kashrut && place.kashrut !== filters.kashrut) return false;
-    if (filters.meatType && !place.meatTypes.includes(filters.meatType))
-      return false;
-    if (filters.style && !place.style.includes(filters.style)) return false;
-    if (filters.priceRange && place.priceRange !== filters.priceRange)
-      return false;
-    if (filters.minRating && place.avgRating < filters.minRating) return false;
-    return true;
-  });
-
-  const isLoading = allPlaces === undefined;
+  const popularTags = [
+    "parking",
+    "delivery",
+    "seating",
+    "wifi",
+    "kids",
+    "open-friday",
+    "open-saturday",
+    "accessible",
+  ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      {/* Hero */}
-      <section className="text-center mb-10">
-        <h1 className="text-4xl md:text-5xl font-black text-white mb-3">
-          🥙 {SITE_DESCRIPTION}
-        </h1>
-        <p className="text-gray-400 text-lg mb-6">{SITE_TAGLINE}</p>
-        <SearchBar onSearch={setSearchTerm} />
-      </section>
-
-      {/* Map */}
-      <section className="mb-10">
-        <Map
-          places={filteredPlaces.map((p) => ({
-            _id: p._id,
-            name: p.name,
-            slug: p.slug,
-            lat: p.lat,
-            lng: p.lng,
-            avgRating: p.avgRating,
-            city: p.city,
-          }))}
-          onPlaceClick={(slug) => {
-            window.location.href = `/place/${slug}`;
-          }}
-        />
-      </section>
-
-      {/* Filter toggle (mobile) */}
-      <div className="md:hidden mb-4">
-        <button
-          type="button"
-          onClick={() => setShowFilters(!showFilters)}
-          className="w-full bg-zinc-900 border border-zinc-700 rounded-lg py-2 text-gray-300 text-sm"
-        >
-          {showFilters ? "הסתר סינונים" : `${UI_TEXT.filterBy} ⚙️`}
-        </button>
+    <div className="min-h-screen" dir="rtl">
+      {/* ===== Hero ===== */}
+      <div className="max-w-7xl mx-auto px-4 pt-6 pb-2">
+        <HeroSection />
       </div>
 
-      {/* Content: Filters + Grid */}
-      <div className="flex flex-col md:flex-row gap-6">
-        {/* Sidebar */}
-        <aside
-          className={`md:w-72 shrink-0 ${showFilters ? "block" : "hidden md:block"}`}
-        >
-          <Filters filters={filters} onFilterChange={setFilters} />
-        </aside>
-
-        {/* Places Grid */}
-        <section className="flex-1">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-white">
-              {searchTerm ? `תוצאות: "${searchTerm}"` : UI_TEXT.allPlaces}
-            </h2>
-            <span className="text-sm text-gray-500">
-              {isLoading ? "..." : `${filteredPlaces.length} מקומות`}
-            </span>
-          </div>
-
-          {isLoading ? (
-            <div className="text-center py-16 text-gray-500">
-              <span className="text-4xl block mb-3 animate-pulse">🥙</span>
-              <p>{UI_TEXT.loading}</p>
-            </div>
-          ) : filteredPlaces.length === 0 ? (
-            <div className="text-center py-16 text-gray-500">
-              <span className="text-4xl block mb-3">🔍</span>
-              <p>{UI_TEXT.noResults}</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredPlaces.map((place) => (
-                <PlaceCard key={place._id} place={place} />
+      {/* ===== Featured Carousel ===== */}
+      <div className="max-w-7xl mx-auto px-4 mt-12">
+        <Carousel title="🔥 שווה לנסות">
+          {featured === undefined
+            ? Array.from({ length: 4 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="snap-start shrink-0 w-[280px] sm:w-[300px] h-[340px] rounded-xl bg-shawarma-900/50 animate-pulse"
+                />
+              ))
+            : featured.map((place) => (
+                <div
+                  key={place._id}
+                  className="snap-start shrink-0 w-[280px] sm:w-[300px]"
+                >
+                  <PlaceCard place={place} />
+                </div>
               ))}
-            </div>
-          )}
+        </Carousel>
+      </div>
+
+      {/* ===== Newest Carousel ===== */}
+      <div className="max-w-7xl mx-auto px-4 mt-12">
+        <Carousel title="🆕 חדשים שהצטרפו">
+          {newest === undefined
+            ? Array.from({ length: 4 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="snap-start shrink-0 w-[280px] sm:w-[300px] h-[340px] rounded-xl bg-shawarma-900/50 animate-pulse"
+                />
+              ))
+            : newest.map((place) => (
+                <div
+                  key={place._id}
+                  className="snap-start shrink-0 w-[280px] sm:w-[300px]"
+                >
+                  <PlaceCard place={place} />
+                </div>
+              ))}
+        </Carousel>
+      </div>
+
+      {/* ===== Popular Tags ===== */}
+      <div className="max-w-7xl mx-auto px-4 mt-14">
+        <h2 className="text-xl md:text-2xl font-bold text-white mb-5">
+          🏷️ תגיות פופולריות
+        </h2>
+        <div className="flex flex-wrap gap-3">
+          {popularTags.map((tag) => (
+            <Link
+              key={tag}
+              href={`/explore?tag=${tag}`}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all hover:scale-105 hover:shadow-md ${
+                TAG_COLORS[tag] || "bg-zinc-700/50 text-zinc-300"
+              }`}
+            >
+              {TAG_LABELS[tag] || tag}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* ===== Region Cards Grid ===== */}
+      <div className="max-w-7xl mx-auto px-4 mt-14">
+        <h2 className="text-xl md:text-2xl font-bold text-white mb-5">
+          🗺️ גלו לפי אזור
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          {REGIONS_DATA.map((region) => (
+            <RegionCard key={region.name} region={region} />
+          ))}
+        </div>
+      </div>
+
+      {/* ===== Marketing Section ===== */}
+      <div className="max-w-7xl mx-auto px-4 mt-16 mb-16">
+        <section className="bg-shawarma-900/60 border border-shawarma-800/40 rounded-2xl p-8 md:p-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+            🥙 קצת על שווארמה טרייל
+          </h2>
+          <div className="space-y-4 text-shawarma-300 text-base md:text-lg leading-relaxed max-w-3xl">
+            <p>
+              <strong className="text-shawarma-100">שווארמה טרייל</strong> הוא
+              המדריך המקיף לשווארמה בישראל. אנחנו מאמינים שכל אחד מגיע לדעת
+              איפה נמצאת השווארמה הכי טובה — בין אם אתם מחפשים לאפה עסיסית
+              בצפון, שווארמת הודו במרכז, או את הבשר על האש בדרום.
+            </p>
+            <p>
+              עם דירוגים אמיתיים מהקהילה, פילטרים חכמים לפי כשרות, סוג בשר,
+              סגנון ומחיר — תמצאו בדיוק מה שאתם מחפשים. כל מקום מדורג ב-5
+              קטגוריות: טעם הבשר, הלחם, התוספות, השירות והתמורה למחיר.
+            </p>
+            <p>
+              בואו להצטרף למהפכת השווארמה — דרגו, שתפו, וגלו טעמים חדשים. 🔥
+            </p>
+          </div>
         </section>
       </div>
     </div>
