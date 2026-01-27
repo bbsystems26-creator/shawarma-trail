@@ -39,6 +39,14 @@ export default defineSchema({
     isFeatured: v.boolean(),
     isVerified: v.boolean(),
     claimedBy: v.optional(v.id("users")),
+    // v2 fields
+    ownerStory: v.optional(v.string()),
+    tags: v.optional(v.array(v.string())),
+    profileImage: v.optional(v.string()),
+    socialLinks: v.optional(v.any()),
+    menuItems: v.optional(v.any()),
+    tips: v.optional(v.any()),
+    createdAt: v.optional(v.number()),
   })
     .index("by_slug", ["slug"])
     .index("by_city", ["city"])
@@ -46,6 +54,7 @@ export default defineSchema({
     .index("by_rating", ["avgRating"])
     .index("by_featured", ["isFeatured"])
     .index("by_kashrut", ["kashrut"])
+    .index("by_createdAt", ["createdAt"])
     .searchIndex("search_name", { searchField: "name" }),
 
   reviews: defineTable({

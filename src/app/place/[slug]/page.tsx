@@ -1,5 +1,6 @@
 "use client";
 
+
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { useQuery } from "convex/react";
@@ -108,7 +109,7 @@ export default function PlacePage() {
 
         {/* Rating */}
         <div className="flex items-center gap-4 mb-4">
-          <StarRating rating={place.avgRating} size="lg" />
+          <StarRating rating={place.avgRating} size={28} />
           <span className="text-gray-400">
             ({place.reviewCount} {UI_TEXT.reviews})
           </span>
@@ -220,7 +221,7 @@ export default function PlacePage() {
                       {review.userName || "אנונימי"}
                     </span>
                   </div>
-                  <StarRating rating={review.ratingOverall} size="sm" />
+                  <StarRating rating={review.ratingOverall} size={14} />
                 </div>
                 <p className="text-gray-300 mb-3">{review.text}</p>
                 <div className="grid grid-cols-5 gap-2 text-xs">
@@ -272,6 +273,7 @@ export default function PlacePage() {
 
         {/* Write Review — disabled until auth */}
         <ReviewForm
+          placeId={place?.slug ?? ""}
           onSubmit={(review) => {
             // TODO: Connect to Convex mutation with auth
             console.log("New review:", review);

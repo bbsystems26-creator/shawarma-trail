@@ -653,12 +653,104 @@ export const seed = mutation({
       },
     ];
 
-    // Insert all places
-    for (const place of places) {
-      await ctx.db.insert("places", place);
+    // ── v2 enrichment data ────────────────────────────────
+    const ownerStories: Record<string, string> = {
+      "shawarma-hacarmel": "מוישה פתח את המקום ב-1985 ליד שוק הכרמל. הוא למד את האומנות מאביו שעלה מתימן. היום הנכדים ממשיכים את המסורת.",
+      "abu-hassan": "חסן ומשפחתו מגישים חומוס ושווארמה ביפו כבר שלושה דורות. הסוד? תבלינים טריים כל בוקר.",
+      "amnon-vtali": "אמנון וטלי פתחו את המקום כזוג צעיר ב-1992. היום זה מוסד תל אביבי שהילדים מנהלים.",
+      "melech-hashawarma-jerusalem": "אבו סאלח הגיע מחברון לפני 40 שנה והפך את השווארמה שלו לאגדה ירושלמית. כולם קוראים לו מלך.",
+      "shawarma-hanamal-haifa": "דורון פתח דוכן קטן בנמל חיפה ב-2010. עם הזמן הפך למסעדה מול הים עם תור קבוע.",
+      "abu-mazen-haifa": "משפחת מאזן בוואדי ניסנאס מכינים שווארמה לפי מתכון שעובר מדור לדור כבר 80 שנה.",
+      "shawarma-hagalil": "יוסף פתח את המקום אחרי שחזר מהצבא. הוא מביא כבש טרי מחוות המשפחה כל בוקר.",
+      "hazaken-vehayam-akko": "הזקן — אבו ריאד — מגריל בשר מול הים כבר 50 שנה. אומרים שהמלח מהים הוא הסוד שלו.",
+      "basar-bair-ramat-gan": "שף מאיר עזב מסעדת שף יוקרתית כדי לפתוח שווארמה גורמה. אומרים שזו ההחלטה הכי טובה שעשה.",
+      "shawarma-express-bnei-brak": "משה ושרה פתחו מזנון קטן ליד ישיבה. מהר מאוד הפך למוסד של כל השכונה.",
+      "hakikar-petah-tikva": "משפחת לוי מנהלים את הכיכר כבר שני דורות. הסלטים נעשים בבית כל בוקר.",
+      "shawarma-hamizrach-beer-sheva": "חיים עלה מתימן בשנות ה-50 ופתח את המקום. היום הנכד ממשיך עם אותם תבלינים.",
+      "abu-dani-ashdod": "דני — ישראלי ממוצא מרוקאי — שילב מסורת מזרחית עם חדשנות. התוצאה מדברת בעד עצמה.",
+      "hashef-shel-hashawarma-netanya": "השף עמית למד בצרפת וחזר לנתניה לפתוח שווארמה שף. כל מנה היא יצירת אמנות.",
+      "shipud-hazahav-tiberias": "אבו חאלד יושב על שפת הכנרת ומגריל כבש. הזהב בשם זה הצבע של הבשר על האש.",
+      "abu-yosef-nazareth": "יוסף ואשתו מנהלים את המקום מהשוק הישן בנצרת. המקומיים יודעים — פה זה הדבר האמיתי.",
+      "hapitta-shel-ima-jerusalem": "אמא רחל אופה פיתות בטאבון כל בוקר. השווארמה עם פיתה טרייה — חוויה ירושלמית.",
+      "bsarim-bagrill-herzliya": "אלון פתח את המקום אחרי 20 שנה בתעשיית הבשר. הוא יודע לבחור את החתיכות הכי טובות.",
+      "shawarma-damesek-akko": "אבו עלי הגיע מסוריה והביא איתו את המתכון של סבא. הטעם של דמשק בלב עכו.",
+      "shipudei-hacarmel-haifa": "שלושה אחים פתחו מקום בכרמל. המנות ענקיות כי 'אף לקוח לא יוצא רעב' — זה הכלל.",
+      "halaffa-shel-david-tlv": "דוד מכין לאפה על סאג' חם כל יום מ-6 בבוקר. אומרים שהלאפה שלו הכי טובה בדרום ת״א.",
+      "melech-hatzafon-carmiel": "מוטי פתח מקום קטן בכרמיאל והפך אותו למלך הצפון. הסוד: טחינה ביתית מגרגירי שומשום קלויים.",
+      "shawarma-hamoshava-rishon": "משפחת אזולאי מנהלים את המקום במושבה הישנה כבר 25 שנה. נוסטלגיה בכל ביס.",
+      "basar-al-haesh-modiin": "ארז עבר למודיעין ולא מצא שווארמה טובה. אז פתח בעצמו. עכשיו כולם באים אליו.",
+      "shawarma-hashuk-jerusalem": "דוכן קטן בלב מחנה יהודה. אלי מכין שווארמה הודו כשרה למהדרין — מהיר ומושלם.",
+      "hagala-shel-yosi-eilat": "יוסי התחיל עם עגלה על הטיילת. היום זה מוסד אילתי. הים, השמש, והשווארמה — שילוש מושלם.",
+      "shawarma-habucharim-jerusalem": "שמעון — בוכרי מדור שישי — מכין שווארמה עם תבלינים שלא תמצאו בשום מקום אחר בעולם.",
+      "shawarma-shel-rami-kfar-saba": "רמי מכין שווארמה כבר 30 שנה. מקום קטן, לב גדול, וטעם שלא משתנה.",
+      "super-laffa-holon": "אבי פתח את המקום כשחזר מטיול בטורקיה. הלאפה — ענקית. המנה — בלתי נגמרת.",
+    };
+
+    const tagOptions = [
+      "wifi", "parking", "seating", "delivery", "kids",
+      "open-saturday", "open-friday", "shelter", "accessible",
+      "air-conditioned", "outdoor-seating", "pet-friendly",
+    ];
+
+    const pickTags = (slug: string): string[] => {
+      // Deterministic tag selection based on slug hash
+      let hash = 0;
+      for (let i = 0; i < slug.length; i++) {
+        hash = ((hash << 5) - hash + slug.charCodeAt(i)) | 0;
+      }
+      const count = 3 + Math.abs(hash % 4); // 3–6 tags
+      const selected: string[] = [];
+      for (let i = 0; i < count; i++) {
+        const idx = Math.abs((hash + i * 7) % tagOptions.length);
+        if (!selected.includes(tagOptions[idx])) {
+          selected.push(tagOptions[idx]);
+        }
+      }
+      return selected;
+    };
+
+    const now = Date.now();
+    const DAY = 86400000;
+
+    // Enriched insert with v2 fields
+    for (let i = 0; i < places.length; i++) {
+      const place = places[i];
+      const slug = place.slug;
+      const story = ownerStories[slug];
+      const tags = pickTags(slug);
+      const createdAt = now - Math.floor((90 - (i * 3)) * DAY + Math.random() * DAY);
+
+      // ~50% get socialLinks
+      const socialLinks = i % 2 === 0 ? {
+        instagram: `https://instagram.com/${slug}`,
+        facebook: `https://facebook.com/${slug}`,
+      } : undefined;
+
+      // ~30% get menuItems
+      const menuItems = i % 3 === 0 ? [
+        { name: "שווארמה בלאפה", price: 45 },
+        { name: "שווארמה בפיתה", price: 38 },
+        { name: "מנה על הצלחת", price: 55 },
+      ] : undefined;
+
+      // ~50% get tips
+      const tips = i % 2 === 1 ? [
+        "כדאי להגיע בשעות הצהריים — הבשר הכי טרי",
+        "לבקש טחינה נוספת בצד",
+      ] : undefined;
+
+      await ctx.db.insert("places", {
+        ...place,
+        ...(story && { ownerStory: story }),
+        tags,
+        createdAt,
+        ...(socialLinks && { socialLinks }),
+        ...(menuItems && { menuItems }),
+        ...(tips && { tips }),
+      });
     }
 
-    console.log(`Seeded ${places.length} shawarma places!`);
+    console.log(`Seeded ${places.length} shawarma places with v2 fields!`);
     return { seeded: true, count: places.length };
   },
 });

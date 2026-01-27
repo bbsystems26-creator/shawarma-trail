@@ -1,19 +1,20 @@
 "use client";
 
+
 import { useState } from "react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import dynamic from "next/dynamic";
 import PlaceCard from "@/components/PlaceCard";
 import SearchBar from "@/components/SearchBar";
-import Filters, { FilterState } from "@/components/Filters";
+import Filters, { FilterState, EMPTY_FILTERS } from "@/components/Filters";
 import { SITE_DESCRIPTION, SITE_TAGLINE, UI_TEXT } from "@/lib/constants";
 
 // Dynamic import to avoid SSR issues with Leaflet
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 export default function Home() {
-  const [filters, setFilters] = useState<FilterState>({});
+  const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS);
   const [searchTerm, setSearchTerm] = useState("");
   const [showFilters, setShowFilters] = useState(false);
 

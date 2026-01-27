@@ -165,3 +165,36 @@ export const filter = query({
     return places;
   },
 });
+
+export const listFeatured = query({
+  args: { limit: v.optional(v.number()) },
+  handler: async (ctx, args) => {
+    const limit = args.limit ?? 6;
+    return await ctx.db
+      .query("places")
+      .withIndex("by_featured", (q) => q.eq("isFeatured", true))
+      .take(limit);
+  },
+});
+
+export const listNewest = query({
+  args: { limit: v.optional(v.number()) },
+  handler: async (ctx, args) => {
+    const limit = args.limit ?? 6;
+    return await ctx.db
+      .query("places")
+      .withIndex("by_createdAt")
+      .order("desc")
+      .take(limit);
+  },
+});
+
+export const listByTag = query({
+  args: { tag: v.string() },
+  handler: async (ctx, args) => {
+    const allPlaces = await ctx.db.query("places").collect();
+    return allPlaces.filter(
+      (p) => p.tags && p.tags.includes(args.tag)
+    );
+  },
+});

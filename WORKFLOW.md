@@ -18,10 +18,11 @@ This document defines BB Systems' standard workflow for using AI coding agents t
 ## 1. The Pipeline
 
 ```
- ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
- │   1. PLAN    │────▶│  2. BREAK    │────▶│  3. EXECUTE  │────▶│  4. VERIFY   │
- │  Write PRD   │     │  Task Graph  │     │  Agent Runs  │     │  QA + Ship   │
- └──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘
+ ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+ │   1. PLAN    │────▶│  2. BREAK    │────▶│ 3. PLAN TASK │────▶│  4. EXECUTE  │────▶│  5. VERIFY   │
+ │  Write PRD   │     │  Task Graph  │     │Agent Plans → │     │  Agent Runs  │     │  QA + Ship   │
+ │              │     │              │     │David Approves│     │              │     │              │
+ └──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘
 ```
 
 ### Phase 1 — PLAN: Write the PRD
@@ -39,7 +40,19 @@ This document defines BB Systems' standard workflow for using AI coding agents t
 - Estimate time per task
 - **Output:** `TASKS.md`
 
-### Phase 3 — EXECUTE: Run Agent Sessions
+### Phase 3 — PLAN PER TASK: Agent Plans Before Executing
+- Before each task, launch Claude Code in **plan mode**
+- Agent reads the task, explores the codebase, and outputs:
+  - Which files it will create/modify
+  - What changes it will make in each file
+  - Execution order
+  - Potential risks or conflicts
+- **David reviews the plan** and either approves or adjusts
+- Only after approval does the agent execute
+- This prevents wasted work and catches issues early
+- **Output:** Approved execution plan per task
+
+### Phase 4 — EXECUTE: Run Agent Sessions
 - One session per task group
 - Parallel where dependencies allow
 - Each session gets a focused prompt with:
@@ -51,7 +64,7 @@ This document defines BB Systems' standard workflow for using AI coding agents t
   - Wake notification on completion
 - **Output:** Working code, committed per task
 
-### Phase 4 — VERIFY: QA & Ship
+### Phase 5 — VERIFY: QA & Ship
 - Full build verification
 - Manual testing of all routes/features
 - Performance check
@@ -86,18 +99,44 @@ Mixed → identify critical path, parallelize the rest
 
 ---
 
-## 3. Session Prompt Template
+## 3. Session Prompt Templates
 
-Every agent session receives a structured prompt. This is the template:
+### 3a. Planning Prompt (runs FIRST for every task)
+
+```markdown
+Read CLAUDE.md, TASKS.md, and relevant source files.
+Your task: [TASK_ID] — [Task Name]
+
+DO NOT EXECUTE YET. Create an execution plan only.
+
+## Context
+- Project: [project name]
+- Read these files: [file list]
+
+## Task Requirements
+[Paste the task sub-tasks from TASKS.md]
+
+## Output Required
+Create a plan that includes:
+1. Files to create (with path)
+2. Files to modify (with what changes)
+3. Execution order (which file first, which last)
+4. Dependencies or risks
+5. Estimated complexity (low/medium/high)
+
+Output the plan as markdown. Do NOT write any code yet.
+```
+
+**David reviews the plan → approves or adjusts → then runs execution prompt.**
+
+### 3b. Execution Prompt (runs AFTER plan approval)
 
 ```markdown
 Read CLAUDE.md and relevant source files.
 Your task: [TASK_ID] — [Task Name]
 
-## Context
-- Project: [project name]
-- Tech stack: [stack]
-- Read these files first: [file list]
+## Approved Plan
+[Paste the approved plan from step 3a]
 
 ## Sub-tasks
 1. [Sub-task with specific file + action]
@@ -128,18 +167,18 @@ When finished: `clawdbot gateway wake --text 'Done: [TASK_ID] complete' --mode n
 ### Single operator (Clawdbot)
 ```
 David (orchestrator)
-  ├── Session 1: TASK A (blocking)
-  │   └── ✅ Done → wake David
-  ├── Session 2: TASK B1 (parallel with A)
-  │   └── ✅ Done → wake David
+  │
+  ├── TASK A: Plan → David Reviews → Approve → Execute → ✅ wake David
+  ├── TASK B1: Plan → David Reviews → Approve → Execute → ✅ wake David
+  │   (A and B1 can plan+execute in parallel if no file overlap)
   │
   │   [After A completes:]
-  ├── Session 3: TASK B2 ─┐
-  ├── Session 4: TASK B3 ─┤ parallel
-  ├── Session 5: TASK B4 ─┘
+  ├── TASK B2: Plan → Approve → Execute ─┐
+  ├── TASK B3: Plan → Approve → Execute ─┤ parallel
+  ├── TASK B4: Plan → Approve → Execute ─┘
   │   └── All done → wake David
   │
-  └── Session 6: TASK C (after all B tasks)
+  └── TASK C: Plan → Approve → Execute (after all B tasks)
       └── ✅ Done → wake David → notify Binyamin
 ```
 

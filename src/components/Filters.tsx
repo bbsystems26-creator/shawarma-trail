@@ -16,6 +16,7 @@ export interface FilterState {
   style: string | null;
   priceRange: number | null;
   region: string | null;
+  minRating: number | null;
 }
 
 interface FiltersProps {
@@ -30,6 +31,7 @@ export const EMPTY_FILTERS: FilterState = {
   style: null,
   priceRange: null,
   region: null,
+  minRating: null,
 };
 
 export default function Filters({

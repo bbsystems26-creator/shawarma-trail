@@ -11,9 +11,10 @@ import StarRating from "./StarRating";
 
 interface SearchBarProps {
   className?: string;
+  onSearch?: (term: string) => void;
 }
 
-export default function SearchBar({ className = "" }: SearchBarProps) {
+export default function SearchBar({ className = "", onSearch }: SearchBarProps) {
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
