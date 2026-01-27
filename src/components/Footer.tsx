@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from 'react';
 
 const Footer: React.FC = () => {
@@ -7,7 +8,7 @@ const Footer: React.FC = () => {
                 <div>
                     <h4 className="font-bold text-white">ניווט</h4>
                     <ul className="text-zinc-400 space-y-2">
-                        <li><a href="/" className="hover:underline">בית</a></li>
+                        <li><Link href="/" className="hover:underline">בית</Link></li>
                         <li><a href="#" className="hover:underline">גלול</a></li>
                         <li><a href="#" className="hover:underline">מגזין</a></li>
                         <li><a href="#" className="hover:underline">צור קשר</a></li>

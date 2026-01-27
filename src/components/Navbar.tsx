@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from 'react';
 
 const Navbar: React.FC = () => {
@@ -8,8 +9,8 @@ const Navbar: React.FC = () => {
                     🥙 שווארמה טרייל
                 </div>
                 <div className="hidden md:flex space-x-4">
-                    <a href="/" className="text-white hover:underline">בית</a>
-                    <a href="/explore" className="text-white hover:underline">גלול</a>
+                    <Link href="/" className="text-white hover:underline">בית</Link>
+                    <Link href="/explore" className="text-white hover:underline">גלה</Link>
                     <span className="text-zinc-400">מגזין</span>
                     <span className="text-zinc-400">צור קשר</span>
                 </div>
