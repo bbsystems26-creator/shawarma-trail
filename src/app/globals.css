@@ -1,59 +1,154 @@
 @import "tailwindcss";
 
+/* ==================== Shawarma Brand Colors ==================== */
 :root {
-  --color-brand: #f97316;
-  --color-brand-dark: #c2410c;
-  --color-brand-light: #fdba74;
-  --color-bg: #0a0a0a;
-  --color-surface: #18181b;
-  --color-border: #27272a;
+  /* Brand palette — warm shawarma vibes */
+  --shawarma-50: #FEF3E5;
+  --shawarma-100: #FCDFBB;
+  --shawarma-200: #F8C48E;
+  --shawarma-300: #F4A261;
+  --shawarma-400: #F07940;
+  --shawarma-500: #E85D25;
+  --shawarma-600: #C94E1F;
+  --shawarma-700: #6B3720;
+  --shawarma-800: #4A2512;
+  --shawarma-900: #2D1810;
+  --shawarma-950: #1C0F08;
+
+  /* Ember accent */
+  --ember-500: #C73E1D;
+  --ember-600: #A03018;
+
+  /* Backgrounds */
+  --background: var(--shawarma-950);
+  --foreground: var(--shawarma-50);
+  --surface: var(--shawarma-900);
+  --surface-hover: var(--shawarma-800);
+}
+
+/* ==================== Tailwind v4 Theme ==================== */
+@theme inline {
+  /* Shawarma color scale */
+  --color-shawarma-50: var(--shawarma-50);
+  --color-shawarma-100: var(--shawarma-100);
+  --color-shawarma-200: var(--shawarma-200);
+  --color-shawarma-300: var(--shawarma-300);
+  --color-shawarma-400: var(--shawarma-400);
+  --color-shawarma-500: var(--shawarma-500);
+  --color-shawarma-600: var(--shawarma-600);
+  --color-shawarma-700: var(--shawarma-700);
+  --color-shawarma-800: var(--shawarma-800);
+  --color-shawarma-900: var(--shawarma-900);
+  --color-shawarma-950: var(--shawarma-950);
+
+  /* Ember accent */
+  --color-ember-500: var(--ember-500);
+  --color-ember-600: var(--ember-600);
+
+  /* Semantic colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+
+  /* Font */
+  --font-heebo: "Heebo", sans-serif;
+}
+
+/* ==================== Base Styles ==================== */
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--color-bg);
-  color: white;
-  font-family: "Heebo", sans-serif;
-  direction: rtl;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-heebo);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom scrollbar */
+/* ==================== RTL Utilities ==================== */
+[dir="rtl"] input,
+[dir="rtl"] textarea {
+  text-align: right;
+}
+
+/* Fix star ratings to always be LTR */
+.stars-ltr {
+  direction: ltr;
+}
+
+/* ==================== Custom Scrollbar ==================== */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg);
+  background: var(--shawarma-950);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+  background: var(--shawarma-700);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: var(--shawarma-600);
 }
 
-/* Mapbox popup override */
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--shawarma-700) var(--shawarma-950);
+}
+
+/* ==================== Mapbox Popup Override ==================== */
 .mapboxgl-popup-content {
-  background: var(--color-surface) !important;
-  color: white !important;
   border-radius: 12px !important;
   padding: 12px !important;
-  border: 1px solid var(--color-border) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+  background: var(--shawarma-50) !important;
 }
 
-.mapboxgl-popup-tip {
-  border-top-color: var(--color-surface) !important;
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+  border-top-color: var(--shawarma-50) !important;
 }
 
-/* Mapbox control override */
-.mapboxgl-ctrl-group {
-  background: var(--color-surface) !important;
-  border: 1px solid var(--color-border) !important;
+/* ==================== Animations ==================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.mapboxgl-ctrl-group button {
-  filter: invert(1);
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(232, 93, 37, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px rgba(232, 93, 37, 0.2);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+/* ==================== Selection ==================== */
+::selection {
+  background: var(--shawarma-500);
+  color: white;
 }
