@@ -19,11 +19,11 @@
   --ember-500: #C73E1D;
   --ember-600: #A03018;
 
-  /* Backgrounds */
-  --background: var(--shawarma-950);
-  --foreground: var(--shawarma-50);
-  --surface: var(--shawarma-900);
-  --surface-hover: var(--shawarma-800);
+  /* Light theme backgrounds */
+  --background: #ffffff;
+  --foreground: #111827;
+  --surface: #f9fafb;
+  --surface-hover: #f3f4f6;
 }
 
 /* ==================== Tailwind v4 Theme ==================== */
@@ -88,34 +88,34 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--shawarma-950);
+  background: #f3f4f6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--shawarma-700);
+  background: #d1d5db;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--shawarma-600);
+  background: #9ca3af;
 }
 
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--shawarma-700) var(--shawarma-950);
+  scrollbar-color: #d1d5db #f3f4f6;
 }
 
 /* ==================== Mapbox Popup Override ==================== */
 .mapboxgl-popup-content {
   border-radius: 12px !important;
   padding: 12px !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
-  background: var(--shawarma-50) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
+  background: #ffffff !important;
 }
 
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
-  border-top-color: var(--shawarma-50) !important;
+  border-top-color: #ffffff !important;
 }
 
 /* ==================== Animations ==================== */

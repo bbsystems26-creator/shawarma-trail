@@ -75,14 +75,14 @@ export default function ExplorePage() {
   const isLoading = rawPlaces === undefined;
 
   return (
-    <main className="min-h-screen bg-shawarma-950">
+    <main className="min-h-screen bg-white">
       {/* ── Header ─────────────────────────────────────────── */}
-      <section className="bg-gradient-to-b from-shawarma-900 to-shawarma-950 border-b border-shawarma-800/40">
+      <section className="bg-gray-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-10 text-center">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-shawarma-50 inline-flex items-center gap-2">
-            <Map className="w-8 h-8 inline" /> גלה מקומות
+          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 inline-flex items-center gap-2">
+            <Map className="w-8 h-8 inline text-gray-700" /> גלה מקומות
           </h1>
-          <p className="mt-2 text-shawarma-400 text-sm md:text-base max-w-xl mx-auto">
+          <p className="mt-2 text-gray-500 text-sm md:text-base max-w-xl mx-auto">
             כל מקומות השווארמה במקום אחד — סננו, מיינו ומצאו את הפיתה המושלמת
           </p>
         </div>
@@ -103,7 +103,7 @@ export default function ExplorePage() {
           <div className="flex-1 min-w-0">
             {/* Toolbar: sort + count */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-              <p className="text-sm text-shawarma-400">
+              <p className="text-sm text-gray-500">
                 {isLoading
                   ? "טוען..."
                   : `${sortedPlaces.length} מקומות נמצאו`}
@@ -112,7 +112,7 @@ export default function ExplorePage() {
               <div className="flex items-center gap-2">
                 <label
                   htmlFor="sort-select"
-                  className="text-xs text-shawarma-500"
+                  className="text-xs text-gray-400"
                 >
                   מיון:
                 </label>
@@ -120,7 +120,7 @@ export default function ExplorePage() {
                   id="sort-select"
                   value={sortKey}
                   onChange={(e) => setSortKey(e.target.value as SortKey)}
-                  className="bg-shawarma-900 border border-shawarma-700 text-shawarma-200 text-sm rounded-lg px-3 py-2 focus:ring-shawarma-500 focus:border-shawarma-500 outline-none"
+                  className="bg-white border border-gray-200 text-gray-700 text-sm rounded-lg px-3 py-2 focus:ring-amber-400 focus:border-amber-400 outline-none shadow-sm"
                 >
                   {SORT_OPTIONS.map((opt) => (
                     <option key={opt.value} value={opt.value}>
@@ -137,17 +137,17 @@ export default function ExplorePage() {
                 {Array.from({ length: 6 }).map((_, i) => (
                   <div
                     key={i}
-                    className="h-72 rounded-xl bg-shawarma-900/60 animate-pulse"
+                    className="h-72 rounded-xl bg-gray-100 animate-pulse"
                   />
                 ))}
               </div>
             ) : sortedPlaces.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center">
                 <span className="text-5xl mb-4">🔍</span>
-                <p className="text-shawarma-300 text-lg font-semibold">
+                <p className="text-gray-700 text-lg font-semibold">
                   לא נמצאו מקומות
                 </p>
-                <p className="text-shawarma-500 text-sm mt-1">
+                <p className="text-gray-400 text-sm mt-1">
                   נסו לשנות את הפילטרים או לחפש משהו אחר
                 </p>
               </div>
@@ -169,7 +169,7 @@ export default function ExplorePage() {
                       onClick={() =>
                         setVisibleCount((c) => c + PAGE_SIZE)
                       }
-                      className="px-8 py-3 bg-shawarma-800 hover:bg-shawarma-700 text-shawarma-200 font-medium rounded-xl transition-colors border border-shawarma-700/50 hover:border-shawarma-600"
+                      className="px-8 py-3 bg-white hover:bg-gray-50 text-gray-700 font-medium rounded-xl transition-colors border border-gray-200 shadow-sm hover:shadow-md"
                     >
                       הצג עוד ({sortedPlaces.length - visibleCount} נותרו)
                     </button>

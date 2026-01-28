@@ -54,16 +54,16 @@ function getGradient(name: string) {
 
 export default function PlaceCard({ place }: PlaceCardProps) {
   const kashrutBadgeColor: Record<string, string> = {
-    none: "bg-zinc-600 text-zinc-200",
-    regular: "bg-emerald-700 text-emerald-100",
-    mehadrin: "bg-blue-700 text-blue-100",
-    badatz: "bg-purple-700 text-purple-100",
+    none: "bg-gray-100 text-gray-600",
+    regular: "bg-emerald-50 text-emerald-700 border border-emerald-200",
+    mehadrin: "bg-blue-50 text-blue-700 border border-blue-200",
+    badatz: "bg-purple-50 text-purple-700 border border-purple-200",
   };
 
   return (
     <Link
       href={`/place/${place.slug}`}
-      className="group block rounded-xl overflow-hidden bg-shawarma-900/80 border border-shawarma-800/50 hover:border-shawarma-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-shawarma-500/10"
+      className="group block rounded-xl overflow-hidden bg-white border border-gray-200 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-300"
     >
       {/* Image / Gradient Placeholder */}
       <div className="relative h-48 md:h-52 overflow-hidden">
@@ -74,7 +74,7 @@ export default function PlaceCard({ place }: PlaceCardProps) {
 
         {/* Verified badge */}
         {(place.isFeatured || place.isVerified) && (
-          <span className="absolute top-3 right-3 bg-amber-500 text-amber-950 text-xs md:text-sm font-bold px-2 md:px-2.5 py-1 rounded-full flex items-center gap-1 shadow-md">
+          <span className="absolute top-3 right-3 bg-amber-500 text-white text-xs md:text-sm font-bold px-2 md:px-2.5 py-1 rounded-full flex items-center gap-1 shadow-md">
             {place.isFeatured ? <Star className="w-3.5 h-3.5 md:w-4 md:h-4 fill-current" /> : <BadgeCheck className="w-3.5 h-3.5 md:w-4 md:h-4" />} {place.isFeatured ? UI.featured : UI.verified}
           </span>
         )}
@@ -94,19 +94,19 @@ export default function PlaceCard({ place }: PlaceCardProps) {
       <div className="p-4 space-y-3">
         {/* Name + City */}
         <div>
-          <h3 className="text-lg font-bold text-shawarma-50 group-hover:text-shawarma-400 transition-colors">
+          <h3 className="text-lg font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
             {place.name}
           </h3>
-          <p className="text-sm text-shawarma-400">{place.city}</p>
+          <p className="text-sm text-gray-500">{place.city}</p>
         </div>
 
         {/* Rating */}
         <div className="flex items-center gap-2">
           <StarRating rating={place.avgRating} size={16} />
-          <span className="text-sm md:text-base font-semibold text-amber-400">
+          <span className="text-sm md:text-base font-semibold text-amber-500">
             {place.avgRating.toFixed(1)}
           </span>
-          <span className="text-xs md:text-sm text-shawarma-500">
+          <span className="text-xs md:text-sm text-gray-400">
             ({place.reviewCount} {UI.reviews})
           </span>
         </div>
@@ -114,14 +114,14 @@ export default function PlaceCard({ place }: PlaceCardProps) {
         {/* Kashrut + Meat badges */}
         <div className="flex flex-wrap gap-2">
           <span
-            className={`text-xs md:text-sm px-2 md:px-2.5 py-0.5 rounded-full font-medium ${kashrutBadgeColor[place.kashrut] ?? "bg-zinc-600 text-zinc-200"}`}
+            className={`text-xs md:text-sm px-2 md:px-2.5 py-0.5 rounded-full font-medium ${kashrutBadgeColor[place.kashrut] ?? "bg-gray-100 text-gray-600"}`}
           >
             {KASHRUT_LABELS[place.kashrut]}
           </span>
           {place.meatTypes.slice(0, 2).map((meat) => (
             <span
               key={meat}
-              className="text-xs md:text-sm px-2 md:px-2.5 py-0.5 rounded-full bg-shawarma-800 text-shawarma-300"
+              className="text-xs md:text-sm px-2 md:px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200"
             >
               {MEAT_TYPE_LABELS[meat] ?? meat}
             </span>
@@ -130,7 +130,7 @@ export default function PlaceCard({ place }: PlaceCardProps) {
 
         {/* Tags + CTA row */}
         <div className="flex items-center justify-between">
-          <div className="flex gap-2 text-xs md:text-sm text-shawarma-500">
+          <div className="flex gap-2 text-xs md:text-sm text-gray-500">
             {place.hasDelivery && <span className="inline-flex items-center gap-1"><Truck className="w-3.5 h-3.5 md:w-4 md:h-4" /> {UI.delivery}</span>}
             {place.hasSeating && <span className="inline-flex items-center gap-1"><Armchair className="w-3.5 h-3.5 md:w-4 md:h-4" /> {UI.seating}</span>}
           </div>
@@ -139,7 +139,7 @@ export default function PlaceCard({ place }: PlaceCardProps) {
             {place.phone && (
               <a
                 href={`tel:${place.phone}`}
-                className="text-xs bg-green-600/20 text-green-400 px-2 py-1 rounded-full hover:bg-green-600/40 transition-colors inline-flex items-center"
+                className="text-xs bg-green-50 text-green-600 border border-green-200 px-2 py-1 rounded-full hover:bg-green-100 transition-colors inline-flex items-center"
                 onClick={(e) => e.stopPropagation()}
               >
                 <Phone className="w-3.5 h-3.5" />
@@ -150,7 +150,7 @@ export default function PlaceCard({ place }: PlaceCardProps) {
                 href={`https://wa.me/${place.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs bg-green-600/20 text-green-400 px-2 py-1 rounded-full hover:bg-green-600/40 transition-colors inline-flex items-center"
+                className="text-xs bg-green-50 text-green-600 border border-green-200 px-2 py-1 rounded-full hover:bg-green-100 transition-colors inline-flex items-center"
                 onClick={(e) => e.stopPropagation()}
               >
                 <MessageCircle className="w-3.5 h-3.5" />

@@ -23,10 +23,10 @@ const Navbar: React.FC = () => {
   const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
 
   return (
-    <nav className="bg-zinc-900/95 backdrop-blur-sm sticky top-0 z-50 border-b border-zinc-800" dir="rtl">
+    <nav className="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50 border-b border-gray-100" dir="rtl">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 text-xl md:text-2xl font-bold text-white shrink-0">
+        <Link href="/" className="flex items-center gap-2 text-xl md:text-2xl font-bold text-gray-900 shrink-0">
           <img src="/images/logo.png" alt="ShawarmaBis" className="h-8 w-8 md:h-10 md:w-10" />
           שווארמה ביס
         </Link>
@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
             <Link
               key={link.href}
               href={link.href}
-              className="text-white/90 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm lg:text-base transition-colors"
+              className="text-gray-700 hover:text-amber-600 hover:bg-gray-50 px-3 py-2 rounded-lg text-sm lg:text-base transition-colors"
             >
               {link.label}
             </Link>
@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
           >
             <button
               type="button"
-              className="text-white/90 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm lg:text-base transition-colors inline-flex items-center gap-1"
+              className="text-gray-700 hover:text-amber-600 hover:bg-gray-50 px-3 py-2 rounded-lg text-sm lg:text-base transition-colors inline-flex items-center gap-1"
               onClick={() => setRegionDropdownOpen(!regionDropdownOpen)}
             >
               אזורים
@@ -59,12 +59,12 @@ const Navbar: React.FC = () => {
             </button>
 
             {regionDropdownOpen && (
-              <div className="absolute top-full right-0 mt-1 bg-zinc-800 border border-zinc-700 rounded-xl shadow-xl py-2 min-w-[160px] z-50">
+              <div className="absolute top-full right-0 mt-1 bg-white border border-gray-100 rounded-xl shadow-lg py-2 min-w-[160px] z-50">
                 {REGIONS.map((region) => (
                   <Link
                     key={region.value}
                     href={`/explore?region=${region.value}`}
-                    className="block px-4 py-2.5 text-sm text-white/90 hover:text-white hover:bg-white/10 transition-colors"
+                    className="block px-4 py-2.5 text-sm text-gray-700 hover:text-amber-600 hover:bg-gray-50 transition-colors"
                     onClick={() => setRegionDropdownOpen(false)}
                   >
                     {region.label}
@@ -80,7 +80,7 @@ const Navbar: React.FC = () => {
           {/* CTA button — desktop only */}
           <Link
             href="/add"
-            className="hidden md:inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold rounded-full px-4 py-2 text-sm transition-colors"
+            className="hidden md:inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-full px-4 py-2 text-sm transition-colors"
           >
             <Plus className="w-4 h-4" />
             הוסיפו מקום
@@ -89,7 +89,7 @@ const Navbar: React.FC = () => {
           {/* Hamburger — mobile only */}
           <button
             type="button"
-            className="md:hidden text-white p-1.5"
+            className="md:hidden text-gray-700 p-1.5"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="תפריט"
           >
@@ -100,13 +100,13 @@ const Navbar: React.FC = () => {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-zinc-800 bg-zinc-900/98 backdrop-blur-sm">
+        <div className="md:hidden border-t border-gray-100 bg-white">
           <div className="max-w-7xl mx-auto px-4 py-3 space-y-1">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="block text-white/90 hover:text-white hover:bg-white/10 px-3 py-2.5 rounded-lg text-base transition-colors"
+                className="block text-gray-700 hover:text-amber-600 hover:bg-gray-50 px-3 py-2.5 rounded-lg text-base transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}
@@ -115,13 +115,13 @@ const Navbar: React.FC = () => {
 
             {/* Mobile regions section */}
             <div className="px-3 py-2.5">
-              <span className="text-sm text-shawarma-500 font-medium">אזורים</span>
+              <span className="text-sm text-amber-600 font-medium">אזורים</span>
               <div className="flex flex-wrap gap-2 mt-2">
                 {REGIONS.map((region) => (
                   <Link
                     key={region.value}
                     href={`/explore?region=${region.value}`}
-                    className="text-sm bg-zinc-800 text-white/90 hover:bg-zinc-700 px-3 py-1.5 rounded-full transition-colors"
+                    className="text-sm bg-gray-100 text-gray-700 hover:bg-amber-50 hover:text-amber-700 px-3 py-1.5 rounded-full transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {region.label}
@@ -133,7 +133,7 @@ const Navbar: React.FC = () => {
             {/* Mobile CTA */}
             <Link
               href="/add"
-              className="flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold rounded-full px-4 py-2.5 text-base transition-colors mt-2"
+              className="flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-full px-4 py-2.5 text-base transition-colors mt-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               <Plus className="w-4 h-4" />

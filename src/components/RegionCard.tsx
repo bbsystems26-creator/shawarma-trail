@@ -10,7 +10,7 @@ export default function RegionCard({ region }: RegionCardProps) {
   return (
     <Link
       href={`/explore?region=${region.name}`}
-      className={`group relative block rounded-xl overflow-hidden h-32 md:h-40 lg:h-48 border border-white/10 hover:border-white/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl`}
+      className={`group relative block rounded-xl overflow-hidden h-32 md:h-40 lg:h-48 shadow-md hover:shadow-lg border border-gray-200 transition-all duration-300 hover:scale-[1.02]`}
     >
       {/* Gradient fallback (shows while image loads or if missing) */}
       <div className={`absolute inset-0 bg-gradient-to-br ${region.gradient}`} />

@@ -13,7 +13,7 @@ export default function StaticMap({ lat, lng, name, className = "" }: StaticMapP
   const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.005},${lat-0.003},${lng+0.005},${lat+0.003}&layer=mapnik&marker=${lat},${lng}`;
   
   return (
-    <div className={`rounded-xl overflow-hidden border border-zinc-700 ${className}`}>
+    <div className={`rounded-xl overflow-hidden border border-gray-200 shadow-sm ${className}`}>
       <iframe
         src={mapUrl}
         width="100%"
@@ -27,7 +27,7 @@ export default function StaticMap({ lat, lng, name, className = "" }: StaticMapP
         href={`https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=${zoom}/${lat}/${lng}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="block text-center text-sm text-amber-400 hover:text-amber-300 py-2 bg-zinc-800"
+        className="block text-center text-sm text-amber-600 hover:text-amber-700 py-2 bg-gray-50 border-t border-gray-200"
       >
         פתח מפה מלאה ↗
       </a>

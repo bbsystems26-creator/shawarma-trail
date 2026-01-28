@@ -5,8 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import SearchBar from "./SearchBar";
 import AdvancedSearch from "./AdvancedSearch";
-import { REGION_OPTIONS, KASHRUT_OPTIONS } from "@/lib/constants";
-import { Map, MapPin } from "lucide-react";
+import { REGION_OPTIONS } from "@/lib/constants";
+import { Route, MapPin } from "lucide-react";
 
 const HERO_IMAGES = [
   "/images/hero/hero-1.png",
@@ -25,10 +25,10 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative w-full overflow-hidden rounded-2xl min-h-[400px] md:min-h-[500px] lg:min-h-[60vh]"
+      className="relative w-full overflow-hidden rounded-2xl min-h-[500px] md:min-h-[600px] lg:min-h-[70vh]"
       dir="rtl"
     >
-      {/* Background image with fallback gradient */}
+      {/* Background image */}
       {HERO_IMAGES.length > 0 ? (
         <>
           {HERO_IMAGES.map((src, i) => (
@@ -48,72 +48,55 @@ export default function HeroSection() {
               />
             </div>
           ))}
-          {/* Dark overlay for readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70 z-[1]" />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40 z-[1]" />
         </>
       ) : (
-        <div className="absolute inset-0 bg-gradient-to-bl from-amber-900/40 via-zinc-950 to-zinc-900" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-amber-100 via-orange-50 to-white" />
       )}
 
-      {/* Decorative background elements */}
-      <div className="absolute inset-0 pointer-events-none z-[2]">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-orange-500/5 rounded-full blur-3xl" />
-      </div>
-
-      <div className="relative z-10 max-w-4xl mx-auto px-4 py-16 md:py-24 text-center">
-        {/* Logo accent */}
+      <div className="relative z-10 max-w-4xl mx-auto px-4 py-16 md:py-24 flex flex-col items-center text-center">
+        {/* Logo */}
         <div className="block mb-4">
           <img src="/images/logo.png" alt="" className="w-16 h-16 md:w-20 md:h-20 mx-auto drop-shadow-lg" />
         </div>
 
         {/* Main heading */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight drop-shadow-lg">
-          מצאו את השווארמה הטובה בישראל
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-3 leading-tight drop-shadow-lg">
+          שווארמה ביס
         </h1>
 
-        {/* Tagline */}
-        <p className="text-base md:text-lg text-white/80 mb-8 max-w-2xl mx-auto drop-shadow">
-          מפה אינטראקטיבית, דירוגים וביקורות — הכל במקום אחד
+        {/* Subtitle */}
+        <p className="text-base md:text-lg text-white/90 mb-8 max-w-2xl mx-auto drop-shadow">
+          הבית של השווארמה בישראל
         </p>
 
-        {/* Search bar — simple on mobile, advanced on desktop */}
-        <div className="max-w-xl md:max-w-3xl mx-auto mb-6">
-          <div className="block md:hidden">
-            <SearchBar className="w-full" />
-          </div>
-          <div className="hidden md:block">
-            <AdvancedSearch />
+        {/* White search card */}
+        <div className="w-full max-w-xl md:max-w-3xl mx-auto mb-6">
+          <div className="bg-white rounded-2xl shadow-xl p-4 md:p-6">
+            <div className="block md:hidden">
+              <SearchBar className="w-full" />
+            </div>
+            <div className="hidden md:block">
+              <AdvancedSearch />
+            </div>
           </div>
         </div>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
+        {/* Text links below search */}
+        <div className="flex flex-wrap justify-center gap-6 text-sm md:text-base">
           <Link
             href="/explore"
-            className="px-6 py-3 rounded-full text-base font-bold bg-orange-500 text-white hover:bg-orange-600 transition-all duration-200 shadow-lg hover:shadow-xl"
+            className="text-white/90 hover:text-white transition-colors inline-flex items-center gap-1.5 drop-shadow"
           >
-            <Map className="w-5 h-5 inline" /> גלה מקומות
+            <Route className="w-4 h-4" /> חיפוש לפי מסלול נסיעה
           </Link>
           <Link
             href="/map"
-            className="px-6 py-3 rounded-full text-base font-bold bg-white/10 text-white border border-white/30 hover:bg-white/20 transition-all duration-200 backdrop-blur-sm"
+            className="text-white/90 hover:text-white transition-colors inline-flex items-center gap-1.5 drop-shadow"
           >
-            <MapPin className="w-5 h-5 inline" /> פתח מפה
+            <MapPin className="w-4 h-4" /> מעבר לתצוגת מפה
           </Link>
-        </div>
-
-        {/* Region quick-links */}
-        <div className="flex flex-wrap justify-center gap-3">
-          {REGION_OPTIONS.map((region) => (
-            <Link
-              key={region.value}
-              href={`/explore?region=${region.value}`}
-              className="px-5 py-2 rounded-full text-sm font-semibold bg-white/10 text-white/90 border border-white/20 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-200 backdrop-blur-sm"
-            >
-              {region.label}
-            </Link>
-          ))}
         </div>
       </div>
     </section>

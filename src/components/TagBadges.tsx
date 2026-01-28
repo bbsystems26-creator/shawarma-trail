@@ -17,7 +17,7 @@ export default function TagBadges({ tags, className = "" }: TagBadgesProps) {
         <span
           key={tag}
           className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
-            TAG_COLORS[tag] || "bg-zinc-700/50 text-zinc-300"
+            TAG_COLORS[tag] || "bg-gray-100 text-gray-600 border border-gray-200"
           }`}
         >
           <TagIcon tag={tag} className="w-3.5 h-3.5" />

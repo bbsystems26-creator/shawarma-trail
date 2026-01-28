@@ -56,23 +56,23 @@ export default function SearchBar({ className = "", onSearch }: SearchBarProps) 
           onFocus={handleFocus}
           onBlur={handleBlur}
           placeholder={UI.heroSearch}
-          className="w-full py-3 px-5 pr-12 bg-shawarma-900/90 border border-shawarma-700/50 rounded-xl text-shawarma-100 placeholder-shawarma-500 focus:outline-none focus:border-shawarma-500 focus:ring-1 focus:ring-shawarma-500/50 transition-all text-sm"
+          className="w-full py-3 px-5 pr-12 bg-gray-100 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/50 transition-all text-sm"
           dir="rtl"
         />
-        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-shawarma-500">
+        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
           🔍
         </span>
       </div>
 
       {/* Search Results Dropdown */}
       {isOpen && debouncedQuery.length >= 2 && (
-        <div className="absolute z-50 top-full mt-2 w-full bg-shawarma-900 border border-shawarma-700/50 rounded-xl shadow-xl shadow-black/30 overflow-hidden">
+        <div className="absolute z-50 top-full mt-2 w-full bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
           {results === undefined ? (
-            <div className="p-4 text-center text-shawarma-500 text-sm">
+            <div className="p-4 text-center text-gray-400 text-sm">
               {UI.loading}
             </div>
           ) : results.length === 0 ? (
-            <div className="p-4 text-center text-shawarma-500 text-sm">
+            <div className="p-4 text-center text-gray-400 text-sm">
               {UI.noResults}
             </div>
           ) : (
@@ -82,18 +82,18 @@ export default function SearchBar({ className = "", onSearch }: SearchBarProps) 
                   key={place._id}
                   href={`/place/${place.slug}`}
                   onClick={handleSelect}
-                  className="block p-3 hover:bg-shawarma-800/80 transition-colors border-b border-shawarma-800/30 last:border-0"
+                  className="block p-3 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-0"
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="text-sm font-semibold text-shawarma-100">
+                      <p className="text-sm font-semibold text-gray-900">
                         {place.name}
                       </p>
-                      <p className="text-xs text-shawarma-400">{place.city}</p>
+                      <p className="text-xs text-gray-500">{place.city}</p>
                     </div>
                     <div className="flex items-center gap-1 shrink-0">
                       <StarRating rating={place.avgRating} size={12} />
-                      <span className="text-xs text-amber-400 font-medium">
+                      <span className="text-xs text-amber-500 font-medium">
                         {place.avgRating.toFixed(1)}
                       </span>
                     </div>

@@ -178,7 +178,7 @@ export default function Filters({
       {hasActiveFilters && (
         <button
           onClick={clearFilters}
-          className="w-full py-2 px-4 text-sm font-medium text-shawarma-400 bg-shawarma-800/50 hover:bg-shawarma-800 rounded-lg transition-colors"
+          className="w-full py-2 px-4 text-sm font-medium text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
         >
           ✕ {UI.clearFilters}
         </button>
@@ -191,7 +191,7 @@ export default function Filters({
       {/* Mobile toggle */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden w-full mb-4 py-3 px-4 bg-shawarma-800 rounded-xl text-shawarma-200 font-medium flex items-center justify-between"
+        className="lg:hidden w-full mb-4 py-3 px-4 bg-gray-100 rounded-xl text-gray-700 font-medium flex items-center justify-between border border-gray-200"
       >
         <span>🔍 {UI.filtersTitle}</span>
         <span className="text-xl">{isOpen ? "▲" : "▼"}</span>
@@ -199,11 +199,11 @@ export default function Filters({
 
       {/* Desktop: always show. Mobile: toggle */}
       <div
-        className={`bg-shawarma-900/80 rounded-xl border border-shawarma-800/50 p-5 ${
+        className={`bg-white rounded-xl border border-gray-200 p-5 shadow-sm ${
           isOpen ? "block" : "hidden lg:block"
         }`}
       >
-        <h3 className="text-lg font-bold text-shawarma-100 mb-4">
+        <h3 className="text-lg font-bold text-gray-900 mb-4">
           {UI.filtersTitle}
         </h3>
         {filterContent}
@@ -222,7 +222,7 @@ function FilterSection({
 }) {
   return (
     <div>
-      <h4 className="text-sm font-semibold text-shawarma-300 mb-2">{title}</h4>
+      <h4 className="text-sm font-semibold text-gray-600 mb-2">{title}</h4>
       {children}
     </div>
   );
@@ -242,8 +242,8 @@ function FilterChip({
       onClick={onClick}
       className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all ${
         active
-          ? "bg-shawarma-500 text-white shadow-md shadow-shawarma-500/30"
-          : "bg-shawarma-800/80 text-shawarma-400 hover:bg-shawarma-700 hover:text-shawarma-200"
+          ? "bg-amber-500 text-white shadow-md shadow-amber-500/20"
+          : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-800 border border-gray-200"
       }`}
     >
       {label}

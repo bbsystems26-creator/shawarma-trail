@@ -51,10 +51,10 @@ export default function Carousel({ title, children, showAllHref = "/explore" }: 
       {/* Header */}
       <div className="flex items-center justify-between mb-4 px-1">
         <div className="flex items-center gap-4">
-          <h2 className="text-xl md:text-2xl font-bold text-white">{title}</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900">{title}</h2>
           <Link
             href={showAllHref}
-            className="text-sm md:text-base text-shawarma-400 hover:text-shawarma-300 transition-colors hidden sm:inline-flex items-center gap-1"
+            className="text-sm md:text-base text-amber-600 hover:text-amber-700 transition-colors hidden sm:inline-flex items-center gap-1"
           >
             הצג הכל ←
           </Link>
@@ -67,7 +67,7 @@ export default function Carousel({ title, children, showAllHref = "/explore" }: 
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
             aria-label="הבא"
-            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-shawarma-800/70 text-shawarma-200 hover:bg-shawarma-700 disabled:opacity-30 disabled:cursor-default transition-colors text-lg md:text-xl"
+            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white shadow-md text-gray-700 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-default transition-colors text-lg md:text-xl border border-gray-200"
           >
             ‹
           </button>
@@ -76,7 +76,7 @@ export default function Carousel({ title, children, showAllHref = "/explore" }: 
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
             aria-label="הקודם"
-            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-shawarma-800/70 text-shawarma-200 hover:bg-shawarma-700 disabled:opacity-30 disabled:cursor-default transition-colors text-lg md:text-xl"
+            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white shadow-md text-gray-700 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-default transition-colors text-lg md:text-xl border border-gray-200"
           >
             ›
           </button>
@@ -98,7 +98,7 @@ export default function Carousel({ title, children, showAllHref = "/explore" }: 
       <div className="sm:hidden text-center mt-2">
         <Link
           href={showAllHref}
-          className="text-sm text-shawarma-400 hover:text-shawarma-300 transition-colors"
+          className="text-sm text-amber-600 hover:text-amber-700 transition-colors"
         >
           הצג הכל ←
         </Link>

@@ -81,23 +81,23 @@ export default function OpenStatus({ openingHours }: OpenStatusProps) {
 
   if (status === "open") {
     return (
-      <span className="inline-flex items-center gap-1 bg-green-900/40 text-green-400 border border-green-700/50 px-3 py-1 rounded-full text-sm font-bold">
-        <CircleCheck className="w-4 h-4 text-green-400" /> פתוח עכשיו
+      <span className="inline-flex items-center gap-1 bg-green-50 text-green-700 border border-green-200 px-3 py-1 rounded-full text-sm font-bold">
+        <CircleCheck className="w-4 h-4 text-green-600" /> פתוח עכשיו
       </span>
     );
   }
 
   if (status === "closed") {
     return (
-      <span className="inline-flex items-center gap-1 bg-red-900/40 text-red-400 border border-red-700/50 px-3 py-1 rounded-full text-sm font-bold">
-        <CircleX className="w-4 h-4 text-red-400" /> סגור
+      <span className="inline-flex items-center gap-1 bg-red-50 text-red-700 border border-red-200 px-3 py-1 rounded-full text-sm font-bold">
+        <CircleX className="w-4 h-4 text-red-600" /> סגור
       </span>
     );
   }
 
   return (
-    <span className="inline-flex items-center gap-1 bg-zinc-800/60 text-gray-400 border border-zinc-700/50 px-3 py-1 rounded-full text-sm">
-      <Clock className="w-4 h-4 text-zinc-400" /> שעות לא ידועות
+    <span className="inline-flex items-center gap-1 bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm">
+      <Clock className="w-4 h-4 text-gray-400" /> שעות לא ידועות
     </span>
   );
 }

@@ -99,8 +99,8 @@ export default function Map({ places, onPlaceClick }: MapProps) {
   return (
     <div
       ref={mapContainer}
-      className="w-full h-[500px] rounded-xl overflow-hidden border border-zinc-800"
-      style={{ background: "#1a1a2e" }}
+      className="w-full h-[500px] rounded-xl overflow-hidden border border-gray-200 shadow-sm"
+      style={{ background: "#f9fafb" }}
     />
   );
 }

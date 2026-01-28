@@ -37,21 +37,21 @@ export default function AdvancedSearch() {
 
   return (
     <form onSubmit={handleSearch} className="w-full max-w-3xl mx-auto">
-      <div className="flex flex-col md:flex-row gap-3 bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/20">
+      <div className="flex flex-col md:flex-row gap-3">
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="שם המקום..."
-          className="flex-1 px-4 py-3 rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/10 focus:border-amber-400 focus:outline-none transition-colors"
+          className="flex-1 px-4 py-3 rounded-xl bg-gray-100 text-gray-900 placeholder-gray-400 border border-gray-200 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400/50 transition-colors"
         />
         <select
           value={region}
           onChange={(e) => setRegion(e.target.value)}
-          className="px-4 py-3 rounded-xl bg-white/10 text-white border border-white/10 focus:border-amber-400 focus:outline-none transition-colors appearance-none cursor-pointer"
+          className="px-4 py-3 rounded-xl bg-gray-100 text-gray-900 border border-gray-200 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400/50 transition-colors appearance-none cursor-pointer"
         >
           {REGIONS.map((r) => (
-            <option key={r.value} value={r.value} className="bg-zinc-800 text-white">
+            <option key={r.value} value={r.value} className="bg-white text-gray-900">
               {r.label}
             </option>
           ))}
@@ -59,17 +59,17 @@ export default function AdvancedSearch() {
         <select
           value={meatType}
           onChange={(e) => setMeatType(e.target.value)}
-          className="px-4 py-3 rounded-xl bg-white/10 text-white border border-white/10 focus:border-amber-400 focus:outline-none transition-colors appearance-none cursor-pointer"
+          className="px-4 py-3 rounded-xl bg-gray-100 text-gray-900 border border-gray-200 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400/50 transition-colors appearance-none cursor-pointer"
         >
           {MEAT_TYPES.map((m) => (
-            <option key={m.value} value={m.value} className="bg-zinc-800 text-white">
+            <option key={m.value} value={m.value} className="bg-white text-gray-900">
               {m.label}
             </option>
           ))}
         </select>
         <button
           type="submit"
-          className="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold rounded-xl transition-colors whitespace-nowrap"
+          className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition-colors whitespace-nowrap"
         >
           חפשו
         </button>

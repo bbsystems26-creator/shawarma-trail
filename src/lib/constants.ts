@@ -178,20 +178,20 @@ export const TAG_LABELS: Record<string, string> = {
 };
 
 export const TAG_COLORS: Record<string, string> = {
-  wifi: "bg-blue-500/20 text-blue-300",
-  parking: "bg-green-500/20 text-green-300",
-  seating: "bg-amber-500/20 text-amber-300",
-  delivery: "bg-purple-500/20 text-purple-300",
-  kids: "bg-pink-500/20 text-pink-300",
-  "open-saturday": "bg-yellow-500/20 text-yellow-300",
-  "open-friday": "bg-orange-500/20 text-orange-300",
-  shelter: "bg-red-500/20 text-red-300",
-  accessible: "bg-teal-500/20 text-teal-300",
-  "air-conditioned": "bg-cyan-500/20 text-cyan-300",
-  "outdoor-seating": "bg-lime-500/20 text-lime-300",
-  "pet-friendly": "bg-emerald-500/20 text-emerald-300",
-  halal: "bg-indigo-500/20 text-indigo-300",
-  "reservist-discount": "bg-rose-500/20 text-rose-300",
+  wifi: "bg-blue-50 text-blue-700 border border-blue-200",
+  parking: "bg-green-50 text-green-700 border border-green-200",
+  seating: "bg-amber-50 text-amber-800 border border-amber-200",
+  delivery: "bg-purple-50 text-purple-700 border border-purple-200",
+  kids: "bg-pink-50 text-pink-700 border border-pink-200",
+  "open-saturday": "bg-yellow-50 text-yellow-800 border border-yellow-200",
+  "open-friday": "bg-orange-50 text-orange-700 border border-orange-200",
+  shelter: "bg-red-50 text-red-700 border border-red-200",
+  accessible: "bg-teal-50 text-teal-700 border border-teal-200",
+  "air-conditioned": "bg-cyan-50 text-cyan-700 border border-cyan-200",
+  "outdoor-seating": "bg-lime-50 text-lime-700 border border-lime-200",
+  "pet-friendly": "bg-emerald-50 text-emerald-700 border border-emerald-200",
+  halal: "bg-indigo-50 text-indigo-700 border border-indigo-200",
+  "reservist-discount": "bg-rose-50 text-rose-700 border border-rose-200",
 };
 
 // ==================== Regions Data (for RegionCards) ====================

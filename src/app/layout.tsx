@@ -37,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="he" dir="rtl" className={heebo.variable}>
-      <body className="antialiased bg-shawarma-950 text-shawarma-50 font-[family-name:var(--font-heebo)]">
+      <body className="antialiased bg-white text-gray-900 font-[family-name:var(--font-heebo)]">
         <ConvexClientProvider>{children}</ConvexClientProvider>
       </body>
     </html>

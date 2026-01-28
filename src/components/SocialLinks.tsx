@@ -20,7 +20,7 @@ const SOCIAL_CONFIG = [
       </svg>
     ),
     label: "Instagram",
-    color: "hover:text-pink-400",
+    color: "hover:text-pink-500",
   },
   {
     key: "facebook" as const,
@@ -34,7 +34,7 @@ const SOCIAL_CONFIG = [
       </svg>
     ),
     label: "Facebook",
-    color: "hover:text-blue-400",
+    color: "hover:text-blue-600",
   },
   {
     key: "tiktok" as const,
@@ -48,7 +48,7 @@ const SOCIAL_CONFIG = [
       </svg>
     ),
     label: "TikTok",
-    color: "hover:text-gray-100",
+    color: "hover:text-gray-900",
   },
 ] as const;
 
@@ -72,7 +72,7 @@ export default function SocialLinks({ socialLinks, website }: SocialLinksProps) 
             target="_blank"
             rel="noopener noreferrer"
             title={label}
-            className={`text-gray-400 ${color} transition-colors p-2 bg-zinc-800 rounded-lg border border-zinc-700 hover:border-zinc-600`}
+            className={`text-gray-400 ${color} transition-colors p-2 bg-white rounded-lg border border-gray-200 hover:border-gray-300 shadow-sm`}
           >
             {icon}
           </a>
@@ -84,7 +84,7 @@ export default function SocialLinks({ socialLinks, website }: SocialLinksProps) 
           target="_blank"
           rel="noopener noreferrer"
           title="אתר"
-          className="text-gray-400 hover:text-orange-400 transition-colors p-2 bg-zinc-800 rounded-lg border border-zinc-700 hover:border-zinc-600"
+          className="text-gray-400 hover:text-amber-600 transition-colors p-2 bg-white rounded-lg border border-gray-200 hover:border-gray-300 shadow-sm"
         >
           <svg
             viewBox="0 0 24 24"
