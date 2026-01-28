@@ -23,10 +23,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white" dir="rtl">
-      {/* ===== Hero ===== */}
-      <div className="max-w-7xl mx-auto px-4 pt-6 pb-2 lg:px-6">
-        <HeroSection />
-      </div>
+      {/* ===== Hero (full-width) ===== */}
+      <HeroSection />
 
       {/* ===== Region Cards Grid ===== */}
       <div className="max-w-7xl mx-auto px-4 mt-10 md:mt-14 lg:mt-16">

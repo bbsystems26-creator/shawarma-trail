@@ -25,7 +25,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative w-full overflow-hidden rounded-2xl min-h-[500px] md:min-h-[600px] lg:min-h-[70vh]"
+      className="relative w-full overflow-hidden min-h-[500px] md:min-h-[600px] lg:min-h-[70vh]"
       dir="rtl"
     >
       {/* Background image */}
