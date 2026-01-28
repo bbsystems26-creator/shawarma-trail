@@ -24,15 +24,37 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50 border-b border-gray-100" dir="rtl">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 text-xl md:text-2xl font-bold text-gray-900 shrink-0">
-          <img src="/images/logo.png" alt="ShawarmaBis" className="h-10 md:h-12 w-auto" />
+      {/* === Mobile Navbar === */}
+      <div className="md:hidden max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+        {/* Hamburger — right side (RTL) */}
+        <button
+          type="button"
+          className="text-gray-700 p-1.5"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="תפריט"
+        >
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+
+        {/* Logo — centered */}
+        <Link href="/" className="absolute left-1/2 -translate-x-1/2">
+          <img src="/images/logo.png" alt="שווארמה ביס" className="h-14 w-auto" />
+        </Link>
+
+        {/* Placeholder for balance */}
+        <div className="w-9" />
+      </div>
+
+      {/* === Desktop Navbar === */}
+      <div className="hidden md:flex max-w-7xl mx-auto px-4 py-3 justify-between items-center">
+        {/* Logo + name */}
+        <Link href="/" className="flex items-center gap-2 text-xl lg:text-2xl font-bold text-gray-900 shrink-0">
+          <img src="/images/logo.png" alt="ShawarmaBis" className="h-12 w-auto" />
           שווארמה ביס
         </Link>
 
-        {/* Desktop nav links */}
-        <div className="hidden md:flex items-center gap-1 lg:gap-2">
+        {/* Nav links */}
+        <div className="flex items-center gap-1 lg:gap-2">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -75,27 +97,14 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Desktop CTA + Mobile hamburger */}
-        <div className="flex items-center gap-3">
-          {/* CTA button — desktop only */}
-          <Link
-            href="/add"
-            className="hidden md:inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-full px-4 py-2 text-sm transition-colors"
-          >
-            <Plus className="w-4 h-4" />
-            הוסיפו מקום
-          </Link>
-
-          {/* Hamburger — mobile only */}
-          <button
-            type="button"
-            className="md:hidden text-gray-700 p-1.5"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="תפריט"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
+        {/* CTA button */}
+        <Link
+          href="/add"
+          className="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-full px-4 py-2 text-sm transition-colors"
+        >
+          <Plus className="w-4 h-4" />
+          הוסיפו מקום
+        </Link>
       </div>
 
       {/* Mobile menu */}
