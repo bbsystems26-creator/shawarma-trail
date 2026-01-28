@@ -15,6 +15,7 @@ import RouteSearch from "@/components/RouteSearch";
 import EventsBanner from "@/components/EventsBanner";
 import FeaturedArticle from "@/components/FeaturedArticle";
 import HighwayBanner from "@/components/HighwayBanner";
+import { CarouselSkeleton } from "@/components/Skeleton";
 
 export default function Home() {
   const featured = useQuery(api.places.listFeatured, { limit: 8 });
@@ -69,16 +70,10 @@ export default function Home() {
 
       {/* ===== Loading state for carousels ===== */}
       {(featured === undefined || newest === undefined) && (
-        <div className="max-w-7xl mx-auto px-4 mt-12">
-          <div className="flex gap-4 overflow-hidden">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div
-                key={i}
-                className="shrink-0 w-[280px] sm:w-[300px] h-[340px] rounded-xl bg-gray-100 animate-pulse"
-              />
-            ))}
-          </div>
-        </div>
+        <>
+          <CarouselSkeleton />
+          <CarouselSkeleton />
+        </>
       )}
 
       {/* ===== Route Search (cream bg) ===== */}

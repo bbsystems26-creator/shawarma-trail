@@ -50,6 +50,9 @@ export default function RootLayout({
     <html lang="he" dir="rtl" className={heebo.variable}>
       <head>
         <JsonLd data={generateWebsiteSchema()} />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#F59E0B" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
       <body className="antialiased bg-white text-gray-900 font-[family-name:var(--font-heebo)]">
         <ConvexClientProvider>
