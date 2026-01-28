@@ -85,7 +85,7 @@ export const create = mutation({
     const user = await ctx.db.get(args.userId);
     if (user) {
       await ctx.db.patch(args.userId, {
-        reviewCount: user.reviewCount + 1,
+        reviewCount: (user.reviewCount || 0) + 1,
       });
     }
 

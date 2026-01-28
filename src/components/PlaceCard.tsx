@@ -72,7 +72,7 @@ export default function PlaceCard({ place }: PlaceCardProps) {
       {/* Image / Food Photo */}
       <div className="relative h-48 md:h-52 overflow-hidden">
         <img
-          src={getFoodImage(place.name)}
+          src={place.images && place.images.length > 0 ? place.images[0] : getFoodImage(place.name)}
           alt={place.name}
           className="w-full h-full object-cover"
         />

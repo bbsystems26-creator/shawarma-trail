@@ -96,3 +96,30 @@ export const deleteAllPlaces = mutation({
     return { deleted: count };
   },
 });
+
+/**
+ * Update place images by slug.
+ * Used by the photo-adding script.
+ */
+export const updateImages = mutation({
+  args: {
+    slug: v.string(),
+    images: v.array(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const existing = await ctx.db
+      .query("places")
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
+      .first();
+
+    if (!existing) {
+      return { success: false, error: "Place not found" };
+    }
+
+    await ctx.db.patch(existing._id, {
+      images: args.images,
+    });
+
+    return { success: true, id: existing._id };
+  },
+});

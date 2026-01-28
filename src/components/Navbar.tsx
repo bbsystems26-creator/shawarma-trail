@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
-import { Menu, X, ChevronDown, Plus } from "lucide-react";
+import { Menu, X, ChevronDown, Plus, LogIn } from "lucide-react";
+import { useConvexAuth } from "convex/react";
+import UserMenu from "./auth/UserMenu";
 
 const REGIONS = [
   { label: "צפון", value: "north" },
@@ -23,6 +25,7 @@ const NAV_LINKS = [
 const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
+  const { isAuthenticated, isLoading } = useConvexAuth();
 
   return (
     <nav className="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50 border-b border-gray-100" dir="rtl">
@@ -43,8 +46,22 @@ const Navbar: React.FC = () => {
           <img src="/images/logo.png" alt="שווארמה ביס" className="h-14 w-auto" />
         </Link>
 
-        {/* Placeholder for balance */}
-        <div className="w-9" />
+        {/* Auth button / UserMenu */}
+        <div className="w-10 h-10 flex items-center justify-center">
+          {isLoading ? (
+            <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse" />
+          ) : isAuthenticated ? (
+            <UserMenu />
+          ) : (
+            <Link
+              href="/login"
+              className="text-amber-600 hover:text-amber-700 p-1.5"
+              aria-label="התחברות"
+            >
+              <LogIn className="w-6 h-6" />
+            </Link>
+          )}
+        </div>
       </div>
 
       {/* === Desktop Navbar === */}
@@ -99,14 +116,31 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* CTA button */}
-        <Link
-          href="/add"
-          className="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-full px-4 py-2 text-sm transition-colors"
-        >
-          <Plus className="w-4 h-4" />
-          הוסיפו מקום
-        </Link>
+        {/* Right side: CTA + Auth */}
+        <div className="flex items-center gap-3">
+          <Link
+            href="/add"
+            className="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-full px-4 py-2 text-sm transition-colors"
+          >
+            <Plus className="w-4 h-4" />
+            הוסיפו מקום
+          </Link>
+
+          {/* Auth */}
+          {isLoading ? (
+            <div className="w-10 h-10 rounded-full bg-gray-200 animate-pulse" />
+          ) : isAuthenticated ? (
+            <UserMenu />
+          ) : (
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-1.5 border border-gray-300 hover:border-amber-500 hover:text-amber-600 text-gray-700 font-medium rounded-full px-4 py-2 text-sm transition-colors"
+            >
+              <LogIn className="w-4 h-4" />
+              התחברות
+            </Link>
+          )}
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -150,6 +184,18 @@ const Navbar: React.FC = () => {
               <Plus className="w-4 h-4" />
               הוסיפו מקום
             </Link>
+
+            {/* Mobile login link (only if not authenticated) */}
+            {!isAuthenticated && !isLoading && (
+              <Link
+                href="/login"
+                className="flex items-center justify-center gap-1.5 border border-gray-300 text-gray-700 font-medium rounded-full px-4 py-2.5 text-base transition-colors mt-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <LogIn className="w-4 h-4" />
+                התחברות
+              </Link>
+            )}
           </div>
         </div>
       )}

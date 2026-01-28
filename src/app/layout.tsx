@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Heebo } from "next/font/google";
 import "./globals.css";
-import ConvexClientProvider from "@/components/ConvexClientProvider";
+import AuthProvider from "@/components/auth/AuthProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
@@ -55,11 +55,11 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
       <body className="antialiased bg-white text-gray-900 font-[family-name:var(--font-heebo)]">
-        <ConvexClientProvider>
+        <AuthProvider>
           <Navbar />
           <main>{children}</main>
           <Footer />
-        </ConvexClientProvider>
+        </AuthProvider>
       </body>
     </html>
   );

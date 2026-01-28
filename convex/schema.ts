@@ -1,7 +1,10 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { authTables } from "@convex-dev/auth/server";
 
 export default defineSchema({
+  ...authTables,
+
   places: defineTable({
     name: v.string(),
     slug: v.string(),
@@ -75,18 +78,25 @@ export default defineSchema({
     .index("by_user", ["userId"])
     .index("by_rating", ["ratingOverall"]),
 
+  // Extended users table to work with Convex Auth
   users: defineTable({
-    name: v.string(),
-    avatar: v.optional(v.string()),
+    // Auth fields - linked from authAccounts
+    name: v.optional(v.string()),
     email: v.optional(v.string()),
-    reviewCount: v.number(),
-    role: v.union(
-      v.literal("user"),
-      v.literal("editor"),
-      v.literal("admin"),
-      v.literal("owner")
+    image: v.optional(v.string()),
+    emailVerificationTime: v.optional(v.number()),
+    // App-specific fields
+    avatar: v.optional(v.string()),
+    reviewCount: v.optional(v.number()),
+    role: v.optional(
+      v.union(
+        v.literal("user"),
+        v.literal("editor"),
+        v.literal("admin"),
+        v.literal("owner")
+      )
     ),
-  }),
+  }).index("email", ["email"]),
 
   lists: defineTable({
     title: v.string(),
@@ -96,4 +106,27 @@ export default defineSchema({
     authorId: v.id("users"),
     type: v.union(v.literal("editorial"), v.literal("community")),
   }).index("by_slug", ["slug"]),
+
+  articles: defineTable({
+    title: v.string(),
+    slug: v.string(),
+    excerpt: v.string(),
+    content: v.string(),
+    coverImage: v.string(),
+    author: v.string(),
+    category: v.union(
+      v.literal("guide"),
+      v.literal("review"),
+      v.literal("news"),
+      v.literal("culture")
+    ),
+    tags: v.array(v.string()),
+    isPublished: v.boolean(),
+    publishedAt: v.optional(v.number()),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_category", ["category"])
+    .index("by_published", ["isPublished"]),
 });

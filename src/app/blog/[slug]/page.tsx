@@ -1,75 +1,82 @@
+"use client";
+
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { use } from "react";
 import {
   Share2,
-  Facebook,
-  MessageCircle,
-  Link as LinkIcon,
   Clock,
   User,
   ArrowRight,
   BookOpen,
 } from "lucide-react";
-import { articles, getArticleBySlug, getRelatedArticles } from "@/lib/articles";
-import type { Metadata } from "next";
+import { useQuery } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
 import ShareButtons from "./ShareButtons";
 
-/* ---------- static params for ISR / SSG ---------- */
-export function generateStaticParams() {
-  return articles.map((a) => ({ slug: a.slug }));
-}
-
-/* ---------- dynamic metadata ---------- */
-type MetadataProps = { params: Promise<{ slug: string }> };
-
-export async function generateMetadata({ params }: MetadataProps): Promise<Metadata> {
-  const { slug } = await params;
-  const article = getArticleBySlug(slug);
-  if (!article) return {};
-
-  return {
-    title: `${article.title} | שווארמה ביס`,
-    description: article.description,
-    openGraph: {
-      title: article.title,
-      description: article.description,
-      locale: "he_IL",
-      type: "article",
-      publishedTime: article.publishedAt,
-      authors: [article.author],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: article.title,
-      description: article.description,
-    },
-  };
-}
-
 /* ---------- helpers ---------- */
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("he-IL", {
+function formatDate(timestamp: number) {
+  return new Date(timestamp).toLocaleDateString("he-IL", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
 }
 
+function estimateReadTime(content: string): string {
+  const wordsPerMinute = 200;
+  const wordCount = content.split(/\s+/).length;
+  const minutes = Math.ceil(wordCount / wordsPerMinute);
+  return `${minutes} דקות קריאה`;
+}
+
 /* ---------- page ---------- */
 type PageProps = { params: Promise<{ slug: string }> };
 
-export default async function ArticlePage({ params }: PageProps) {
-  const { slug } = await params;
-  const article = getArticleBySlug(slug);
-  if (!article) notFound();
+export default function ArticlePage({ params }: PageProps) {
+  const { slug } = use(params);
+  const article = useQuery(api.articles.getBySlug, { slug });
+  const related = useQuery(api.articles.getRelated, { slug, limit: 3 });
 
-  const related = getRelatedArticles(slug, 3);
+  // Loading state
+  if (article === undefined) {
+    return (
+      <div className="min-h-screen bg-white" dir="rtl">
+        <div className="bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 relative">
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="relative max-w-4xl mx-auto px-4 py-20 md:py-32 text-center">
+            <div className="animate-pulse">
+              <div className="h-4 bg-white/30 rounded w-1/3 mx-auto mb-6" />
+              <div className="h-10 bg-white/30 rounded w-2/3 mx-auto mb-6" />
+              <div className="h-4 bg-white/30 rounded w-1/4 mx-auto" />
+            </div>
+          </div>
+        </div>
+        <article className="max-w-3xl mx-auto px-4 py-10 md:py-16">
+          <div className="animate-pulse space-y-4">
+            <div className="h-4 bg-gray-200 rounded w-1/4" />
+            <div className="h-6 bg-gray-200 rounded w-full" />
+            <div className="h-6 bg-gray-200 rounded w-5/6" />
+            <div className="h-6 bg-gray-200 rounded w-4/6" />
+            <div className="h-6 bg-gray-200 rounded w-full" />
+            <div className="h-6 bg-gray-200 rounded w-3/4" />
+          </div>
+        </article>
+      </div>
+    );
+  }
+
+  // Not found
+  if (article === null) {
+    notFound();
+  }
+
   const articleUrl = `https://shawarmabis.co.il/blog/${slug}`;
 
   return (
     <div className="min-h-screen bg-white" dir="rtl">
       {/* Hero banner */}
-      <div className={`${article.image} relative`}>
+      <div className={`${article.coverImage} relative`}>
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative max-w-4xl mx-auto px-4 py-20 md:py-32 text-center">
           {/* Breadcrumbs */}
@@ -99,9 +106,13 @@ export default async function ArticlePage({ params }: PageProps) {
             </span>
             <span className="flex items-center gap-1.5">
               <Clock className="w-4 h-4" />
-              {article.readTime}
+              {estimateReadTime(article.content)}
             </span>
-            <span>{formatDate(article.publishedAt)}</span>
+            <span>
+              {article.publishedAt
+                ? formatDate(article.publishedAt)
+                : formatDate(article.createdAt)}
+            </span>
           </div>
         </div>
       </div>
@@ -144,7 +155,7 @@ export default async function ArticlePage({ params }: PageProps) {
       </article>
 
       {/* Related articles */}
-      {related.length > 0 && (
+      {related && related.length > 0 && (
         <section className="bg-amber-50/50 py-12 md:py-16 px-4">
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center gap-2 mb-8">
@@ -157,12 +168,12 @@ export default async function ArticlePage({ params }: PageProps) {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((r) => (
                 <Link
-                  key={r.slug}
+                  key={r._id}
                   href={`/blog/${r.slug}`}
                   className="group block rounded-xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300"
                 >
                   <div
-                    className={`${r.image} h-36 md:h-44 flex items-center justify-center relative`}
+                    className={`${r.coverImage} h-36 md:h-44 flex items-center justify-center relative`}
                   >
                     <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
                     <span className="relative text-white/90 text-4xl">🔥</span>
@@ -172,11 +183,11 @@ export default async function ArticlePage({ params }: PageProps) {
                       {r.title}
                     </h3>
                     <p className="text-sm text-gray-500 line-clamp-2">
-                      {r.description}
+                      {r.excerpt}
                     </p>
                     <div className="mt-3 flex items-center gap-2 text-xs text-gray-400">
                       <Clock className="w-3.5 h-3.5" />
-                      {r.readTime}
+                      {estimateReadTime(r.content)}
                     </div>
                   </div>
                 </Link>

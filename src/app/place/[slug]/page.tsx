@@ -75,8 +75,18 @@ export default function PlacePage() {
       </nav>
 
       {/* Hero Image */}
-      <div className="h-64 md:h-80 bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl flex items-center justify-center mb-8 relative border border-amber-100">
-        <span className="text-8xl">🥙</span>
+      <div className="h-64 md:h-80 rounded-2xl overflow-hidden mb-8 relative border border-amber-100">
+        {place.images && place.images.length > 0 ? (
+          <img
+            src={place.images[0]}
+            alt={place.name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-amber-50 to-orange-50 flex items-center justify-center">
+            <span className="text-8xl">🥙</span>
+          </div>
+        )}
         {place.isFeatured && (
           <span className="absolute top-4 right-4 bg-amber-500 text-white px-3 py-1 rounded-full font-bold inline-flex items-center gap-1">
             {UI_TEXT.featured} <Star className="w-4 h-4 fill-current" />
