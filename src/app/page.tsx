@@ -107,59 +107,49 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ===== Value Propositions ===== */}
-      <div className="max-w-7xl mx-auto px-4 mt-14 md:mt-16 lg:mt-20">
-        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-5 flex items-center gap-2">
-          <img src="/images/logo.png" alt="" className="w-7 h-7" /> קצת על שווארמה ביס
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 text-center">
-            <div className="flex justify-center mb-3"><Map className="w-10 h-10 text-amber-400" /></div>
-            <h3 className="text-lg font-bold text-white mb-2">מצאו את השווארמה שלכם</h3>
-            <p className="text-zinc-400 text-sm leading-relaxed">
-              חפשו לפי מיקום, סוג בשר, כשרות ודירוג. מעל 500 מקומות ברחבי הארץ
-            </p>
-          </div>
-          <div className="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 text-center">
-            <div className="flex justify-center mb-3"><Star className="w-10 h-10 text-amber-400" /></div>
-            <h3 className="text-lg font-bold text-white mb-2">דרגו ושתפו</h3>
-            <p className="text-zinc-400 text-sm leading-relaxed">
-              דירוג ב-5 קטגוריות: בשר, לחם, תוספות, שירות ותמורה למחיר
-            </p>
-          </div>
-          <div className="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 text-center">
-            <div className="flex justify-center mb-3"><PartyPopper className="w-10 h-10 text-amber-400" /></div>
-            <h3 className="text-lg font-bold text-white mb-2">שווארמה לאירוע</h3>
-            <p className="text-zinc-400 text-sm leading-relaxed">
-              מחפשים קייטרינג שווארמה? מצאו ספקים מומלצים באזור שלכם
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* ===== Marketing Section ===== */}
+      {/* ===== About ShawarmaBis ===== */}
       <div className="max-w-7xl mx-auto px-4 mt-16 md:mt-20 lg:mt-24 mb-16">
         <section className="bg-gradient-to-br from-orange-900/40 via-shawarma-900/60 to-amber-900/40 border border-shawarma-700/30 rounded-2xl p-8 md:p-12">
           <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 flex items-center gap-2">
-            <img src="/images/logo.png" alt="" className="w-8 h-8" /> קצת על שווארמה ביס
-          </h2>
-          <div className="space-y-4 text-shawarma-200 text-base md:text-lg leading-relaxed">
-            <p>
-              <strong className="text-white">שווארמה ביס</strong> הוא
-              המדריך המקיף לשווארמה בישראל. אנחנו מאמינים שכל אחד מגיע לדעת
-              איפה נמצאת השווארמה הכי טובה — בין אם אתם מחפשים לאפה עסיסית
-              בצפון, שווארמת הודו במרכז, או את הבשר על האש בדרום.
-            </p>
-            <p>
-              עם דירוגים אמיתיים מהקהילה, פילטרים חכמים לפי כשרות, סוג בשר,
-              סגנון ומחיר — תמצאו בדיוק מה שאתם מחפשים. כל מקום מדורג ב-5
-              קטגוריות: טעם הבשר, הלחם, התוספות, השירות והתמורה למחיר.
-            </p>
-            <p className="inline-flex items-center gap-1 flex-wrap">
-              בואו להצטרף למהפכת השווארמה — דרגו, שתפו, וגלו טעמים חדשים. <Flame className="w-5 h-5 inline text-orange-400" />
-            </p>
-          </div>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 flex items-center gap-2">
+              <img src="/images/logo.png" alt="" className="w-8 h-8" /> קצת על שווארמה ביס
+            </h2>
+            <div className="space-y-4 text-shawarma-200 text-base md:text-lg leading-relaxed mb-8">
+              <p>
+                <strong className="text-white">שווארמה ביס</strong> הוא
+                המדריך המקיף לשווארמה בישראל. אנחנו מאמינים שכל אחד מגיע לדעת
+                איפה נמצאת השווארמה הכי טובה — בין אם אתם מחפשים לאפה עסיסית
+                בצפון, שווארמת הודו במרכז, או את הבשר על האש בדרום.
+              </p>
+              <p>
+                עם דירוגים אמיתיים מהקהילה, פילטרים חכמים לפי כשרות, סוג בשר,
+                סגנון ומחיר — תמצאו בדיוק מה שאתם מחפשים. כל מקום מדורג ב-5
+                קטגוריות: טעם הבשר, הלחם, התוספות, השירות והתמורה למחיר.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-black/20 border border-white/10 rounded-xl p-6 text-center">
+                <div className="flex justify-center mb-3"><Map className="w-10 h-10 text-amber-400" /></div>
+                <h3 className="text-lg font-bold text-white mb-2">מצאו את השווארמה שלכם</h3>
+                <p className="text-shawarma-200 text-sm leading-relaxed">
+                  חפשו לפי מיקום, סוג בשר, כשרות ודירוג
+                </p>
+              </div>
+              <div className="bg-black/20 border border-white/10 rounded-xl p-6 text-center">
+                <div className="flex justify-center mb-3"><Star className="w-10 h-10 text-amber-400" /></div>
+                <h3 className="text-lg font-bold text-white mb-2">דרגו ושתפו</h3>
+                <p className="text-shawarma-200 text-sm leading-relaxed">
+                  דירוג ב-5 קטגוריות: בשר, לחם, תוספות, שירות ותמורה
+                </p>
+              </div>
+              <div className="bg-black/20 border border-white/10 rounded-xl p-6 text-center">
+                <div className="flex justify-center mb-3"><PartyPopper className="w-10 h-10 text-amber-400" /></div>
+                <h3 className="text-lg font-bold text-white mb-2">שווארמה לאירוע</h3>
+                <p className="text-shawarma-200 text-sm leading-relaxed">
+                  מחפשים קייטרינג שווארמה? מצאו ספקים מומלצים
+                </p>
+              </div>
+            </div>
           </div>
         </section>
       </div>
