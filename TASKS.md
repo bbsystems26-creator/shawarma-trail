@@ -51,15 +51,13 @@
 ## 🔲 Phase 2 — Growth Features
 
 ### TASK I — Auth + Users 🔴
-- [ ] I.1 — Auth provider setup (Clerk / Convex Auth)
-- [ ] I.2 — הרשמה / התחברות (email + Google + Facebook)
+- [ ] I.1 — Auth provider setup (Convex Auth)
+- [ ] I.2 — הרשמה / התחברות (email + Google )
 - [ ] I.3 — פרופיל משתמש (שם, אווטאר, ביקורות שלי)
 - [ ] I.4 — ביקורות מחוברות ל-user (5 קטגוריות דירוג)
 - [ ] I.5 — "הביקורת שלי" badge + verified visit
 
 ### TASK J — Domain + Launch 🔴
-- [ ] J.1 — רכישת דומיין shawarmabis.co.il
-- [ ] J.2 — חיבור ל-Vercel
 - [ ] J.3 — Google Search Console + sitemap submission
 - [ ] J.4 — Google Analytics / Vercel Analytics
 
@@ -81,6 +79,10 @@
 - [ ] M.3 — User-generated lists ("הטופ שלי")
 - [ ] M.4 — Events calendar
 
+
+###בסוף
+- [ ] J.1 — רכישת דומיין shawarmabis.co.il
+- [ ] J.2 — חיבור ל-Vercel
 ---
 
 ## 📊 Sprint Summary
