@@ -1,501 +1,184 @@
-# 🥙 ShawarmaTrail — PRD (Product Requirements Document)
+# 🥙 ShawarmaBis — PRD (Product Requirements Document)
 
-**שם פרויקט:** ShawarmaTrail (שווארמה טרייל)
-**דומיין מוצע:** shawarmatrail.co.il / shawarma.co.il / shwarma.co.il
-**תאריך:** 2026-01-27
-**סטטוס:** MVP — שבוע 1 בפיתוח
+**שם פרויקט:** ShawarmaBis (שווארמה ביס)
+**שם קודם:** ShawarmaTrail (שונה ב-28.01.2026)
+**דומיין:** shawarmabis.vercel.app (זמני) | shawarmabis.co.il (מתוכנן)
+**תאריך התחלה:** 2026-01-27
+**סטטוס:** MVP+ — שבוע 1 הושלם, שבוע 2 בפיתוח
 **מחבר:** דוד 🔧 + בנימין
-**עדכון אחרון:** 2026-01-27 (ניתוח פערים מול coffeetrail.co.il)
+**עדכון אחרון:** 2026-01-28
 
 ---
 
-## 📊 סטטוס בנייה — מה מוכן ומה חסר
+## 📊 סטטוס בנייה
 
-### ✅ מה נבנה (שבוע 1)
-- [x] **Setup:** Next.js 15 + Convex + Tailwind CSS + GitHub repo
-- [x] **DB Schema:** places, reviews, users, lists — עם אינדקסים וחיפוש
-- [x] **Convex API:** queries למקומות (listAll, search, getBySlug), ביקורות, geo
-- [x] **Seed Data:** קובץ דמו מוכן (עדיין לא הוזן לDB)
-- [x] **עמוד ראשי:** Hero + חיפוש + פילטרים + Grid מקומות
-- [x] **מפה אינטראקטיבית:** Leaflet/OSM (חינמי) עם סמנים ו-popups
-- [x] **עמוד מקום:** שם, כתובת, דירוג, ביקורות, פרטים, Waze + Google Maps
-- [x] **פילטרים:** אזור, כשרות, סוג בשר, סגנון, מחיר, דירוג מינימלי
-- [x] **כרטיסי מקום:** דירוג כוכבים, תגיות, Verified badge
-- [x] **טופס ביקורת:** 6 קטגוריות דירוג + טקסט (לא מחובר ל-auth)
-- [x] **עיצוב:** Dark theme, RTL, responsive, Tailwind custom colors
-- [x] **PRD v2:** מפורט עם תוכנית ל-4 שבועות
+### ✅ שבוע 1 — הושלם (27.01.2026)
+- [x] Setup: Next.js 16 + Convex + Tailwind CSS + GitHub repo
+- [x] DB Schema v2: places (29 שדות + v2 fields), reviews, users, lists
+- [x] Convex API: listAll, search, getBySlug, filterByRegion/City/Kashrut, listFeatured, listNewest, listByTag
+- [x] Seed Data: 29 מקומות עם ownerStory, tags, createdAt, socialLinks, tips
+- [x] עמוד ראשי: Hero + חיפוש + regions + carousels
+- [x] מפה: Leaflet/OSM עם סמנים
+- [x] עמוד מקום: כל הפרטים + ביקורות + tips + תפריט
+- [x] פילטרים: אזור, כשרות, סוג בשר, סגנון, מחיר, דירוג
+- [x] עיצוב: Dark theme, RTL, responsive
+- [x] Deploy: Vercel auto-deploy מ-GitHub
 
-### 🔴 פערים קריטיים (מול CoffeeTrail)
-> הפערים הבאים זוהו מניתוח מעמיק של coffeetrail.co.il — אתר עם 335+ ליסטינגים, מגזין, אפליקציה, ונוכחות חזקה ב-SEO.
+### ✅ שבוע 2 — יום 1 (28.01.2026)
+- [x] **Rebrand:** ShawarmaTrail → ShawarmaBis (שווארמה ביס)
+- [x] **לוגו:** Nano Banana Pro — פיתה עם ביס, flat design
+- [x] **תמונות אוכל:** 6 תמונות שווארמה ל-PlaceCards
+- [x] **Lucide React SVG Icons:** 40+ אימוג'ים → אייקונים מקצועיים
+- [x] **Footer מקצועי:** 4 עמודות, ניוזלטר, רשתות חברתיות
+- [x] **OpenStatus:** פתוח/סגור בזמן אמת (Asia/Jerusalem)
+- [x] **SocialLinks:** Instagram/Facebook/TikTok לכל מקום
+- [x] **תצוגת תפריט:** קטגוריות + מחירים בדף מקום
+- [x] **TagIcon component:** אייקון SVG לכל תגית
+- [x] **CategoryCarousel:** קרוסלות לפי קטגוריה (פתוח בשבת, משלוחים...)
+- [x] **StaticMap:** מפה סטטית בדף מקום
+- [x] **AdvancedSearch:** טופס 3 שדות (שם, אזור, סוג בשר)
+- [x] **Desktop Responsive:** כל הדפים + קומפוננטות
+- [x] **Navbar:** dropdown אזורים + "הוסיפו מקום" CTA
+- [x] **Carousel:** "הצג הכל" link + חצים גדולים
+- [x] **דף מקום:** layout 2 עמודות בדסקטופ
+- [x] **Light Theme:** המרה מלאה — רקע קרם, כרטיסים לבנים, Hero עם תמונה
+- [x] **Value Props:** מיזוג לסקציה אחת עם טקסט + 3 כרטיסים
 
-#### P0 — חובה ל-MVP (בלעדיהם אי אפשר להשיק)
-- [ ] **גלריית תמונות אמיתית** — אתר אוכל בלי תמונות = מת
-- [ ] **WhatsApp + טלפון + שיתוף** — CTAs קריטיים לשווארמה
-- [ ] **Seed data אמיתי** — 20-30 מקומות מוכרים עם תמונות ומידע מלא
-- [ ] **סטטוס פתוח/סגור** — CoffeeTrail מציג את זה על כל כרטיס
-- [ ] **Deploy ל-Vercel** — להעלות לאוויר
-- [ ] **Auth בסיסי** — Google/Phone login לכתיבת ביקורות
+### 🔲 שבוע 2 — נותר
+- [ ] **שדרוג מבנה Homepage** — לפי ניתוח CoffeeTrail (ראו סעיף מבנה למטה)
+- [ ] **Image Slider ב-Hero** — תמונות מתחלפות (לא תמונה אחת)
+- [ ] **תמונות אמיתיות בכרטיסים** — במקום gradient placeholders
+- [ ] **קרוסלת אזורים** — במקום grid (כמו CoffeeTrail)
+- [ ] **סקציית "לפי מסלול"** — רקע קרם + איור + CTA
+- [ ] **חיפוש לפי כבישים** — כפתורים (1, 2, 4, 6, 40, 70, 90)
+- [ ] **באנר אירועים** — full-width תמונה + CTA
+- [ ] **כתבה Featured** — תמונה + טקסט + CTA
+- [ ] **MiniMap** — מפה קטנה בדף מקום (iframe OSM)
 
-#### P1 — שבוע 2 (הפיכה לאתר רציני)
-- [ ] **עמוד Explore נפרד** — מפה + רשימה + מיון + pagination (כמו coffeetrail.co.il/map-explore)
-- [ ] **תגיות מאפיינים עשירות** — ישיבה בחוץ, חניה, WiFi, משלוח, נגישות, halal, מילואימניק, פתוח בשבת/שישי
-- [ ] **סקציות בעמוד הבית** — מומלצים, חדשים, לפי אזור, לפי תגיות (כמו קרוסלות CoffeeTrail)
-- [ ] **סיפור הבעלים** — שדה ארוך בכל ליסטינג (CoffeeTrail שם על זה דגש מטורף)
-- [ ] **תפריט בעמוד ליסטינג** — טאבים (מומלצות, ספיישל, צמחוני/טבעוני, גלוטן-פרי)
-- [ ] **"מה כדאי לדעת"** — טאבים לילדים, טיולים, מידע מעשי
-- [ ] **לוגו/תמונת פרופיל** לכל ליסטינג
-- [ ] **מפה בעמוד הליסטינג** — מיני מפה ייעודית
-- [ ] **Footer מקצועי** — ניוזלטר, קישורים, רשתות חברתיות, חיפושים פופולריים
-- [ ] **מיון תוצאות** — מומלצים, חדשים, קרוב אליי, דירוג
-- [ ] **"Load more" / Pagination** — CoffeeTrail טוען 150 מתוך 335
-
-#### P2 — שבוע 3-4 (צמיחה ו-SEO)
-- [ ] **"שווארמה בדרך ל..."** — חיפוש לפי מסלול נסיעה (כמו coffeetrail.co.il/on-the-way)
-- [ ] **מגזין/כתבות** — "10 השווארמות הטובות בצפון", "מסלול שווארמה אולטימטיבי" (כמו coffeetrail.co.il/mag)
-- [ ] **דפי נחיתה לפי עיר/אזור** — SSG, programmatic SEO
-- [ ] **Claim listing** — בעלי מקומות מנהלים את הפרופיל שלהם (כמו coffeetrail.co.il/if-login)
-- [ ] **קייטרינג שווארמה** — דף ייעודי (כמו coffeetrail.co.il/events-carts)
-- [ ] **PWA + אפליקציה** — CoffeeTrail יש אפליקציה ב-App Store + Google Play
-- [ ] **אנגלית** — דף אחד לתיירים (כמו coffeetrail.co.il/coffee-carts-in-israel)
-- [ ] **הצהרת נגישות + מדיניות פרטיות + תנאי שימוש**
-
----
-
-## 1. סקירת מוצר
-
-### מה זה?
-אתר ייעודי למציאת השווארמה הטובה בישראל — מפה אינטראקטיבית, דירוגים, ביקורות, ופילטרים חכמים. "הקופיטרייל של השווארמה."
-
-### למה עכשיו?
-- **ביקוש מוכח:** קהילת פייסבוק "שווארמה מומלצת" עם 170,000+ חברים
-- **אין פתרון ייעודי:** רק קבוצות פייסבוק מפוזרות — לא ניתן לחיפוש, לא מפה, לא מסודר
-- **SEO goldmine:** "שווארמה מומלצת ב[עיר]" = חיפושים עם intent גבוה ותחרות נמוכה
-- **מודל מוכח:** coffeetrail.co.il הוכיח שהפורמט עובד לקולינריה ישראלית
-- **תרבות:** שווארמה זה לא אוכל — זו דת. ישראלים נוסעים שעות למקום טוב
-
-### מודל ההשראה — coffeetrail.co.il (ניתוח מעמיק)
-
-#### מבנה עמוד הבית — CoffeeTrail
-1. Hero + חיפוש עם 3 שדות (שם, אזור, העדפות)
-2. קישור "חפש לפי מסלול נסיעה" + "תצוגת מפה"
-3. סקציות לפי אזור (צפון, ירושלים, שפלה, כל העגלות) — כל אחת עם תמונת Hero
-4. קרוסלת "עגלות ששווה להכיר" (6 מומלצים)
-5. קרוסלת "חדשות שהצטרפו" (6 חדשים)
-6. תגיות פופולריות (מרחב מוגן, מילואמניק, פתוח בשבת, כשר, גן שעשועים, WiFi, שירותים, דשא, עמדת טעינה, פתוח עכשיו)
-7. טקסט שיווקי "קצת על קופיטרייל"
-8. 12+ סקציות נושאיות — כל אחת עם קרוסלת 6 כרטיסים (פתוח בשבת, כשר, גן שעשועים, עמדת טעינה, שירותים, מהדרין, בדרך לאילת, בדרך לכנרת, כביש 6, כביש חוף, קטיף עונתי, במשתלות)
-9. מגזין — כתבות + טיולים (צפון, מרכז, דרום, סתיו)
-10. Footer: ניוזלטר + עמודים ראשיים + מידע שימושי + חיפושים פופולריים + אפליקציה + רשתות
-
-#### עמוד ליסטינג בודד — CoffeeTrail
-1. לוגו + שם + Verified badge + כתובת
-2. כפתורי פעולה: נווט (Waze), WhatsApp, טלפון, שיתוף, העתק קישור, prev/next
-3. סטטוס "סגור כעת" / "פתוח כעת" עם שעות
-4. "על העגלה בקטנה" — תיאור קצר
-5. תגיות מאפיינים (14+ — פתוח בשישי, שירותים, wifi, שקעים, מילואימניק, מחסה מגשם, במשתלה, אלכוהול, ממ"ד, חניה לנכים, חניה, חניה לאוטובוס, דשא גדול, חלל ממוזג)
-6. גלריית תמונות (12 תמונות)
-7. תפריט עם טאבים (נמנעים מגלוטן, טבעונים, ספיישל, מנות מומלצות)
-8. "מה כדאי לדעת" — טאבים (בשביל הילדים, בשביל הטיולים)
-9. סיפור הבעלים — ארוך ומעמיק (פסקה שלמה)
-10. רשתות חברתיות (אינסטגרם)
-11. מפה ייעודית של המקום
-12. CTA: "נהנתם? שתפו באינסטגרם"
-
-#### עמוד Explore — CoffeeTrail
-1. רשימת כרטיסים + מפה (335 רשומות, 150 בטעינה ראשונה)
-2. מיון (מומלצים ברירת מחדל)
-3. סינון מתקדם (פופאפ)
-4. סטטוס "פתוח כעת" / "סגור כעת" בכל כרטיס
-5. Load more
-6. מעבר תצוגת רשימה ↔ מפה
-
-#### ההבדל שלנו (ShawarmaTrail)
-| פיצ'ר | CoffeeTrail | ShawarmaTrail |
-|--------|------------|---------------|
-| מפה | עגלות קפה | מקומות שווארמה |
-| חיפוש מסלול | "קפה בדרך ל..." | "שווארמה בדרך ל..." |
-| פילטרים | כשרות, שבת, שירותים | **כשרות, סוג בשר, סגנון הכנה, מחיר** |
-| דירוגים | אין דירוגים באתר (!) | **6 קטגוריות: בשר, לחם, תוספות, שירות, תמורה, כללי** |
-| ביקורות | אין ביקורות | **ביקורות קהילה + תמונות** |
-| אירועים | עגלות לאירועים | קייטרינג שווארמה |
-| תוכן | כתבות, סיפורי בעלים | ביקורות, דירוגים, "המסלול האולטימטיבי" |
-| קהילה | עגלות חדשות, מומלצות | **דירוגי קהילה, טופ ליסטים, תמונות משתמשים** |
-
-> **יתרון תחרותי:** CoffeeTrail אין לו דירוגים/ביקורות כלל! הם מסתמכים על תוכן עורכים. אנחנו הולכים על מודל קהילתי — דירוגים + ביקורות = engagement + תוכן user-generated + SEO.
+### 🔲 שבוע 3-4
+- [ ] מערכת מגזין / כתבות SEO
+- [ ] Google Maps Scraper — נתונים אמיתיים
+- [ ] אימות משתמשים (Auth)
+- [ ] דף קייטרינג/אירועים
+- [ ] SEO + Analytics + Structured Data
+- [ ] PWA / App-like experience
 
 ---
 
-## 2. קהל יעד
+## 🏗️ מבנה Homepage — יעד (בהשראת CoffeeTrail)
 
-### משתמשים ראשיים (B2C)
-- **חובבי שווארמה** — חברי הקהילות, מחפשים מקומות חדשים
-- **תיירים פנימיים** — "אנחנו בצפון, איפה יש שווארמה טובה?"
-- **מחפשי ארוחה** — פשוט רוצים שווארמה עכשיו ורוצים מקום טוב קרוב
+מבוסס על ניתוח 9 צילומי מסך של coffeetrail.co.il (שמורים ב-docs/reference/):
 
-### משתמשים משניים (B2B)
-- **בעלי מקומות שווארמה** — רוצים חשיפה, לקוחות חדשים
-- **קייטרינג שווארמה** — רוצים הזמנות לאירועים
-- **רשתות מזון** — רוצים פרסום ממוקד
+### סדר סקציות מלמעלה למטה:
+1. **Navbar** — לוגו ימין, ניווט (בית, גלה מקומות, מפה, אזורים▾, אירועים, מגזין), CTA "הרשמה לניוזלטר"
+2. **Hero** — Full-width image slider (תמונות מתחלפות) + שם האתר + subtitle + כרטיס חיפוש לבן צף + 2 לינקים (חיפוש לפי מסלול, מעבר למפה)
+3. **קרוסלת אזורים** — 4-5 כרטיסים עם תמונות נוף ישראלי + שם אזור overlay (צפון, מרכז, ירושלים, דרום, שפלה)
+4. **"ששווה לנסות"** — קרוסלה 3 כרטיסים גדולים עם תמונות אמיתיות + badge מאומת + שם + כתובת + לוגו
+5. **"חדשים שהצטרפו"** — אותו פורמט
+6. **תגיות פופולריות** — chips עם אייקונים (2 שורות)
+7. **"קצת על שווארמה ביס"** — טקסט ממורכז + 3 כרטיסי Value Props (מצאו, דרגו, אירוע) + 2 CTAs
+8. **קרוסלות קטגוריה** — פתוח בשבת, משלוחים, ישיבה בחוץ, ידידותי לילדים...
+9. **כתבה Featured** — תמונה גדולה + טקסט + CTA "לכתבה המלאה"
+10. **חיפוש לפי כבישים** — כפתורי כבישים (1, 2, 4, 6, 40, 70, 90)
+11. **באנר אירועים** — full-width תמונת רקע + "מחפשים שווארמה לאירוע?" + CTA
+12. **כתבות נבחרות** — 3 כרטיסי כתבות (תמונה + קטגוריה tag + כותרת + תאריך)
+13. **ניוזלטר** — שם + אימייל + כפתור
+14. **Footer** — כהה, 4 עמודות (ניווט, אזורים, חיפושים פופולריים, רשתות)
 
----
-
-## 3. פיצ'רים — MVP (Phase 1)
-
-### 3.1 🗺️ מפה אינטראקטיבית (הליבה) ✅ נבנה
-- ✅ מפת ישראל עם כל מקומות השווארמה (Leaflet/OpenStreetMap)
-- ✅ לחיצה על סמן → popup עם שם, דירוג, עיר
-- ✅ לחיצה על popup → מעבר לעמוד מקום
-- [ ] סמנים צבעוניים לפי דירוג (זהב/כסף/ברונזה)
-- [ ] Clustering בזום רחוק
-- [ ] מיקום נוכחי — "שווארמה קרובה אליי"
-
-### 3.2 🔍 חיפוש ופילטרים ✅ נבנה (חלקי)
-**חיפוש:**
-- ✅ חיפוש חופשי (Convex search index)
-- [ ] חיפוש לפי מיקום נוכחי ("שווארמה קרובה אליי")
-- [ ] חיפוש לפי מסלול ("שווארמה בדרך מתל אביב לחיפה") — Phase 2
-
-**פילטרים:** ✅ כולם נבנו
-| פילטר | אפשרויות | סטטוס |
-|--------|----------|-------|
-| כשרות | ללא / רגילה / מהדרין / בד"ץ | ✅ |
-| סוג בשר | כבש / עגל / הודו / מעורב | ✅ |
-| סגנון | לאפה / פיתה / צלחת / על האש | ✅ |
-| טווח מחיר | ₪ / ₪₪ / ₪₪₪ | ✅ |
-| אזור | צפון / מרכז / דרום / ירושלים / שפלה | ✅ |
-| דירוג מינימלי | (דרך פילטר) | ✅ |
-| פתוח עכשיו | כן/לא | ❌ חסר |
-| משלוחים | כן/לא | ❌ חסר (שדה קיים ב-DB, אין פילטר) |
-| ישיבה במקום | כן/לא | ❌ חסר (שדה קיים ב-DB, אין פילטר) |
-
-### 3.3 📄 דף מקום (Listing Page) ✅ נבנה (חלקי)
-- ✅ שם, כתובת, תיאור
-- ✅ קישור ניווט (Waze + Google Maps)
-- ✅ שעות פעילות
-- ✅ טלפון (בתור tag)
-- ✅ כשרות + תגיות (משלוח, ישיבה, Verified)
-- ✅ דירוג כולל + מס' ביקורות
-- ✅ רשימת ביקורות עם דירוגי משנה
-- ✅ Breadcrumb ניווט
-- [ ] **לוגו/תמונת פרופיל** — CoffeeTrail: תמונת פרופיל עגולה לכל ליסטינג
-- [ ] **גלריית תמונות** — CoffeeTrail: 12 תמונות בגלריה. אנחנו: placeholder emoji בלבד
-- [ ] **WhatsApp כפתור** — CoffeeTrail: כפתור WhatsApp ישיר עם הודעה מוכנה
-- [ ] **כפתור שיתוף** — CoffeeTrail: כפתור share + העתק קישור
-- [ ] **סטטוס פתוח/סגור** — CoffeeTrail: מוצג בראש הדף עם השעות
-- [ ] **תפריט** — CoffeeTrail: טאבים (גלוטן-פרי, טבעוני, ספיישל, מומלצות)
-- [ ] **סיפור הבעלים** — CoffeeTrail: פסקה ארוכה ורגשית. זה מה שנותן נשמה לליסטינג
-- [ ] **"מה כדאי לדעת"** — CoffeeTrail: טאבים לילדים/טיולים
-- [ ] **תגיות מאפיינים** — CoffeeTrail: 14+ תגיות (פתוח בשישי, שירותים, wifi, שקעים, מילואימניק, מחסה, ממ"ד, חניה, דשא...). אנחנו: 3 בלבד (משלוח, ישיבה, verified)
-- [ ] **מפה בעמוד** — CoffeeTrail: מיני-מפה ייעודית
-- [ ] **רשתות חברתיות** — CoffeeTrail: קישור לאינסטגרם
-- [ ] **CTA "נהנתם?"** — CoffeeTrail: "שתפו באינסטגרם ותייגו אותנו"
-- [ ] **prev/next** — CoffeeTrail: ניווט בין ליסטינגים
-- [ ] **"מקומות דומים באזור"** — המלצות
-
-### 3.4 ⭐ דירוגים וביקורות ✅ נבנה (חלקי)
-- ✅ דירוג 1-5 כוכבים
-- ✅ קטגוריות משנה: בשר | לחם | תוספות | שירות | תמורה
-- ✅ טקסט חופשי
-- ✅ טופס ביקורת (UI מוכן)
-- [ ] **Auth** — צריך login לכתיבת ביקורת
-- [ ] **העלאת תמונות** — תמונות בביקורת
-- [ ] **like/helpful** — על ביקורות
-- [ ] **אנטי-ספאם** — rate limiting
-
-### 3.5 🏠 עמוד הבית — סקציות חסרות
-> CoffeeTrail בנוי מ-15+ סקציות בעמוד הבית. אנחנו: Hero + חיפוש + מפה + grid. צריך להוסיף:
-
-- [ ] **סקציות לפי אזור** — "שווארמה בצפון", "בירושלים", "בדרום" — כל אחת עם תמונת Hero וקישור
-- [ ] **קרוסלת "שווה לנסות"** — 6 מומלצים
-- [ ] **קרוסלת "חדשים שהצטרפו"** — 6 חדשים
-- [ ] **תגיות פופולריות** — כשר, פתוח בשבת, על האש, לאפה, משלוח...
-- [ ] **סקציות נושאיות** — "שווארמה בדרך לאילת", "שווארמה בדרך לכנרת", "ליד כביש 6"
-- [ ] **טקסט שיווקי** — "קצת על שווארמה טרייל"
-
-### 3.6 🏗️ Navigation ו-Footer — חסרים לחלוטין
-- [ ] **Header/Navbar** — לוגו, ניווט ראשי (בית, Explore, מגזין, צור קשר)
-- [ ] **Footer** — ניוזלטר, עמודים ראשיים, מידע שימושי, חיפושים פופולריים, רשתות חברתיות
-
-### 3.7 📱 רספונסיב מלא ✅ נבנה
-- ✅ Mobile-first design
-- ✅ Responsive grid + filters toggle
-- [ ] PWA — אפשרות התקנה כאפליקציה
-- [ ] Core Web Vitals optimization
+### עקרונות עיצוב:
+- **רקע:** קרם חם (#FAF8F3), לא לבן טהור
+- **צבע ראשי:** כתום/אמבר (amber-500) — CoffeeTrail משתמש בירוק
+- **סקציות מתחלפות:** לבן ↔ קרם ↔ צבע רקע בהיר
+- **כרטיסי מקום:** תמונה אמיתית + badge מאומת ✓ + שם + כתובת + לוגו thumbnail
+- **Full-width:** Hero, באנרים — לא מוגבלים ל-max-w-7xl
+- **Typography:** נקי, מודרני, RTL
+- **Mobile-first:** כל סקציה רספונסיבית
 
 ---
 
-## 4. פיצ'רים — Phase 2 (אחרי אימות)
+## 🔧 Stack טכני
 
-### 4.1 🛣️ "שווארמה בדרך" (Route-based)
-- הזן נקודת מוצא ויעד
-- קבל רשימת מקומות שווארמה לאורך המסלול
-- שילוב עם Waze/Google Maps API
-- **CoffeeTrail reference:** coffeetrail.co.il/on-the-way — עובד מצוין
-
-### 4.2 🎉 קייטרינג שווארמה
-- דף ייעודי למקומות שעושים קייטרינג/אירועים
-- טופס בקשת הצעת מחיר
-- פילטר: מגיעים אליכם / אירוע במקום
-- **CoffeeTrail reference:** coffeetrail.co.il/events-carts
-
-### 4.3 📝 מגזין / כתבות
-- ביקורות מעמיקות (עורכים)
-- "מסלולי שווארמה" — יום טיול בין מקומות
-- סיפורי מקור — ההיסטוריה של מקומות מיתולוגיים
-- טיפים — "איך לזהות שווארמה טובה"
-- **CoffeeTrail reference:** coffeetrail.co.il/mag — עשרות כתבות, מחולקות לצפון/מרכז/דרום/סתיו
-
-### 4.4 👥 פרופיל משתמש
-- רשימת ביקורות שכתבתי
-- מועדפים / רשימת "חייב לנסות"
-- תגים / achievements ("ביקרת ב-50 מקומות!")
-- Follow משתמשים אחרים
-
-### 4.5 🤖 פיצ'רים חכמים
-- "מגלה שווארמה" — quiz שמציע מקום לפי העדפות
-- התראות — "מקום חדש נפתח באזור שלך"
-- AI ביקורות — סיכום ביקורות לכל מקום
-
-### 4.6 🌐 תוכן נוסף (בהשראת CoffeeTrail)
-- **דף "הסיפור שלנו"** — coffeetrail.co.il/our-story
-- **עלינו בתקשורת** — coffeetrail.co.il/press
-- **דף אנגלית** — coffeetrail.co.il/coffee-carts-in-israel
-- **חיפוש לפי כביש** — coffeetrail.co.il/road/6, /road/90...
-- **חיפוש לפי אזור** — coffeetrail.co.il/region/north, /region/south...
-- **תגיות SEO** — coffeetrail.co.il/tag/kosher, /tag/open-on-saturday...
+| רכיב | טכנולוגיה |
+|------|----------|
+| Frontend | Next.js 16.1.5 |
+| Backend/DB | Convex |
+| Styling | Tailwind CSS |
+| Icons | Lucide React |
+| Maps | Leaflet + OpenStreetMap |
+| Images | Nano Banana Pro (Gemini) |
+| Deploy | Vercel (auto from GitHub) |
+| Repo | github.com/bbsystems26-creator/shawarma-trail |
 
 ---
 
-## 5. ארכיטקטורה טכנית
+## 📁 מבנה קבצים
 
-### Tech Stack (MVP) ✅ נבנה
-| שכבה | טכנולוגיה | סטטוס |
-|-------|-----------|-------|
-| Frontend | **Next.js 15 (App Router)** | ✅ |
-| Styling | **Tailwind CSS** (custom dark theme) | ✅ |
-| Maps | **Leaflet + OpenStreetMap** (חינמי) | ✅ |
-| Backend | **Convex** | ✅ |
-| Database | **Convex DB** | ✅ |
-| Auth | **Convex Auth / Clerk** | ❌ עדיין לא |
-| Images | **Convex File Storage** | ❌ עדיין לא |
-| Hosting | **Vercel** (frontend) + **Convex Cloud** (backend) | ❌ עדיין לא deployed |
-| Analytics | **Plausible / Umami** | ❌ |
-
-### ארכיטקטורת Convex ✅ נבנה
-```
-convex/
-├── schema.ts          ✅ — טבלאות: places, reviews, users, lists
-├── places.ts          ✅ — listAll, search, getBySlug, getByRegion, getFeatured
-├── reviews.ts         ✅ — getByPlace, create
-├── geo.ts             ✅ — findNearby (bounding box + haversine)
-├── seedData.ts        ✅ — נתוני דמו מוכנים
-├── tsconfig.json      ✅
-└── _generated/        ✅ — auto-generated types
-```
-
-### סכמת DB (Convex Schema) ✅ נבנה
-```typescript
-places: {
-  name, slug, description, address, city, region,
-  lat, lng, phone, whatsapp, website,
-  kashrut, meatTypes[], style[], priceRange,
-  hasDelivery, hasSeating, openingHours,
-  images[], menuUrl,
-  avgRating, reviewCount, isFeatured, isVerified, claimedBy
-}
-// צריך להוסיף:
-// - ownerStory: v.optional(v.string())        ← סיפור הבעלים
-// - tags: v.array(v.string())                  ← תגיות מאפיינים (wifi, parking, shelter...)
-// - profileImage: v.optional(v.string())       ← לוגו/תמונת פרופיל
-// - socialLinks: v.optional(v.any())           ← instagram, facebook, tiktok
-// - menuItems: v.optional(v.any())             ← תפריט מובנה (טאבים)
-// - tips: v.optional(v.any())                  ← "מה כדאי לדעת"
-// - createdAt: v.number()                      ← לסינון "חדשים"
-
-reviews: {
-  placeId, userId, ratingOverall,
-  ratingMeat, ratingBread, ratingSides, ratingService, ratingValue,
-  text, images[], helpfulCount, isVerifiedVisit
-}
-
-users: { name, avatar, email, reviewCount, role }
-lists: { title, slug, description, placeIds[], authorId, type }
-```
-
-### Frontend Structure ✅ נבנה
 ```
 src/
 ├── app/
-│   ├── page.tsx           ✅ — עמוד ראשי (Hero + Search + Map + Grid)
-│   ├── place/[slug]/      ✅ — עמוד מקום
-│   ├── layout.tsx          ✅ — RTL, dark theme
-│   └── globals.css         ✅ — Tailwind + custom colors
+│   ├── layout.tsx          # Root layout + fonts
+│   ├── page.tsx            # Homepage
+│   ├── globals.css         # Global styles
+│   ├── explore/
+│   │   ├── page.tsx        # Explore/browse page
+│   │   └── layout.tsx
+│   └── place/
+│       └── [slug]/
+│           └── page.tsx    # Place detail page
 ├── components/
-│   ├── Map.tsx             ✅ — Leaflet map (dynamic import)
-│   ├── PlaceCard.tsx       ✅ — כרטיס מקום
-│   ├── Filters.tsx         ✅ — sidebar filters
-│   ├── SearchBar.tsx       ✅ — חיפוש
-│   ├── StarRating.tsx      ✅ — כוכבים
-│   ├── ReviewForm.tsx      ✅ — טופס ביקורת
-│   └── ConvexClientProvider.tsx ✅
+│   ├── ActionButtons.tsx   # Phone/WhatsApp/Share/Waze
+│   ├── AdvancedSearch.tsx  # 3-field search form
+│   ├── Carousel.tsx        # Horizontal scroll carousel
+│   ├── CategoryCarousel.tsx # Carousel filtered by tag
+│   ├── ConvexClientProvider.tsx
+│   ├── Filters.tsx         # Filter panel
+│   ├── Footer.tsx          # 4-column footer
+│   ├── HeroSection.tsx     # Full-width hero with search
+│   ├── Map.tsx             # Leaflet map
+│   ├── Navbar.tsx          # Nav with dropdown + CTA
+│   ├── OpenStatus.tsx      # Open/Closed status badge
+│   ├── PlaceCard.tsx       # Place listing card
+│   ├── RegionCard.tsx      # Region photo card
+│   ├── ReviewForm.tsx      # Review submission form
+│   ├── SearchBar.tsx       # Simple search bar
+│   ├── SocialLinks.tsx     # Social media links
+│   ├── StarRating.tsx      # Star rating display
+│   ├── StaticMap.tsx       # OSM iframe map
+│   ├── TagBadges.tsx       # Tag pill badges
+│   └── TagIcon.tsx         # Tag → Lucide icon mapping
 └── lib/
-    ├── constants.ts        ✅ — labels, options
-    └── demoData.ts         ✅ — demo data
+    └── constants.ts        # Labels, colors, data
+
+convex/
+├── schema.ts               # DB schema
+├── places.ts               # Place queries
+├── reviews.ts              # Review mutations
+├── seedData.ts             # 29 demo places
+└── _generated/
+
+public/images/
+├── logo.png                # ShawarmaBis logo
+├── hero/hero-1.png         # Hero background
+├── food/                   # 8 food photos
+│   ├── shawarma-laffa.png
+│   ├── shawarma-pita.png
+│   ├── shawarma-plate-1.png
+│   ├── shawarma-plate-2.png
+│   ├── shawarma-plate-3.png
+│   ├── shawarma-grill-1.png
+│   ├── shawarma-wrap-1.png
+│   └── shawarma-spread-1.png
+├── regions/                # 5 region landscapes
+│   ├── north.png
+│   ├── center.png
+│   ├── jerusalem.png
+│   ├── south.png
+│   └── shephelah.png
+└── illustrations/          # (planned)
+
+docs/reference/             # CoffeeTrail screenshots (9)
 ```
 
 ---
 
-## 6. מונטיזציה
-
-### Phase 1 — חינמי + ליסטינג בסיסי
-- כל המקומות מופיעים חינם
-- בעלי עסקים יכולים "לתבוע" את הדף שלהם (claim)
-- בניית בסיס משתמשים ותוכן
-
-### Phase 2 — Freemium לבעלי עסקים
-| תוכנית | מחיר | מה כלול |
-|---------|------|---------|
-| בסיסי | חינם | ליסטינג, מידע בסיסי |
-| פרימיום | ₪99/חודש | הדגשה במפה, badge "מומלץ", תמונות ללא הגבלה, סטטיסטיקות |
-| זהב | ₪199/חודש | כל הפרימיום + ראשון בתוצאות חיפוש, באנר באזור, קופון מותאם |
-
-### Phase 3 — הכנסות נוספות
-- 🎯 קופונים/דילים בלעדיים (עמלה 10-15%)
-- 📢 תוכן ממומן (כתבות, ביקורות VIP)
-- 🤝 שיתופי פעולה עם אפליקציות משלוחים (אפיליאט)
-- 🏆 חסות על דירוגים שנתיים / אירועי שווארמה
-
----
-
-## 7. אסטרטגיית תוכן ו-SEO
-
-### דפי נחיתה אוטומטיים (Programmatic SEO)
-- `/shawarma/[city]` — "שווארמה מומלצת ב[עיר]" (50+ ערים)
-- `/shawarma/[region]` — "שווארמה בצפון/מרכז/דרום"
-- `/best/[city]` — "הכי טוב ב[עיר]"
-- `/place/[slug]` — דף מקום יחיד ✅ קיים
-- `/route/[from]-to-[to]` — "שווארמה בדרך מ... ל..."
-- `/road/[number]` — "שווארמה ליד כביש [מספר]" (בהשראת CoffeeTrail)
-- `/tag/[tag]` — "שווארמה כשרה", "שווארמה על האש"
-
-### תוכן editorial (Phase 2)
-- ביקורות שבועיות
-- "מסלול שווארמה" חודשי
-- רשימות "טוב 10" עונתיות
-
-### Social Media
-- שיתוף הדדי עם קהילת פייסבוק (170K)
-- אינסטגרם — תמונות שווארמה (הויזואל מוכר את עצמו)
-- טיקטוק — ביקורות קצרות, "blind taste tests"
-
----
-
-## 8. Data Seeding — איך ממלאים את ה-DB
-
-### Phase 0 (לפני השקה) — הכי קריטי
-1. **ידני — top 30** עם תמונות אמיתיות, תיאורים, שעות, סיפורי בעלים
-   - מקומות מיתולוגיים: פאדי חיפה, סופר לאפה, שווארמה הסולטן, הזקנים...
-2. **סקרייפינג Google Maps** — כל מקום עם "שווארמה" בישראל (~2,000-3,000)
-   - שם, כתובת, קואורדינטות, שעות, טלפון, דירוג Google
-3. **קהילת Facebook** — המקומות המומלצים ביותר (top 200-300)
-4. **Wolt/Waze/10bis** — רשימות נוספות
-
-### אחרי השקה
-- בעלי עסקים מוסיפים/מעדכנים (claim)
-- משתמשים מוסיפים מקומות חדשים (suggest)
-- ביקורות = תוכן שנוצר ע"י משתמשים
-
----
-
-## 9. KPIs (מדדים להצלחה)
-
-### MVP (חודש 1-3)
-- [ ] 500+ מקומות במאגר
-- [ ] 1,000 ביקורים ייחודיים/חודש
-- [ ] 50+ ביקורות משתמשים
-- [ ] Top 3 בגוגל ל-"שווארמה מומלצת" (ערים בודדות)
-
-### Growth (חודש 3-6)
-- [ ] 2,000+ מקומות
-- [ ] 10,000 ביקורים/חודש
-- [ ] 500+ ביקורות
-- [ ] 20 בעלי עסקים שתבעו דף
-- [ ] ראשון בגוגל ל-5+ ערים
-
-### Monetization (חודש 6-12)
-- [ ] 50+ לקוחות פרימיום (₪5K MRR)
-- [ ] 50,000 ביקורים/חודש
-- [ ] שיתוף פעולה עם קהילת FB
-
----
-
-## 10. לו"ז פיתוח (מעודכן)
-
-### שבוע 1 — Foundation ✅ (90% הושלם)
-- [x] Setup: Next.js + Convex + Vercel + GitHub
-- [x] DB schema + seed data (file ready)
-- [x] מפה אינטראקטיבית (Leaflet/OSM)
-- [x] עמוד ראשי + חיפוש + פילטרים
-- [x] עמוד מקום + ביקורות
-- [ ] Seed data בפועל ל-Convex
-- [ ] Auth (Google/Phone)
-- [ ] Deploy ל-Vercel
-
-### שבוע 2 — Core Features + ניראות כמו CoffeeTrail
-- [ ] גלריית תמונות (upload + display)
-- [ ] WhatsApp + טלפון + שיתוף
-- [ ] סטטוס פתוח/סגור
-- [ ] שדות חדשים: ownerStory, tags, profileImage, socialLinks, menuItems, tips
-- [ ] עמוד Explore נפרד (מפה + רשימה + מיון + pagination)
-- [ ] סקציות בעמוד הבית (מומלצים, חדשים, לפי אזור, תגיות)
-- [ ] Navbar + Footer מקצועי
-- [ ] סיפור הבעלים בעמוד ליסטינג
-- [ ] תגיות מאפיינים עשירות (14+)
-- [ ] 30 מקומות אמיתיים עם data מלא
-
-### שבוע 3 — Content & SEO
-- [ ] דפי נחיתה לפי עיר/אזור (SSG)
-- [ ] Meta tags, sitemap, structured data (LocalBusiness schema)
-- [ ] "שווארמה בדרך ל..." — route search
-- [ ] מגזין — 3-5 כתבות ראשונות
-- [ ] דף "טופ 10"
-
-### שבוע 4 — Polish & Launch
-- [ ] ביצועים (Core Web Vitals)
-- [ ] PWA setup
-- [ ] Analytics
-- [ ] הצהרת נגישות + פרטיות + תנאי שימוש
-- [ ] Beta testing
-- [ ] 🚀 השקה!
-
----
-
-## 11. סיכונים ומענה
-
-| סיכון | הסתברות | מענה |
-|-------|---------|------|
-| תוכן דליל בהתחלה | גבוה | Seed מ-Google Maps + ידני ל-top 30 |
-| בעלי עסקים לא משלמים | בינוני | חינמי בהתחלה, ערך מוכח לפני מונטיזציה |
-| תחרות (מישהו אחר בונה) | נמוך | First mover advantage + SEO + קהילה |
-| Google Maps מספיק | בינוני | ניש ייעודי > כללי. פילטרים, ביקורות מפורטות, קהילה |
-| קשה למשוך תנועה | בינוני | SEO programmatic + שיתוף עם FB group (170K) |
-| CoffeeTrail מעתיק לשווארמה | נמוך | אנחנו כבר בפיתוח + יתרון הביקורות שחסר להם |
-
----
-
-## 12. Verification Criteria (לפיתוח)
-
-### MVP עובר אם:
-- [ ] מפה נטענת תוך <2 שניות עם 500+ מקומות
-- [ ] חיפוש לפי עיר מחזיר תוצאות תוך <500ms
-- [ ] כל פילטר עובד ומסנן בזמן אמת
-- [ ] דף מקום מציג כל המידע + תמונות + ביקורות
-- [ ] משתמש יכול להירשם, לכתוב ביקורת, ולדרג
-- [ ] Lighthouse score: Performance >90, SEO 100
-- [ ] עובד חלק במובייל (iPhone Safari + Android Chrome)
-- [ ] Google indexing: דפי ערים מופיעים בתוצאות
-- [ ] יש לפחות 30 מקומות עם תמונות אמיתיות
-
----
-
-*"כל מהפכה מתחילה בארוחה טובה" — ומהפכת השווארמה מתחילה כאן.* 🥙🔥
+*עדכון אחרון: 2026-01-28 07:28 UTC — דוד 🔧*
