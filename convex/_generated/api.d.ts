@@ -10,6 +10,7 @@
 
 import type * as geo from "../geo.js";
 import type * as places from "../places.js";
+import type * as placesAdmin from "../placesAdmin.js";
 import type * as reviews from "../reviews.js";
 import type * as seedData from "../seedData.js";
 
@@ -22,6 +23,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   geo: typeof geo;
   places: typeof places;
+  placesAdmin: typeof placesAdmin;
   reviews: typeof reviews;
   seedData: typeof seedData;
 }>;
