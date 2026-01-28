@@ -31,10 +31,14 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <span className="text-gray-600 cursor-not-allowed">מגזין</span>
+                <Link href="/blog" className="hover:text-amber-400 transition-colors">
+                  מגזין
+                </Link>
               </li>
               <li>
-                <span className="text-gray-600 cursor-not-allowed">צור קשר</span>
+                <Link href="/catering" className="hover:text-amber-400 transition-colors">
+                  קייטרינג לאירועים
+                </Link>
               </li>
             </ul>
           </div>

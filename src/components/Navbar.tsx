@@ -16,6 +16,8 @@ const NAV_LINKS = [
   { label: "בית", href: "/" },
   { label: "גלה מקומות", href: "/explore" },
   { label: "מפה", href: "/map" },
+  { label: "מגזין", href: "/blog" },
+  { label: "קייטרינג", href: "/catering" },
 ];
 
 const Navbar: React.FC = () => {
