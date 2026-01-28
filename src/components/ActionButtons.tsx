@@ -17,7 +17,7 @@ export default function ActionButtons({
 }: ActionButtonsProps) {
   const handleShare = async () => {
     const url = window.location.href;
-    const text = `${name} — שווארמה טרייל`;
+    const text = `${name} — שווארמה ביס`;
     if (navigator.share) {
       try {
         await navigator.share({ title: text, url });

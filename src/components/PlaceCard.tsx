@@ -66,27 +66,27 @@ export default function PlaceCard({ place }: PlaceCardProps) {
       className="group block rounded-xl overflow-hidden bg-shawarma-900/80 border border-shawarma-800/50 hover:border-shawarma-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-shawarma-500/10"
     >
       {/* Image / Gradient Placeholder */}
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-48 md:h-52 overflow-hidden">
         <div className={`w-full h-full bg-gradient-to-br ${getGradient(place.name)} flex flex-col items-center justify-center gap-2`}>
-          <span className="text-5xl drop-shadow-lg">🥙</span>
-          <span className="text-white/80 text-sm font-medium drop-shadow">{place.name}</span>
+          <span className="text-5xl md:text-6xl drop-shadow-lg">🥙</span>
+          <span className="text-white/80 text-sm md:text-base font-medium drop-shadow">{place.name}</span>
         </div>
 
         {/* Verified badge */}
         {(place.isFeatured || place.isVerified) && (
-          <span className="absolute top-3 right-3 bg-amber-500 text-amber-950 text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1 shadow-md">
-            {place.isFeatured ? <Star className="w-3.5 h-3.5 fill-current" /> : <BadgeCheck className="w-3.5 h-3.5" />} {place.isFeatured ? UI.featured : UI.verified}
+          <span className="absolute top-3 right-3 bg-amber-500 text-amber-950 text-xs md:text-sm font-bold px-2 md:px-2.5 py-1 rounded-full flex items-center gap-1 shadow-md">
+            {place.isFeatured ? <Star className="w-3.5 h-3.5 md:w-4 md:h-4 fill-current" /> : <BadgeCheck className="w-3.5 h-3.5 md:w-4 md:h-4" />} {place.isFeatured ? UI.featured : UI.verified}
           </span>
         )}
 
         {/* Price range */}
-        <span className="absolute top-3 left-3 bg-black/60 text-white text-sm font-bold px-2 py-1 rounded-full backdrop-blur-sm">
+        <span className="absolute top-3 left-3 bg-black/60 text-white text-sm md:text-base font-bold px-2 md:px-2.5 py-1 rounded-full backdrop-blur-sm">
           {PRICE_RANGE_LABELS[place.priceRange]}
         </span>
 
         {/* Region badge */}
-        <span className="absolute bottom-3 right-3 bg-black/50 text-white/90 text-xs px-2 py-1 rounded-full backdrop-blur-sm inline-flex items-center gap-1">
-          <MapPin className="w-3 h-3" /> {REGION_LABELS[place.region] || place.region}
+        <span className="absolute bottom-3 right-3 bg-black/50 text-white/90 text-xs md:text-sm px-2 py-1 rounded-full backdrop-blur-sm inline-flex items-center gap-1">
+          <MapPin className="w-3 h-3 md:w-3.5 md:h-3.5" /> {REGION_LABELS[place.region] || place.region}
         </span>
       </div>
 
@@ -103,10 +103,10 @@ export default function PlaceCard({ place }: PlaceCardProps) {
         {/* Rating */}
         <div className="flex items-center gap-2">
           <StarRating rating={place.avgRating} size={16} />
-          <span className="text-sm font-semibold text-amber-400">
+          <span className="text-sm md:text-base font-semibold text-amber-400">
             {place.avgRating.toFixed(1)}
           </span>
-          <span className="text-xs text-shawarma-500">
+          <span className="text-xs md:text-sm text-shawarma-500">
             ({place.reviewCount} {UI.reviews})
           </span>
         </div>
@@ -114,14 +114,14 @@ export default function PlaceCard({ place }: PlaceCardProps) {
         {/* Kashrut + Meat badges */}
         <div className="flex flex-wrap gap-2">
           <span
-            className={`text-xs px-2 py-0.5 rounded-full font-medium ${kashrutBadgeColor[place.kashrut] ?? "bg-zinc-600 text-zinc-200"}`}
+            className={`text-xs md:text-sm px-2 md:px-2.5 py-0.5 rounded-full font-medium ${kashrutBadgeColor[place.kashrut] ?? "bg-zinc-600 text-zinc-200"}`}
           >
             {KASHRUT_LABELS[place.kashrut]}
           </span>
           {place.meatTypes.slice(0, 2).map((meat) => (
             <span
               key={meat}
-              className="text-xs px-2 py-0.5 rounded-full bg-shawarma-800 text-shawarma-300"
+              className="text-xs md:text-sm px-2 md:px-2.5 py-0.5 rounded-full bg-shawarma-800 text-shawarma-300"
             >
               {MEAT_TYPE_LABELS[meat] ?? meat}
             </span>
@@ -130,9 +130,9 @@ export default function PlaceCard({ place }: PlaceCardProps) {
 
         {/* Tags + CTA row */}
         <div className="flex items-center justify-between">
-          <div className="flex gap-2 text-xs text-shawarma-500">
-            {place.hasDelivery && <span className="inline-flex items-center gap-1"><Truck className="w-3.5 h-3.5" /> {UI.delivery}</span>}
-            {place.hasSeating && <span className="inline-flex items-center gap-1"><Armchair className="w-3.5 h-3.5" /> {UI.seating}</span>}
+          <div className="flex gap-2 text-xs md:text-sm text-shawarma-500">
+            {place.hasDelivery && <span className="inline-flex items-center gap-1"><Truck className="w-3.5 h-3.5 md:w-4 md:h-4" /> {UI.delivery}</span>}
+            {place.hasSeating && <span className="inline-flex items-center gap-1"><Armchair className="w-3.5 h-3.5 md:w-4 md:h-4" /> {UI.seating}</span>}
           </div>
           {/* Phone/WhatsApp CTAs */}
           <div className="flex gap-2" onClick={(e) => e.preventDefault()}>

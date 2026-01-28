@@ -10,6 +10,7 @@ import { REGIONS_DATA, TAG_LABELS, TAG_COLORS } from "@/lib/constants";
 import Link from "next/link";
 import { Map, Flame, Sparkles, Star, PartyPopper } from "lucide-react";
 import { TagIcon } from "@/components/TagIcon";
+import CategoryCarousel from "@/components/CategoryCarousel";
 
 export default function Home() {
   const featured = useQuery(api.places.listFeatured, { limit: 8 });
@@ -23,13 +24,13 @@ export default function Home() {
   return (
     <div className="min-h-screen" dir="rtl">
       {/* ===== Hero ===== */}
-      <div className="max-w-7xl mx-auto px-4 pt-6 pb-2">
+      <div className="max-w-7xl mx-auto px-4 pt-6 pb-2 lg:px-6">
         <HeroSection />
       </div>
 
       {/* ===== Region Cards Grid (moved up!) ===== */}
-      <div className="max-w-7xl mx-auto px-4 mt-10">
-        <h2 className="text-xl md:text-2xl font-bold text-white mb-5 flex items-center gap-2">
+      <div className="max-w-7xl mx-auto px-4 mt-10 md:mt-14 lg:mt-16">
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-5 flex items-center gap-2">
           <Map className="w-6 h-6 inline" /> גלו לפי אזור
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -41,7 +42,7 @@ export default function Home() {
 
       {/* ===== Featured Carousel ===== */}
       {featured && featured.length > 0 && (
-        <div className="max-w-7xl mx-auto px-4 mt-12">
+        <div className="max-w-7xl mx-auto px-4 mt-12 md:mt-16 lg:mt-20">
           <Carousel title={<span className="inline-flex items-center gap-2"><Flame className="w-5 h-5 inline text-orange-400" /> שווה לנסות</span>}>
             {featured.map((place) => (
               <div key={place._id} className="snap-start shrink-0 w-[280px] sm:w-[300px]">
@@ -54,7 +55,7 @@ export default function Home() {
 
       {/* ===== Newest Carousel ===== */}
       {newest && newest.length > 0 && (
-        <div className="max-w-7xl mx-auto px-4 mt-12">
+        <div className="max-w-7xl mx-auto px-4 mt-12 md:mt-16 lg:mt-20">
           <Carousel title={<span className="inline-flex items-center gap-2"><Sparkles className="w-5 h-5 inline text-blue-400" /> חדשים שהצטרפו</span>}>
             {newest.map((place) => (
               <div key={place._id} className="snap-start shrink-0 w-[280px] sm:w-[300px]">
@@ -79,21 +80,27 @@ export default function Home() {
         </div>
       )}
 
+      {/* ===== Category Carousels ===== */}
+      <CategoryCarousel tag="open-saturday" title="פתוח בשבת" />
+      <CategoryCarousel tag="delivery" title="משלוחים" />
+      <CategoryCarousel tag="outdoor-seating" title="ישיבה בחוץ" />
+      <CategoryCarousel tag="kids" title="ידידותי לילדים" />
+
       {/* ===== Popular Tags ===== */}
-      <div className="max-w-7xl mx-auto px-4 mt-14">
-        <h2 className="text-xl md:text-2xl font-bold text-white mb-5">
+      <div className="max-w-7xl mx-auto px-4 mt-14 md:mt-16 lg:mt-20">
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-5">
           🏷️ תגיות פופולריות
         </h2>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3 md:gap-4">
           {popularTags.map((tag) => (
             <Link
               key={tag}
               href={`/explore?tag=${tag}`}
-              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all hover:scale-105 hover:shadow-md ${
+              className={`inline-flex items-center gap-1.5 px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium transition-all hover:scale-105 hover:shadow-md ${
                 TAG_COLORS[tag] || "bg-zinc-700/50 text-zinc-300"
               }`}
             >
-              <TagIcon tag={tag} className="w-4 h-4" />
+              <TagIcon tag={tag} className="w-4 h-4 md:w-5 md:h-5" />
               {TAG_LABELS[tag] || tag}
             </Link>
           ))}
@@ -101,9 +108,9 @@ export default function Home() {
       </div>
 
       {/* ===== Value Propositions ===== */}
-      <div className="max-w-7xl mx-auto px-4 mt-14">
-        <h2 className="text-xl md:text-2xl font-bold text-white mb-5 flex items-center gap-2">
-          <img src="/images/logo.png" alt="" className="w-7 h-7" /> קצת על שווארמה טרייל
+      <div className="max-w-7xl mx-auto px-4 mt-14 md:mt-16 lg:mt-20">
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-5 flex items-center gap-2">
+          <img src="/images/logo.png" alt="" className="w-7 h-7" /> קצת על שווארמה ביס
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 text-center">
@@ -131,14 +138,15 @@ export default function Home() {
       </div>
 
       {/* ===== Marketing Section ===== */}
-      <div className="max-w-7xl mx-auto px-4 mt-16 mb-16">
+      <div className="max-w-7xl mx-auto px-4 mt-16 md:mt-20 lg:mt-24 mb-16">
         <section className="bg-gradient-to-br from-orange-900/40 via-shawarma-900/60 to-amber-900/40 border border-shawarma-700/30 rounded-2xl p-8 md:p-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 flex items-center gap-2">
-            <img src="/images/logo.png" alt="" className="w-8 h-8" /> קצת על שווארמה טרייל
+          <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 flex items-center gap-2">
+            <img src="/images/logo.png" alt="" className="w-8 h-8" /> קצת על שווארמה ביס
           </h2>
-          <div className="space-y-4 text-shawarma-200 text-base md:text-lg leading-relaxed max-w-3xl">
+          <div className="space-y-4 text-shawarma-200 text-base md:text-lg leading-relaxed">
             <p>
-              <strong className="text-white">שווארמה טרייל</strong> הוא
+              <strong className="text-white">שווארמה ביס</strong> הוא
               המדריך המקיף לשווארמה בישראל. אנחנו מאמינים שכל אחד מגיע לדעת
               איפה נמצאת השווארמה הכי טובה — בין אם אתם מחפשים לאפה עסיסית
               בצפון, שווארמת הודו במרכז, או את הבשר על האש בדרום.
@@ -151,6 +159,7 @@ export default function Home() {
             <p className="inline-flex items-center gap-1 flex-wrap">
               בואו להצטרף למהפכת השווארמה — דרגו, שתפו, וגלו טעמים חדשים. <Flame className="w-5 h-5 inline text-orange-400" />
             </p>
+          </div>
           </div>
         </section>
       </div>

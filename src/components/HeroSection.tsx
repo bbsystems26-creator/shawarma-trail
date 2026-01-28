@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SearchBar from "./SearchBar";
+import AdvancedSearch from "./AdvancedSearch";
 import { REGION_OPTIONS, KASHRUT_OPTIONS } from "@/lib/constants";
 import { Map, MapPin } from "lucide-react";
 
@@ -24,7 +25,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative w-full overflow-hidden rounded-2xl min-h-[400px] md:min-h-[500px]"
+      className="relative w-full overflow-hidden rounded-2xl min-h-[400px] md:min-h-[500px] lg:min-h-[60vh]"
       dir="rtl"
     >
       {/* Background image with fallback gradient */}
@@ -39,7 +40,7 @@ export default function HeroSection() {
             >
               <Image
                 src={src}
-                alt="שווארמה טרייל"
+                alt="שווארמה ביס"
                 fill
                 className="object-cover"
                 priority={i === 0}
@@ -76,9 +77,14 @@ export default function HeroSection() {
           מפה אינטראקטיבית, דירוגים וביקורות — הכל במקום אחד
         </p>
 
-        {/* Search bar */}
-        <div className="max-w-xl mx-auto mb-6">
-          <SearchBar className="w-full" />
+        {/* Search bar — simple on mobile, advanced on desktop */}
+        <div className="max-w-xl md:max-w-3xl mx-auto mb-6">
+          <div className="block md:hidden">
+            <SearchBar className="w-full" />
+          </div>
+          <div className="hidden md:block">
+            <AdvancedSearch />
+          </div>
         </div>
 
         {/* CTA Buttons */}

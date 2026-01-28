@@ -1,13 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import { useRef, useState, useEffect, type ReactNode } from "react";
 
 interface CarouselProps {
   title: ReactNode;
   children: ReactNode;
+  showAllHref?: string;
 }
 
-export default function Carousel({ title, children }: CarouselProps) {
+export default function Carousel({ title, children, showAllHref = "/explore" }: CarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -48,7 +50,15 @@ export default function Carousel({ title, children }: CarouselProps) {
     <section className="w-full" dir="rtl">
       {/* Header */}
       <div className="flex items-center justify-between mb-4 px-1">
-        <h2 className="text-xl md:text-2xl font-bold text-white">{title}</h2>
+        <div className="flex items-center gap-4">
+          <h2 className="text-xl md:text-2xl font-bold text-white">{title}</h2>
+          <Link
+            href={showAllHref}
+            className="text-sm md:text-base text-shawarma-400 hover:text-shawarma-300 transition-colors hidden sm:inline-flex items-center gap-1"
+          >
+            הצג הכל ←
+          </Link>
+        </div>
 
         {/* Arrow buttons — desktop */}
         <div className="hidden md:flex gap-2">
@@ -57,7 +67,7 @@ export default function Carousel({ title, children }: CarouselProps) {
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
             aria-label="הבא"
-            className="w-9 h-9 flex items-center justify-center rounded-full bg-shawarma-800/70 text-shawarma-200 hover:bg-shawarma-700 disabled:opacity-30 disabled:cursor-default transition-colors"
+            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-shawarma-800/70 text-shawarma-200 hover:bg-shawarma-700 disabled:opacity-30 disabled:cursor-default transition-colors text-lg md:text-xl"
           >
             ‹
           </button>
@@ -66,7 +76,7 @@ export default function Carousel({ title, children }: CarouselProps) {
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
             aria-label="הקודם"
-            className="w-9 h-9 flex items-center justify-center rounded-full bg-shawarma-800/70 text-shawarma-200 hover:bg-shawarma-700 disabled:opacity-30 disabled:cursor-default transition-colors"
+            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-shawarma-800/70 text-shawarma-200 hover:bg-shawarma-700 disabled:opacity-30 disabled:cursor-default transition-colors text-lg md:text-xl"
           >
             ›
           </button>
@@ -74,12 +84,24 @@ export default function Carousel({ title, children }: CarouselProps) {
       </div>
 
       {/* Scrollable container */}
-      <div
-        ref={scrollRef}
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 scrollbar-none"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        {children}
+      <div className="relative">
+        <div
+          ref={scrollRef}
+          className="flex gap-4 md:gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 scrollbar-none"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {children}
+        </div>
+      </div>
+
+      {/* Mobile show all link */}
+      <div className="sm:hidden text-center mt-2">
+        <Link
+          href={showAllHref}
+          className="text-sm text-shawarma-400 hover:text-shawarma-300 transition-colors"
+        >
+          הצג הכל ←
+        </Link>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 // All Hebrew UI strings as constants for i18n readiness
 
 // ==================== General ====================
-export const SITE_NAME = "שווארמה טרייל";
+export const SITE_NAME = "שווארמה ביס";
 export const SITE_TAGLINE = "מצאו את השווארמה הטובה בישראל";
 export const SITE_DESCRIPTION =
   "מפה אינטראקטיבית של מקומות השווארמה הטובים בישראל — דירוגים, ביקורות, ופילטרים חכמים";

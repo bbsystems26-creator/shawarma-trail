@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "גלה מקומות — שווארמה טרייל",
+  title: "גלה מקומות — שווארמה ביס",
   description:
     "כל מקומות השווארמה בישראל — סינון לפי אזור, כשרות, סגנון ומחיר",
 };

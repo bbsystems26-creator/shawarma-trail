@@ -107,7 +107,7 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-white font-bold text-lg mb-4">עקבו אחרינו</h3>
             <p className="text-zinc-400 text-sm mb-5 leading-relaxed">
-              ShawarmaTrail — המדריך המוביל לשווארמה בישראל. גלו את המקומות הכי טובים, קראו ביקורות אמיתיות ומצאו את השווארמה המושלמת בקרבתכם.
+              ShawarmaBis — המדריך המוביל לשווארמה בישראל. גלו את המקומות הכי טובים, קראו ביקורות אמיתיות ומצאו את השווארמה המושלמת בקרבתכם.
             </p>
             <div className="flex items-center gap-4">
               <a
@@ -169,7 +169,7 @@ const Footer: React.FC = () => {
       <div className="border-t border-zinc-800 bg-zinc-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-zinc-500">
-            <span>© 2026 ShawarmaTrail — כל הזכויות שמורות</span>
+            <span>© 2026 ShawarmaBis — כל הזכויות שמורות</span>
             <div className="flex items-center gap-4">
               <a href="#" className="hover:text-zinc-300 transition-colors">
                 תנאי שימוש

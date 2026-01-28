@@ -11,6 +11,7 @@ import ActionButtons from "@/components/ActionButtons";
 import TagBadges from "@/components/TagBadges";
 import OpenStatus from "@/components/OpenStatus";
 import SocialLinks from "@/components/SocialLinks";
+import StaticMap from "@/components/StaticMap";
 import {
   KASHRUT_LABELS,
   MEAT_TYPE_LABELS,
@@ -33,7 +34,7 @@ export default function PlacePage() {
 
   if (place === undefined) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-16 text-center">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-16 text-center">
         <span className="text-6xl block mb-4 animate-pulse">🥙</span>
         <p className="text-gray-400">{UI_TEXT.loading}</p>
       </div>
@@ -42,7 +43,7 @@ export default function PlacePage() {
 
   if (place === null) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-16 text-center">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-16 text-center">
         <span className="text-6xl block mb-4">🥙</span>
         <h1 className="text-2xl font-bold text-white mb-2">מקום לא נמצא</h1>
         <p className="text-gray-400 mb-6">
@@ -63,7 +64,7 @@ export default function PlacePage() {
   const reviewList = reviews ?? [];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8">
       {/* Breadcrumb */}
       <nav className="text-sm text-gray-500 mb-6">
         <Link href="/" className="hover:text-orange-400 transition-colors">
@@ -83,8 +84,8 @@ export default function PlacePage() {
         )}
       </div>
 
-      {/* Place Info */}
-      <div className="mb-8">
+      {/* Place Name + Status (full width) */}
+      <div className="mb-6">
         <div className="flex items-start justify-between flex-wrap gap-4 mb-4">
           <div>
             <div className="flex items-center gap-3 flex-wrap mb-1">
@@ -115,267 +116,287 @@ export default function PlacePage() {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <ActionButtons
-          phone={place.phone}
-          whatsapp={place.whatsapp}
-          lat={place.lat}
-          lng={place.lng}
-          name={place.name}
-        />
-
         {/* Rating */}
-        <div className="flex items-center gap-4 mb-4 mt-4">
+        <div className="flex items-center gap-4">
           <StarRating rating={place.avgRating} size={28} />
           <span className="text-gray-400">
             ({place.reviewCount} {UI_TEXT.reviews})
           </span>
         </div>
-
-        {/* Description */}
-        {place.description && (
-          <p className="text-gray-300 text-lg mb-6">{place.description}</p>
-        )}
-
-        {/* Social Links */}
-        <div className="mb-6">
-          <SocialLinks
-            socialLinks={place.socialLinks as { instagram?: string; facebook?: string; tiktok?: string } | undefined}
-            website={place.website as string | undefined}
-          />
-        </div>
-
-        {/* Details Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-zinc-900 rounded-xl p-4 border border-zinc-800">
-            <span className="text-sm text-gray-500 block mb-1">כשרות</span>
-            <span className="text-orange-400 font-bold">
-              {KASHRUT_LABELS[place.kashrut]}
-            </span>
-          </div>
-          <div className="bg-zinc-900 rounded-xl p-4 border border-zinc-800">
-            <span className="text-sm text-gray-500 block mb-1">מחיר</span>
-            <span className="text-orange-400 font-bold text-lg">
-              {PRICE_LABELS[place.priceRange]}
-            </span>
-          </div>
-          <div className="bg-zinc-900 rounded-xl p-4 border border-zinc-800">
-            <span className="text-sm text-gray-500 block mb-1">סוג בשר</span>
-            <span className="text-white">
-              {place.meatTypes
-                .map((m: string) => MEAT_TYPE_LABELS[m] || m)
-                .join(", ")}
-            </span>
-          </div>
-          <div className="bg-zinc-900 rounded-xl p-4 border border-zinc-800">
-            <span className="text-sm text-gray-500 block mb-1">סגנון</span>
-            <span className="text-white">
-              {place.style
-                .map((s: string) => STYLE_LABELS[s] || s)
-                .join(", ")}
-            </span>
-          </div>
-        </div>
-
-        {/* Opening Hours */}
-        {place.openingHours && (
-          <div className="bg-zinc-900 rounded-xl p-4 border border-zinc-800 mb-6">
-            <h3 className="text-sm text-gray-500 mb-2">{UI_TEXT.hours}</h3>
-            <div className="grid grid-cols-2 gap-1 text-sm">
-              {Object.entries(place.openingHours as Record<string, string>).map(
-                ([day, hours]) => (
-                  <div key={day} className="flex justify-between">
-                    <span className="text-gray-400">{day}</span>
-                    <span className="text-white">{hours}</span>
-                  </div>
-                )
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Menu Items */}
-        {place.menuItems && (place.menuItems as Array<{ category?: string; name: string; price?: number | string }>).length > 0 && (
-          <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mb-6">
-            <h3 className="text-amber-400 font-bold mb-4 text-lg">🍽️ תפריט</h3>
-            {(() => {
-              const items = place.menuItems as Array<{ category?: string; name: string; price?: number | string }>;
-              const grouped: Record<string, typeof items> = {};
-              items.forEach((item) => {
-                const cat = item.category || "כללי";
-                if (!grouped[cat]) grouped[cat] = [];
-                grouped[cat].push(item);
-              });
-              return Object.entries(grouped).map(([category, catItems]) => (
-                <div key={category} className="mb-4 last:mb-0">
-                  {Object.keys(grouped).length > 1 && (
-                    <h4 className="text-orange-400 font-bold text-sm mb-2 border-b border-zinc-700 pb-1">
-                      {category}
-                    </h4>
-                  )}
-                  <ul className="space-y-2">
-                    {catItems.map((item, i) => (
-                      <li
-                        key={i}
-                        className="flex justify-between items-center text-gray-300"
-                      >
-                        <span>{item.name}</span>
-                        {item.price != null && (
-                          <span className="text-orange-400 font-bold mr-4">
-                            ₪{item.price}
-                          </span>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ));
-            })()}
-          </div>
-        )}
-
-        {/* Tag Badges (v2) */}
-        {place.tags && place.tags.length > 0 && (
-          <TagBadges tags={place.tags} className="mb-6" />
-        )}
-
-        {/* Owner Story */}
-        {place.ownerStory && (
-          <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mb-6">
-            <h3 className="text-amber-400 font-bold mb-3">📖 הסיפור שלנו</h3>
-            <blockquote className="text-gray-300 leading-relaxed border-r-4 border-amber-500 pr-4">
-              {place.ownerStory}
-            </blockquote>
-          </div>
-        )}
-
-        {/* Tips */}
-        {place.tips && (place.tips as string[]).length > 0 && (
-          <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mb-6">
-            <h3 className="text-amber-400 font-bold mb-3">💡 מה כדאי לדעת</h3>
-            <ul className="space-y-2">
-              {(place.tips as string[]).map((tip: string, i: number) => (
-                <li key={i} className="flex items-start gap-2 text-gray-300">
-                  <span className="text-amber-500 mt-1">•</span>
-                  {tip}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          {place.hasDelivery && (
-            <span className="text-xs bg-green-900/30 text-green-400 px-3 py-1 rounded-full inline-flex items-center gap-1">
-              <Truck className="w-4 h-4" /> {UI_TEXT.delivery}
-            </span>
-          )}
-          {place.hasSeating && (
-            <span className="text-xs bg-blue-900/30 text-blue-400 px-3 py-1 rounded-full inline-flex items-center gap-1">
-              <Armchair className="w-4 h-4" /> {UI_TEXT.seating}
-            </span>
-          )}
-          {place.phone && (
-            <a
-              href={`tel:${place.phone}`}
-              className="text-xs bg-zinc-800 text-gray-300 px-3 py-1 rounded-full hover:bg-zinc-700 inline-flex items-center gap-1"
-            >
-              <Phone className="w-4 h-4" /> {place.phone}
-            </a>
-          )}
-        </div>
       </div>
 
-      {/* Reviews Section */}
-      <section className="mb-8">
-        <h2 className="text-2xl font-bold text-white mb-6">
-          {UI_TEXT.reviews} ({reviewList.length})
-        </h2>
+      {/* ── Two-column layout on desktop ─────────────────── */}
+      <div className="flex flex-col lg:flex-row gap-8">
 
-        {reviewList.length === 0 ? (
-          <div className="text-center py-8 text-gray-500 bg-zinc-900 rounded-xl border border-zinc-800 mb-8">
-            <span className="text-3xl block mb-2">📝</span>
-            <p>אין ביקורות עדיין — היו הראשונים!</p>
+        {/* ── Left column: main content ──────────────────── */}
+        <div className="flex-1 min-w-0">
+
+          {/* Description */}
+          {place.description && (
+            <p className="text-gray-300 text-lg mb-6">{place.description}</p>
+          )}
+
+          {/* Social Links */}
+          <div className="mb-6">
+            <SocialLinks
+              socialLinks={place.socialLinks as { instagram?: string; facebook?: string; tiktok?: string } | undefined}
+              website={place.website as string | undefined}
+            />
           </div>
-        ) : (
-          <div className="space-y-4 mb-8">
-            {reviewList.map((review) => (
-              <div
-                key={review._id}
-                className="bg-zinc-900 rounded-xl border border-zinc-800 p-5"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-orange-500/20 rounded-full flex items-center justify-center">
-                      <span className="text-orange-400 font-bold">
-                        {review.userName?.[0] || "?"}
-                      </span>
-                    </div>
-                    <span className="font-bold text-white">
-                      {review.userName || "אנונימי"}
-                    </span>
+
+          {/* Menu Items */}
+          {place.menuItems && (place.menuItems as Array<{ category?: string; name: string; price?: number | string }>).length > 0 && (
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mb-6">
+              <h3 className="text-amber-400 font-bold mb-4 text-lg">🍽️ תפריט</h3>
+              {(() => {
+                const items = place.menuItems as Array<{ category?: string; name: string; price?: number | string }>;
+                const grouped: Record<string, typeof items> = {};
+                items.forEach((item) => {
+                  const cat = item.category || "כללי";
+                  if (!grouped[cat]) grouped[cat] = [];
+                  grouped[cat].push(item);
+                });
+                return Object.entries(grouped).map(([category, catItems]) => (
+                  <div key={category} className="mb-4 last:mb-0">
+                    {Object.keys(grouped).length > 1 && (
+                      <h4 className="text-orange-400 font-bold text-sm mb-2 border-b border-zinc-700 pb-1">
+                        {category}
+                      </h4>
+                    )}
+                    <ul className="space-y-2">
+                      {catItems.map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex justify-between items-center text-gray-300"
+                        >
+                          <span>{item.name}</span>
+                          {item.price != null && (
+                            <span className="text-orange-400 font-bold mr-4">
+                              ₪{item.price}
+                            </span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <StarRating rating={review.ratingOverall} size={14} />
-                </div>
-                <p className="text-gray-300 mb-3">{review.text}</p>
-                <div className="grid grid-cols-5 gap-2 text-xs">
-                  <div className="text-center">
-                    <span className="text-gray-500 block">
-                      {RATING_LABELS.meat}
-                    </span>
-                    <span className="text-amber-400">
-                      {review.ratingMeat} ★
-                    </span>
-                  </div>
-                  <div className="text-center">
-                    <span className="text-gray-500 block">
-                      {RATING_LABELS.bread}
-                    </span>
-                    <span className="text-amber-400">
-                      {review.ratingBread} ★
-                    </span>
-                  </div>
-                  <div className="text-center">
-                    <span className="text-gray-500 block">
-                      {RATING_LABELS.sides}
-                    </span>
-                    <span className="text-amber-400">
-                      {review.ratingSides} ★
-                    </span>
-                  </div>
-                  <div className="text-center">
-                    <span className="text-gray-500 block">
-                      {RATING_LABELS.service}
-                    </span>
-                    <span className="text-amber-400">
-                      {review.ratingService} ★
-                    </span>
-                  </div>
-                  <div className="text-center">
-                    <span className="text-gray-500 block">
-                      {RATING_LABELS.value}
-                    </span>
-                    <span className="text-amber-400">
-                      {review.ratingValue} ★
-                    </span>
-                  </div>
-                </div>
+                ));
+              })()}
+            </div>
+          )}
+
+          {/* Tag Badges (v2) */}
+          {place.tags && place.tags.length > 0 && (
+            <TagBadges tags={place.tags} className="mb-6" />
+          )}
+
+          {/* Owner Story */}
+          {place.ownerStory && (
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mb-6">
+              <h3 className="text-amber-400 font-bold mb-3">📖 הסיפור שלנו</h3>
+              <blockquote className="text-gray-300 leading-relaxed border-r-4 border-amber-500 pr-4">
+                {place.ownerStory}
+              </blockquote>
+            </div>
+          )}
+
+          {/* Tips */}
+          {place.tips && (place.tips as string[]).length > 0 && (
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mb-6">
+              <h3 className="text-amber-400 font-bold mb-3">💡 מה כדאי לדעת</h3>
+              <ul className="space-y-2">
+                {(place.tips as string[]).map((tip: string, i: number) => (
+                  <li key={i} className="flex items-start gap-2 text-gray-300">
+                    <span className="text-amber-500 mt-1">•</span>
+                    {tip}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Reviews Section */}
+          <section className="mb-8">
+            <h2 className="text-2xl font-bold text-white mb-6">
+              {UI_TEXT.reviews} ({reviewList.length})
+            </h2>
+
+            {reviewList.length === 0 ? (
+              <div className="text-center py-8 text-gray-500 bg-zinc-900 rounded-xl border border-zinc-800 mb-8">
+                <span className="text-3xl block mb-2">📝</span>
+                <p>אין ביקורות עדיין — היו הראשונים!</p>
               </div>
-            ))}
-          </div>
-        )}
+            ) : (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
+                {reviewList.map((review) => (
+                  <div
+                    key={review._id}
+                    className="bg-zinc-900 rounded-xl border border-zinc-800 p-5"
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-orange-500/20 rounded-full flex items-center justify-center">
+                          <span className="text-orange-400 font-bold">
+                            {review.userName?.[0] || "?"}
+                          </span>
+                        </div>
+                        <span className="font-bold text-white">
+                          {review.userName || "אנונימי"}
+                        </span>
+                      </div>
+                      <StarRating rating={review.ratingOverall} size={14} />
+                    </div>
+                    <p className="text-gray-300 mb-3">{review.text}</p>
+                    <div className="grid grid-cols-5 gap-2 text-xs">
+                      <div className="text-center">
+                        <span className="text-gray-500 block">
+                          {RATING_LABELS.meat}
+                        </span>
+                        <span className="text-amber-400">
+                          {review.ratingMeat} ★
+                        </span>
+                      </div>
+                      <div className="text-center">
+                        <span className="text-gray-500 block">
+                          {RATING_LABELS.bread}
+                        </span>
+                        <span className="text-amber-400">
+                          {review.ratingBread} ★
+                        </span>
+                      </div>
+                      <div className="text-center">
+                        <span className="text-gray-500 block">
+                          {RATING_LABELS.sides}
+                        </span>
+                        <span className="text-amber-400">
+                          {review.ratingSides} ★
+                        </span>
+                      </div>
+                      <div className="text-center">
+                        <span className="text-gray-500 block">
+                          {RATING_LABELS.service}
+                        </span>
+                        <span className="text-amber-400">
+                          {review.ratingService} ★
+                        </span>
+                      </div>
+                      <div className="text-center">
+                        <span className="text-gray-500 block">
+                          {RATING_LABELS.value}
+                        </span>
+                        <span className="text-amber-400">
+                          {review.ratingValue} ★
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
 
-        {/* Write Review — disabled until auth */}
-        <ReviewForm
-          placeId={place?.slug ?? ""}
-          onSubmit={(review) => {
-            // TODO: Connect to Convex mutation with auth
-            console.log("New review:", review);
-            alert("צריך להירשם כדי לכתוב ביקורת (בקרוב!)");
-          }}
-        />
-      </section>
+            {/* Write Review — disabled until auth */}
+            <ReviewForm
+              placeId={place?.slug ?? ""}
+              onSubmit={(review) => {
+                // TODO: Connect to Convex mutation with auth
+                console.log("New review:", review);
+                alert("צריך להירשם כדי לכתוב ביקורת (בקרוב!)");
+              }}
+            />
+          </section>
+        </div>
+
+        {/* ── Right column: sidebar ──────────────────────── */}
+        <aside className="w-full lg:w-80 xl:w-96 flex-shrink-0 lg:sticky lg:top-20 lg:self-start">
+
+          {/* Action Buttons */}
+          <ActionButtons
+            phone={place.phone}
+            whatsapp={place.whatsapp}
+            lat={place.lat}
+            lng={place.lng}
+            name={place.name}
+          />
+
+          {/* Details Grid */}
+          <div className="grid grid-cols-2 gap-3 mt-4">
+            <div className="bg-zinc-900 rounded-xl p-4 border border-zinc-800">
+              <span className="text-sm text-gray-500 block mb-1">כשרות</span>
+              <span className="text-orange-400 font-bold">
+                {KASHRUT_LABELS[place.kashrut]}
+              </span>
+            </div>
+            <div className="bg-zinc-900 rounded-xl p-4 border border-zinc-800">
+              <span className="text-sm text-gray-500 block mb-1">מחיר</span>
+              <span className="text-orange-400 font-bold text-lg">
+                {PRICE_LABELS[place.priceRange]}
+              </span>
+            </div>
+            <div className="bg-zinc-900 rounded-xl p-4 border border-zinc-800">
+              <span className="text-sm text-gray-500 block mb-1">סוג בשר</span>
+              <span className="text-white text-sm">
+                {place.meatTypes
+                  .map((m: string) => MEAT_TYPE_LABELS[m] || m)
+                  .join(", ")}
+              </span>
+            </div>
+            <div className="bg-zinc-900 rounded-xl p-4 border border-zinc-800">
+              <span className="text-sm text-gray-500 block mb-1">סגנון</span>
+              <span className="text-white text-sm">
+                {place.style
+                  .map((s: string) => STYLE_LABELS[s] || s)
+                  .join(", ")}
+              </span>
+            </div>
+          </div>
+
+          {/* Tags (delivery, seating, phone) */}
+          <div className="flex flex-wrap gap-2 mt-4">
+            {place.hasDelivery && (
+              <span className="text-xs bg-green-900/30 text-green-400 px-3 py-1 rounded-full inline-flex items-center gap-1">
+                <Truck className="w-4 h-4" /> {UI_TEXT.delivery}
+              </span>
+            )}
+            {place.hasSeating && (
+              <span className="text-xs bg-blue-900/30 text-blue-400 px-3 py-1 rounded-full inline-flex items-center gap-1">
+                <Armchair className="w-4 h-4" /> {UI_TEXT.seating}
+              </span>
+            )}
+            {place.phone && (
+              <a
+                href={`tel:${place.phone}`}
+                className="text-xs bg-zinc-800 text-gray-300 px-3 py-1 rounded-full hover:bg-zinc-700 inline-flex items-center gap-1"
+              >
+                <Phone className="w-4 h-4" /> {place.phone}
+              </a>
+            )}
+          </div>
+
+          {/* Opening Hours */}
+          {place.openingHours && (
+            <div className="bg-zinc-900 rounded-xl p-4 border border-zinc-800 mt-4">
+              <h3 className="text-sm text-gray-500 mb-2">{UI_TEXT.hours}</h3>
+              <div className="space-y-1 text-sm">
+                {Object.entries(place.openingHours as Record<string, string>).map(
+                  ([day, hours]) => (
+                    <div key={day} className="flex justify-between">
+                      <span className="text-gray-400">{day}</span>
+                      <span className="text-white">{hours}</span>
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Static Map */}
+          <StaticMap
+            lat={place.lat}
+            lng={place.lng}
+            name={place.name}
+            className="mt-4"
+          />
+        </aside>
+      </div>
     </div>
   );
 }

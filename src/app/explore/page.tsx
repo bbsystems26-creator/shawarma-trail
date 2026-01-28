@@ -78,7 +78,7 @@ export default function ExplorePage() {
     <main className="min-h-screen bg-shawarma-950">
       {/* ── Header ─────────────────────────────────────────── */}
       <section className="bg-gradient-to-b from-shawarma-900 to-shawarma-950 border-b border-shawarma-800/40">
-        <div className="container mx-auto px-4 py-10 text-center">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-10 text-center">
           <h1 className="text-3xl md:text-4xl font-extrabold text-shawarma-50 inline-flex items-center gap-2">
             <Map className="w-8 h-8 inline" /> גלה מקומות
           </h1>
@@ -89,10 +89,10 @@ export default function ExplorePage() {
       </section>
 
       {/* ── Body ───────────────────────────────────────────── */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar: filters */}
-          <aside className="w-full lg:w-72 flex-shrink-0">
+          <aside className="w-full lg:w-72 flex-shrink-0 lg:sticky lg:top-20 lg:self-start">
             <Filters
               filters={filters}
               onFilterChange={handleFilterChange}
@@ -133,7 +133,7 @@ export default function ExplorePage() {
 
             {/* Place grid */}
             {isLoading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
                 {Array.from({ length: 6 }).map((_, i) => (
                   <div
                     key={i}
@@ -153,7 +153,7 @@ export default function ExplorePage() {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
                   {visiblePlaces.map((place) => (
                     <PlaceCard
                       key={place._id}
@@ -164,7 +164,7 @@ export default function ExplorePage() {
 
                 {/* Show more */}
                 {hasMore && (
-                  <div className="mt-8 flex justify-center">
+                  <div className="mt-10 flex justify-center">
                     <button
                       onClick={() =>
                         setVisibleCount((c) => c + PAGE_SIZE)

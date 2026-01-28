@@ -10,7 +10,7 @@ const heebo = Heebo({
 });
 
 export const metadata: Metadata = {
-  title: "שווארמה טרייל | מצאו את השווארמה הטובה בישראל",
+  title: "שווארמה ביס | מצאו את השווארמה הטובה בישראל",
   description:
     "מפה אינטראקטיבית של מקומות השווארמה הטובים בישראל — דירוגים, ביקורות, ופילטרים חכמים",
   keywords: [
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "מסעדות",
   ],
   openGraph: {
-    title: "שווארמה טרייל",
+    title: "שווארמה ביס",
     description: "מצאו את השווארמה הטובה בישראל",
     locale: "he_IL",
     type: "website",
