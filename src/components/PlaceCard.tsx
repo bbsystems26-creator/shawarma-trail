@@ -40,16 +40,20 @@ interface PlaceCardProps {
   place: PlaceData;
 }
 
-const GRADIENT_COLORS = [
-  "from-orange-600 via-amber-700 to-red-800",
-  "from-red-700 via-rose-800 to-amber-900",
-  "from-amber-600 via-orange-700 to-red-900",
-  "from-rose-600 via-red-700 to-orange-800",
+const FOOD_IMAGES = [
+  "/images/food/shawarma-plate-1.png",
+  "/images/food/shawarma-plate-2.png",
+  "/images/food/shawarma-plate-3.png",
+  "/images/food/shawarma-grill-1.png",
+  "/images/food/shawarma-wrap-1.png",
+  "/images/food/shawarma-spread-1.png",
+  "/images/food/shawarma-laffa.png",
+  "/images/food/shawarma-pita.png",
 ];
 
-function getGradient(name: string) {
+function getFoodImage(name: string) {
   const hash = name.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
-  return GRADIENT_COLORS[hash % GRADIENT_COLORS.length];
+  return FOOD_IMAGES[hash % FOOD_IMAGES.length];
 }
 
 export default function PlaceCard({ place }: PlaceCardProps) {
@@ -65,12 +69,13 @@ export default function PlaceCard({ place }: PlaceCardProps) {
       href={`/place/${place.slug}`}
       className="group block rounded-xl overflow-hidden bg-white border border-gray-200 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-300"
     >
-      {/* Image / Gradient Placeholder */}
+      {/* Image / Food Photo */}
       <div className="relative h-48 md:h-52 overflow-hidden">
-        <div className={`w-full h-full bg-gradient-to-br ${getGradient(place.name)} flex flex-col items-center justify-center gap-2`}>
-          <span className="text-5xl md:text-6xl drop-shadow-lg">🥙</span>
-          <span className="text-white/80 text-sm md:text-base font-medium drop-shadow">{place.name}</span>
-        </div>
+        <img
+          src={getFoodImage(place.name)}
+          alt={place.name}
+          className="w-full h-full object-cover"
+        />
 
         {/* Verified badge */}
         {(place.isFeatured || place.isVerified) && (

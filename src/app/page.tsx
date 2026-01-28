@@ -26,16 +26,15 @@ export default function Home() {
       {/* ===== Hero (full-width) ===== */}
       <HeroSection />
 
-      {/* ===== Region Cards Grid ===== */}
+      {/* ===== Region Carousel ===== */}
       <div className="max-w-7xl mx-auto px-4 mt-10 md:mt-14 lg:mt-16">
-        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-5 flex items-center gap-2">
-          <Map className="w-6 h-6 inline text-gray-700" /> גלו לפי אזור
-        </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <Carousel title={<span className="inline-flex items-center gap-2"><Map className="w-6 h-6 text-gray-700" /> גלו לפי אזור</span>}>
           {REGIONS_DATA.map((region) => (
-            <RegionCard key={region.name} region={region} />
+            <div key={region.name} className="snap-start shrink-0 w-[240px] sm:w-[260px] md:w-[280px]">
+              <RegionCard region={region} />
+            </div>
           ))}
-        </div>
+        </Carousel>
       </div>
 
       {/* ===== Featured Carousel ===== */}
