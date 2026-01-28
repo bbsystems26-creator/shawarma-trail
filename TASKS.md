@@ -2,129 +2,96 @@
 
 **Project:** ShawarmaBis (שווארמה ביס)
 **Method:** Parallel Agent Pipeline
-**Last Updated:** 2026-01-28
+**Last Updated:** 2026-01-28 10:30 UTC
 
 ---
 
-## ✅ הושלם — שבוע 1 (27.01.2026)
+## ✅ Phase 1 — MVP (הושלם 28.01.2026)
 
 ### TASK A — Backend: Schema + Seed + Queries ✅
-- Schema v2: 29 שדות + ownerStory, tags, menuItems, tips, createdAt
-- 29 מקומות עם data עשיר
-- queries: listAll, getBySlug, filterByRegion/City/Kashrut, listFeatured, listNewest, listByTag
+### TASK B — Pages: Home, Explore, Place, Navbar, Footer ✅
+### TASK C — Rebrand + Light Theme + Desktop Responsive ✅
+### TASK D — Homepage CoffeeTrail Structure ✅
+- D.1 ✅ Image Slider (5 תמונות, fade animation)
+- D.2 ✅ קרוסלת אזורים (5 regions with photos)
+- D.3 ✅ כרטיסי מקום עם תמונות
+- D.4 ✅ סקציות נוספות (RouteSearch, EventsBanner, FeaturedArticle, HighwayBanner)
+- D.5 ✅ Full-width alternating sections (לבן ↔ קרם)
 
-### TASK B1 — Navbar + Footer ✅
-### TASK B2 — Listing Page ✅
-### TASK B3 — Homepage ✅
-### TASK B4 — Explore Page ✅
-### P0 UI/UX Overhaul ✅
+### TASK E — SEO ✅
+- E.1 ✅ robots.txt + sitemap.xml (dynamic)
+- E.2 ✅ JSON-LD Schema.org (WebSite + Restaurant)
+- E.3 ✅ Meta tags + Twitter cards + OG
+- E.4 ✅ OG Image (Next.js ImageResponse)
+- E.5 ✅ 5 כתבות SEO (/blog + /blog/[slug])
 
----
+### TASK F — Data ✅
+- F.1 ✅ 47 מקומות (29 seed + 18 real)
+- F.2 ✅ Convex prod deployed + synced
+- F.3 ✅ Google Maps scraper scripts (ready to run)
+- F.4 ✅ Convex upsertPlace mutation
 
-## ✅ הושלם — שבוע 2 יום 1 (28.01.2026)
+### TASK G — Google Maps ✅
+- G.1 ✅ Google API key configured (local + Convex + Vercel)
+- G.2 ✅ GoogleMap.tsx reusable component
+- G.3 ✅ StaticMap → real Google Maps + Waze/GMaps nav
+- G.4 ✅ /map page (full map + sidebar + search + markers + info windows)
 
-### Rebrand ✅
-- שם: ShawarmaTrail → ShawarmaBis (שווארמה ביס)
-- לוגו חדש: Nano Banana Pro — פיתה עם ביס
-
-### Wave 1 — P1 Features ✅
-- Footer מקצועי (4 עמודות, ניוזלטר, רשתות)
-- Tag icons (Lucide SVG)
-- Value proposition cards
-- OpenStatus (פתוח/סגור)
-- SocialLinks
-- Menu display בדף מקום
-
-### Wave 2 — Icons + Images ✅
-- 40+ אימוג'ים → Lucide React SVG icons
-- 6 תמונות אוכל (Nano Banana Pro)
-- לוגו מקצועי
-- CategoryCarousel, StaticMap, AdvancedSearch components
-
-### Wave 3 — Desktop Responsive ✅
-- Homepage: Hero רחב, קרוסלות קטגוריה, AdvancedSearch
-- Components: PlaceCard, Carousel ("הצג הכל"), Navbar (dropdown + CTA)
-- Pages: דף מקום 2-columns, Explore grid רחב
-
-### Light Theme ✅
-- 22 קבצים — המרה מלאה לרקע בהיר
-- Hero בסגנון CoffeeTrail עם תמונת רקע + כרטיס חיפוש לבן
-- Navbar לבן, Footer כהה
-- כרטיסים לבנים עם צל
+### TASK H — Polish ✅
+- H.1 ✅ Binyamin's custom logo (optimized 2.3MB→28KB)
+- H.2 ✅ Mobile navbar (centered logo, no text)
+- H.3 ✅ Favicon + Apple Touch Icon + PWA manifest
+- H.4 ✅ Skeleton loading (PlaceCardSkeleton, CarouselSkeleton)
+- H.5 ✅ CSS animations (fadeInUp)
+- H.6 ✅ /catering page (9 providers, contact form, FAQ)
+- H.7 ✅ Nav links updated (blog + catering)
 
 ---
 
-## 🔲 נותר — שבוע 2
+## 🔲 Phase 2 — Growth Features
 
-### TASK D — שדרוג מבנה Homepage (CoffeeTrail-style)
-**Priority:** 🔴 P0 — השינוי המבני הגדול
-**Dependencies:** Light Theme ✅
+### TASK I — Auth + Users 🔴
+- [ ] I.1 — Auth provider setup (Clerk / Convex Auth)
+- [ ] I.2 — הרשמה / התחברות (email + Google + Facebook)
+- [ ] I.3 — פרופיל משתמש (שם, אווטאר, ביקורות שלי)
+- [ ] I.4 — ביקורות מחוברות ל-user (5 קטגוריות דירוג)
+- [ ] I.5 — "הביקורת שלי" badge + verified visit
 
-#### D.1 — Image Slider ב-Hero
-- תמונות מתחלפות (3-5 slides) עם fade animation
-- שם האתר + subtitle overlay
-- כרטיס חיפוש צף
+### TASK J — Domain + Launch 🔴
+- [ ] J.1 — רכישת דומיין shawarmabis.co.il
+- [ ] J.2 — חיבור ל-Vercel
+- [ ] J.3 — Google Search Console + sitemap submission
+- [ ] J.4 — Google Analytics / Vercel Analytics
 
-#### D.2 — קרוסלת אזורים (במקום grid)
-- 4-5 כרטיסים עם תמונות נוף אמיתיות
-- prev/next arrows
-- שם אזור כ-overlay על התמונה
+### TASK K — Real Data 🟡
+- [ ] K.1 — תמונות אמיתיות (Google Places Photos API)
+- [ ] K.2 — שעות פתיחה אמיתיות
+- [ ] K.3 — הרצת scraper על 17 ערים
+- [ ] K.4 — הוספה ידנית של מקומות מוכרים
 
-#### D.3 — כרטיסי מקום עם תמונות
-- תמונות אמיתיות במקום gradient placeholders
-- Badge מאומת ✓ + לוגו thumbnail
-- כתובת + pin icon
+### TASK L — Business Features 🟡
+- [ ] L.1 — דף הוספת מקום (טופס לבעלי עסקים)
+- [ ] L.2 — Claiming (בעל עסק מאמת ומעדכן)
+- [ ] L.3 — Dashboard לבעל עסק (סטטיסטיקות, ביקורות)
+- [ ] L.4 — Premium listing (מנוי בתשלום)
 
-#### D.4 — סקציות נוספות בדף הבית
-- "לפי מסלול" — רקע קרם + איור + CTA
-- חיפוש לפי כבישים (1, 2, 4, 6, 40, 70, 90)
-- באנר אירועים — full-width תמונה + CTA
-- כתבה Featured — תמונה + טקסט + CTA
-
-#### D.5 — Full-width Sections
-- Hero, באנרים — לא מוגבלים ל-max-w-7xl
-- סקציות מתחלפות: לבן ↔ קרם
-
-### TASK E — תוכן ו-SEO
-- [ ] כתבות SEO ראשוניות (3-5)
-- [ ] Meta tags + OG tags
-- [ ] Sitemap
-- [ ] Structured data (Schema.org)
-
-### TASK F — Google Maps Scraper
-- [ ] סקריפט למשיכת נתונים אמיתיים
-- [ ] תמונות, שעות פתיחה, ביקורות
+### TASK M — Content 🟢
+- [ ] M.1 — מגזין דינמי (articles ב-Convex)
+- [ ] M.2 — "שווארמה של השבוע" feature
+- [ ] M.3 — User-generated lists ("הטופ שלי")
+- [ ] M.4 — Events calendar
 
 ---
 
-## 🔲 שבוע 3-4
+## 📊 Sprint Summary
 
-### TASK G — Auth + Users
-- [ ] הרשמה / התחברות
-- [ ] פרופיל משתמש
-- [ ] ביקורות מחוברות ל-user
-
-### TASK H — מגזין
-- [ ] מודל articles ב-Convex
-- [ ] דף /mag
-- [ ] 5 כתבות ראשונות
-
-### TASK I — אירועים/קייטרינג
-- [ ] דף /catering
-- [ ] רשימת ספקים
+| Sprint | תאריך | משימות | שורות | קומיטים |
+|--------|--------|--------|-------|---------|
+| Week 1 | 27.01 | A+B | ~3,000 | 8 |
+| Week 2 Day 1 AM | 28.01 | C (rebrand+theme) | ~2,500 | 6 |
+| Week 2 Day 1 PM | 28.01 | D+E+F+G+H | ~6,000+ | 12+ |
+| **Total** | | **All Phase 1** | **~11,500+** | **26+** |
 
 ---
 
-## Execution Stats (28.01.2026)
-
-| Wave | Agents | Time | Files | Lines |
-|------|--------|------|-------|-------|
-| 1 | 4 parallel | ~4 min | 7 | +503 |
-| 2 | 3 parallel | ~5 min | 25 | +246 |
-| 3 | 4 parallel | ~8 min | 15 | +503 |
-| Light Theme | 1 | ~9 min | 22 | +260/-277 |
-| **Total** | **12 sessions** | **~26 min** | **69 files** | **~1500+ lines** |
-
----
-
-*עדכון: דוד 🔧 | 2026-01-28 07:30 UTC*
+*עדכון אחרון: 2026-01-28 10:30 UTC — דוד 🔧*
