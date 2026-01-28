@@ -11,6 +11,10 @@ import Link from "next/link";
 import { Map, Flame, Sparkles, Star, PartyPopper } from "lucide-react";
 import { TagIcon } from "@/components/TagIcon";
 import CategoryCarousel from "@/components/CategoryCarousel";
+import RouteSearch from "@/components/RouteSearch";
+import EventsBanner from "@/components/EventsBanner";
+import FeaturedArticle from "@/components/FeaturedArticle";
+import HighwayBanner from "@/components/HighwayBanner";
 
 export default function Home() {
   const featured = useQuery(api.places.listFeatured, { limit: 8 });
@@ -77,14 +81,37 @@ export default function Home() {
         </div>
       )}
 
-      {/* ===== Category Carousels ===== */}
-      <CategoryCarousel tag="open-saturday" title="פתוח בשבת" />
-      <CategoryCarousel tag="delivery" title="משלוחים" />
-      <CategoryCarousel tag="outdoor-seating" title="ישיבה בחוץ" />
-      <CategoryCarousel tag="kids" title="ידידותי לילדים" />
+      {/* ===== Route Search (cream bg) ===== */}
+      <div className="bg-amber-50/50 py-12 md:py-16 lg:py-20 mt-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <RouteSearch />
+        </div>
+      </div>
 
-      {/* ===== Popular Tags ===== */}
-      <div className="max-w-7xl mx-auto px-4 mt-14 md:mt-16 lg:mt-20">
+      {/* ===== Category Carousels (white bg) ===== */}
+      <div className="py-12 md:py-16 lg:py-20">
+        <CategoryCarousel tag="open-saturday" title="פתוח בשבת" />
+        <CategoryCarousel tag="delivery" title="משלוחים" />
+      </div>
+
+      {/* ===== Events Banner (full-width) ===== */}
+      <EventsBanner />
+
+      {/* ===== More Category Carousels (white bg) ===== */}
+      <div className="py-12 md:py-16 lg:py-20">
+        <CategoryCarousel tag="outdoor-seating" title="ישיבה בחוץ" />
+        <CategoryCarousel tag="kids" title="ידידותי לילדים" />
+      </div>
+
+      {/* ===== Featured Article (cream bg) ===== */}
+      <div className="bg-amber-50/50 py-12 md:py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <FeaturedArticle />
+        </div>
+      </div>
+
+      {/* ===== Popular Tags (white bg) ===== */}
+      <div className="max-w-7xl mx-auto px-4 py-14 md:py-16 lg:py-20">
         <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-5">
           🏷️ תגיות פופולריות
         </h2>
@@ -104,51 +131,56 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ===== About ShawarmaBis ===== */}
-      <div className="max-w-7xl mx-auto px-4 mt-16 md:mt-20 lg:mt-24 mb-16">
-        <section className="bg-amber-50 border border-amber-100 rounded-2xl p-8 md:p-12">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-              <img src="/images/logo.png" alt="" className="w-8 h-8" /> קצת על שווארמה ביס
-            </h2>
-            <div className="space-y-4 text-gray-600 text-base md:text-lg leading-relaxed mb-8">
-              <p>
-                <strong className="text-gray-900">שווארמה ביס</strong> הוא
-                המדריך המקיף לשווארמה בישראל. אנחנו מאמינים שכל אחד מגיע לדעת
-                איפה נמצאת השווארמה הכי טובה — בין אם אתם מחפשים לאפה עסיסית
-                בצפון, שווארמת הודו במרכז, או את הבשר על האש בדרום.
-              </p>
-              <p>
-                עם דירוגים אמיתיים מהקהילה, פילטרים חכמים לפי כשרות, סוג בשר,
-                סגנון ומחיר — תמצאו בדיוק מה שאתם מחפשים. כל מקום מדורג ב-5
-                קטגוריות: טעם הבשר, הלחם, התוספות, השירות והתמורה למחיר.
-              </p>
+      {/* ===== Community CTA Banner (dark, full-width) ===== */}
+      <HighwayBanner />
+
+      {/* ===== About ShawarmaBis (cream bg) ===== */}
+      <div className="bg-amber-50/50 py-16 md:py-20 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4">
+          <section className="bg-white border border-amber-100 rounded-2xl p-8 md:p-12 shadow-sm">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <img src="/images/logo.png" alt="" className="w-8 h-8" /> קצת על שווארמה ביס
+              </h2>
+              <div className="space-y-4 text-gray-600 text-base md:text-lg leading-relaxed mb-8">
+                <p>
+                  <strong className="text-gray-900">שווארמה ביס</strong> הוא
+                  המדריך המקיף לשווארמה בישראל. אנחנו מאמינים שכל אחד מגיע לדעת
+                  איפה נמצאת השווארמה הכי טובה — בין אם אתם מחפשים לאפה עסיסית
+                  בצפון, שווארמת הודו במרכז, או את הבשר על האש בדרום.
+                </p>
+                <p>
+                  עם דירוגים אמיתיים מהקהילה, פילטרים חכמים לפי כשרות, סוג בשר,
+                  סגנון ומחיר — תמצאו בדיוק מה שאתם מחפשים. כל מקום מדורג ב-5
+                  קטגוריות: טעם הבשר, הלחם, התוספות, השירות והתמורה למחיר.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-amber-50 border border-amber-100 rounded-xl p-6 text-center shadow-sm">
+                  <div className="flex justify-center mb-3"><Map className="w-10 h-10 text-amber-500" /></div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">מצאו את השווארמה שלכם</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    חפשו לפי מיקום, סוג בשר, כשרות ודירוג
+                  </p>
+                </div>
+                <div className="bg-amber-50 border border-amber-100 rounded-xl p-6 text-center shadow-sm">
+                  <div className="flex justify-center mb-3"><Star className="w-10 h-10 text-amber-500" /></div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">דרגו ושתפו</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    דירוג ב-5 קטגוריות: בשר, לחם, תוספות, שירות ותמורה
+                  </p>
+                </div>
+                <div className="bg-amber-50 border border-amber-100 rounded-xl p-6 text-center shadow-sm">
+                  <div className="flex justify-center mb-3"><PartyPopper className="w-10 h-10 text-amber-500" /></div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">שווארמה לאירוע</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    מחפשים קייטרינג שווארמה? מצאו ספקים מומלצים
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-white border border-amber-100 rounded-xl p-6 text-center shadow-sm">
-                <div className="flex justify-center mb-3"><Map className="w-10 h-10 text-amber-500" /></div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">מצאו את השווארמה שלכם</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  חפשו לפי מיקום, סוג בשר, כשרות ודירוג
-                </p>
-              </div>
-              <div className="bg-white border border-amber-100 rounded-xl p-6 text-center shadow-sm">
-                <div className="flex justify-center mb-3"><Star className="w-10 h-10 text-amber-500" /></div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">דרגו ושתפו</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  דירוג ב-5 קטגוריות: בשר, לחם, תוספות, שירות ותמורה
-                </p>
-              </div>
-              <div className="bg-white border border-amber-100 rounded-xl p-6 text-center shadow-sm">
-                <div className="flex justify-center mb-3"><PartyPopper className="w-10 h-10 text-amber-500" /></div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">שווארמה לאירוע</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  מחפשים קייטרינג שווארמה? מצאו ספקים מומלצים
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
     </div>
   );
