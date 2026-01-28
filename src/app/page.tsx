@@ -140,7 +140,7 @@ export default function Home() {
           <section className="bg-white border border-amber-100 rounded-2xl p-8 md:p-12 shadow-sm">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                <img src="/images/logo.png" alt="" className="w-8 h-8" /> קצת על שווארמה ביס
+                <img src="/images/logo.png" alt="" className="h-10 w-auto" /> קצת על שווארמה ביס
               </h2>
               <div className="space-y-4 text-gray-600 text-base md:text-lg leading-relaxed mb-8">
                 <p>

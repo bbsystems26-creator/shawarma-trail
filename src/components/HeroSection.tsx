@@ -62,7 +62,7 @@ export default function HeroSection() {
       <div className="relative z-10 max-w-4xl mx-auto px-4 py-16 md:py-24 flex flex-col items-center text-center">
         {/* Logo */}
         <div className="block mb-4">
-          <img src="/images/logo.png" alt="" className="w-16 h-16 md:w-20 md:h-20 mx-auto drop-shadow-lg" />
+          <img src="/images/logo.png" alt="שווארמה ביס" className="w-40 md:w-56 lg:w-64 h-auto mx-auto drop-shadow-lg" />
         </div>
 
         {/* Main heading */}
