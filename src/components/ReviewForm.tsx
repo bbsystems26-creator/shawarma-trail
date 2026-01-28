@@ -3,6 +3,7 @@
 import { useState } from "react";
 import StarRating from "./StarRating";
 import { RATING_CATEGORIES, UI } from "@/lib/constants";
+import { CheckCircle } from "lucide-react";
 
 interface ReviewFormProps {
   placeId: string;
@@ -70,7 +71,7 @@ export default function ReviewForm({
   if (submitted) {
     return (
       <div className={`bg-shawarma-900/80 rounded-xl border border-emerald-800/50 p-8 text-center ${className}`}>
-        <span className="text-4xl block mb-3">✅</span>
+        <div className="flex justify-center mb-3"><CheckCircle className="w-10 h-10 text-green-400" /></div>
         <p className="text-emerald-400 font-semibold text-lg">
           תודה על הביקורת!
         </p>

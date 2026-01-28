@@ -19,6 +19,7 @@ import {
   UI_TEXT,
   RATING_LABELS,
 } from "@/lib/constants";
+import { Star, MapPin, Truck, Armchair, Phone } from "lucide-react";
 
 export default function PlacePage() {
   const params = useParams();
@@ -76,8 +77,8 @@ export default function PlacePage() {
       <div className="h-64 md:h-80 bg-gradient-to-br from-orange-900/50 to-red-900/50 rounded-2xl flex items-center justify-center mb-8 relative">
         <span className="text-8xl">🥙</span>
         {place.isFeatured && (
-          <span className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full font-bold">
-            {UI_TEXT.featured} ⭐
+          <span className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full font-bold inline-flex items-center gap-1">
+            {UI_TEXT.featured} <Star className="w-4 h-4 fill-current" />
           </span>
         )}
       </div>
@@ -109,7 +110,7 @@ export default function PlacePage() {
               rel="noopener noreferrer"
               className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors"
             >
-              Google Maps 📍
+              <span className="inline-flex items-center gap-1">Google Maps <MapPin className="w-4 h-4" /></span>
             </a>
           </div>
         </div>
@@ -266,21 +267,21 @@ export default function PlacePage() {
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-6">
           {place.hasDelivery && (
-            <span className="text-xs bg-green-900/30 text-green-400 px-3 py-1 rounded-full">
-              🛵 {UI_TEXT.delivery}
+            <span className="text-xs bg-green-900/30 text-green-400 px-3 py-1 rounded-full inline-flex items-center gap-1">
+              <Truck className="w-4 h-4" /> {UI_TEXT.delivery}
             </span>
           )}
           {place.hasSeating && (
-            <span className="text-xs bg-blue-900/30 text-blue-400 px-3 py-1 rounded-full">
-              🪑 {UI_TEXT.seating}
+            <span className="text-xs bg-blue-900/30 text-blue-400 px-3 py-1 rounded-full inline-flex items-center gap-1">
+              <Armchair className="w-4 h-4" /> {UI_TEXT.seating}
             </span>
           )}
           {place.phone && (
             <a
               href={`tel:${place.phone}`}
-              className="text-xs bg-zinc-800 text-gray-300 px-3 py-1 rounded-full hover:bg-zinc-700"
+              className="text-xs bg-zinc-800 text-gray-300 px-3 py-1 rounded-full hover:bg-zinc-700 inline-flex items-center gap-1"
             >
-              📞 {place.phone}
+              <Phone className="w-4 h-4" /> {place.phone}
             </a>
           )}
         </div>

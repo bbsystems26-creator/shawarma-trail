@@ -9,6 +9,7 @@ import {
   REGION_LABELS,
   UI,
 } from "@/lib/constants";
+import { Star, BadgeCheck, MapPin, Truck, Armchair, Phone, MessageCircle } from "lucide-react";
 
 export interface PlaceData {
   _id: string;
@@ -74,7 +75,7 @@ export default function PlaceCard({ place }: PlaceCardProps) {
         {/* Verified badge */}
         {(place.isFeatured || place.isVerified) && (
           <span className="absolute top-3 right-3 bg-amber-500 text-amber-950 text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1 shadow-md">
-            {place.isFeatured ? "⭐" : "✅"} {place.isFeatured ? UI.featured : UI.verified}
+            {place.isFeatured ? <Star className="w-3.5 h-3.5 fill-current" /> : <BadgeCheck className="w-3.5 h-3.5" />} {place.isFeatured ? UI.featured : UI.verified}
           </span>
         )}
 
@@ -84,8 +85,8 @@ export default function PlaceCard({ place }: PlaceCardProps) {
         </span>
 
         {/* Region badge */}
-        <span className="absolute bottom-3 right-3 bg-black/50 text-white/90 text-xs px-2 py-1 rounded-full backdrop-blur-sm">
-          📍 {REGION_LABELS[place.region] || place.region}
+        <span className="absolute bottom-3 right-3 bg-black/50 text-white/90 text-xs px-2 py-1 rounded-full backdrop-blur-sm inline-flex items-center gap-1">
+          <MapPin className="w-3 h-3" /> {REGION_LABELS[place.region] || place.region}
         </span>
       </div>
 
@@ -130,18 +131,18 @@ export default function PlaceCard({ place }: PlaceCardProps) {
         {/* Tags + CTA row */}
         <div className="flex items-center justify-between">
           <div className="flex gap-2 text-xs text-shawarma-500">
-            {place.hasDelivery && <span>🛵 {UI.delivery}</span>}
-            {place.hasSeating && <span>🪑 {UI.seating}</span>}
+            {place.hasDelivery && <span className="inline-flex items-center gap-1"><Truck className="w-3.5 h-3.5" /> {UI.delivery}</span>}
+            {place.hasSeating && <span className="inline-flex items-center gap-1"><Armchair className="w-3.5 h-3.5" /> {UI.seating}</span>}
           </div>
           {/* Phone/WhatsApp CTAs */}
           <div className="flex gap-2" onClick={(e) => e.preventDefault()}>
             {place.phone && (
               <a
                 href={`tel:${place.phone}`}
-                className="text-xs bg-green-600/20 text-green-400 px-2 py-1 rounded-full hover:bg-green-600/40 transition-colors"
+                className="text-xs bg-green-600/20 text-green-400 px-2 py-1 rounded-full hover:bg-green-600/40 transition-colors inline-flex items-center"
                 onClick={(e) => e.stopPropagation()}
               >
-                📞
+                <Phone className="w-3.5 h-3.5" />
               </a>
             )}
             {place.whatsapp && (
@@ -149,10 +150,10 @@ export default function PlaceCard({ place }: PlaceCardProps) {
                 href={`https://wa.me/${place.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs bg-green-600/20 text-green-400 px-2 py-1 rounded-full hover:bg-green-600/40 transition-colors"
+                className="text-xs bg-green-600/20 text-green-400 px-2 py-1 rounded-full hover:bg-green-600/40 transition-colors inline-flex items-center"
                 onClick={(e) => e.stopPropagation()}
               >
-                💬
+                <MessageCircle className="w-3.5 h-3.5" />
               </a>
             )}
           </div>

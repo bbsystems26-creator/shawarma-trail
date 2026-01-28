@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { CircleCheck, CircleX, Clock } from "lucide-react";
 
 interface OpenStatusProps {
   openingHours?: Record<string, string>;
@@ -81,7 +82,7 @@ export default function OpenStatus({ openingHours }: OpenStatusProps) {
   if (status === "open") {
     return (
       <span className="inline-flex items-center gap-1 bg-green-900/40 text-green-400 border border-green-700/50 px-3 py-1 rounded-full text-sm font-bold">
-        🟢 פתוח עכשיו
+        <CircleCheck className="w-4 h-4 text-green-400" /> פתוח עכשיו
       </span>
     );
   }
@@ -89,14 +90,14 @@ export default function OpenStatus({ openingHours }: OpenStatusProps) {
   if (status === "closed") {
     return (
       <span className="inline-flex items-center gap-1 bg-red-900/40 text-red-400 border border-red-700/50 px-3 py-1 rounded-full text-sm font-bold">
-        🔴 סגור
+        <CircleX className="w-4 h-4 text-red-400" /> סגור
       </span>
     );
   }
 
   return (
     <span className="inline-flex items-center gap-1 bg-zinc-800/60 text-gray-400 border border-zinc-700/50 px-3 py-1 rounded-full text-sm">
-      ⏰ שעות לא ידועות
+      <Clock className="w-4 h-4 text-zinc-400" /> שעות לא ידועות
     </span>
   );
 }

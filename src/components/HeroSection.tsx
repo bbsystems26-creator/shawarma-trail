@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SearchBar from "./SearchBar";
 import { REGION_OPTIONS, KASHRUT_OPTIONS } from "@/lib/constants";
+import { Map, MapPin } from "lucide-react";
 
 const HERO_IMAGES = [
   "/images/hero/hero-1.png",
@@ -60,8 +61,10 @@ export default function HeroSection() {
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 py-16 md:py-24 text-center">
-        {/* Emoji accent */}
-        <span className="text-5xl md:text-6xl block mb-4 drop-shadow-lg">🥙</span>
+        {/* Logo accent */}
+        <div className="block mb-4">
+          <img src="/images/logo.png" alt="" className="w-16 h-16 md:w-20 md:h-20 mx-auto drop-shadow-lg" />
+        </div>
 
         {/* Main heading */}
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight drop-shadow-lg">
@@ -84,13 +87,13 @@ export default function HeroSection() {
             href="/explore"
             className="px-6 py-3 rounded-full text-base font-bold bg-orange-500 text-white hover:bg-orange-600 transition-all duration-200 shadow-lg hover:shadow-xl"
           >
-            🗺️ גלה מקומות
+            <Map className="w-5 h-5 inline" /> גלה מקומות
           </Link>
           <Link
             href="/map"
             className="px-6 py-3 rounded-full text-base font-bold bg-white/10 text-white border border-white/30 hover:bg-white/20 transition-all duration-200 backdrop-blur-sm"
           >
-            📍 פתח מפה
+            <MapPin className="w-5 h-5 inline" /> פתח מפה
           </Link>
         </div>
 

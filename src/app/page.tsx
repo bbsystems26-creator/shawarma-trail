@@ -6,8 +6,10 @@ import HeroSection from "@/components/HeroSection";
 import Carousel from "@/components/Carousel";
 import PlaceCard from "@/components/PlaceCard";
 import RegionCard from "@/components/RegionCard";
-import { REGIONS_DATA, TAG_LABELS, TAG_COLORS, TAG_ICONS } from "@/lib/constants";
+import { REGIONS_DATA, TAG_LABELS, TAG_COLORS } from "@/lib/constants";
 import Link from "next/link";
+import { Map, Flame, Sparkles, Star, PartyPopper } from "lucide-react";
+import { TagIcon } from "@/components/TagIcon";
 
 export default function Home() {
   const featured = useQuery(api.places.listFeatured, { limit: 8 });
@@ -27,8 +29,8 @@ export default function Home() {
 
       {/* ===== Region Cards Grid (moved up!) ===== */}
       <div className="max-w-7xl mx-auto px-4 mt-10">
-        <h2 className="text-xl md:text-2xl font-bold text-white mb-5">
-          🗺️ גלו לפי אזור
+        <h2 className="text-xl md:text-2xl font-bold text-white mb-5 flex items-center gap-2">
+          <Map className="w-6 h-6 inline" /> גלו לפי אזור
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
           {REGIONS_DATA.map((region) => (
@@ -40,7 +42,7 @@ export default function Home() {
       {/* ===== Featured Carousel ===== */}
       {featured && featured.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 mt-12">
-          <Carousel title="🔥 שווה לנסות">
+          <Carousel title={<span className="inline-flex items-center gap-2"><Flame className="w-5 h-5 inline text-orange-400" /> שווה לנסות</span>}>
             {featured.map((place) => (
               <div key={place._id} className="snap-start shrink-0 w-[280px] sm:w-[300px]">
                 <PlaceCard place={place} />
@@ -53,7 +55,7 @@ export default function Home() {
       {/* ===== Newest Carousel ===== */}
       {newest && newest.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 mt-12">
-          <Carousel title="🆕 חדשים שהצטרפו">
+          <Carousel title={<span className="inline-flex items-center gap-2"><Sparkles className="w-5 h-5 inline text-blue-400" /> חדשים שהצטרפו</span>}>
             {newest.map((place) => (
               <div key={place._id} className="snap-start shrink-0 w-[280px] sm:w-[300px]">
                 <PlaceCard place={place} />
@@ -87,11 +89,12 @@ export default function Home() {
             <Link
               key={tag}
               href={`/explore?tag=${tag}`}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all hover:scale-105 hover:shadow-md ${
+              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all hover:scale-105 hover:shadow-md ${
                 TAG_COLORS[tag] || "bg-zinc-700/50 text-zinc-300"
               }`}
             >
-              {TAG_ICONS[tag] ? `${TAG_ICONS[tag]} ` : ""}{TAG_LABELS[tag] || tag}
+              <TagIcon tag={tag} className="w-4 h-4" />
+              {TAG_LABELS[tag] || tag}
             </Link>
           ))}
         </div>
@@ -99,26 +102,26 @@ export default function Home() {
 
       {/* ===== Value Propositions ===== */}
       <div className="max-w-7xl mx-auto px-4 mt-14">
-        <h2 className="text-xl md:text-2xl font-bold text-white mb-5">
-          🥙 קצת על שווארמה טרייל
+        <h2 className="text-xl md:text-2xl font-bold text-white mb-5 flex items-center gap-2">
+          <img src="/images/logo.png" alt="" className="w-7 h-7" /> קצת על שווארמה טרייל
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 text-center">
-            <div className="text-4xl mb-3">🗺️</div>
+            <div className="flex justify-center mb-3"><Map className="w-10 h-10 text-amber-400" /></div>
             <h3 className="text-lg font-bold text-white mb-2">מצאו את השווארמה שלכם</h3>
             <p className="text-zinc-400 text-sm leading-relaxed">
               חפשו לפי מיקום, סוג בשר, כשרות ודירוג. מעל 500 מקומות ברחבי הארץ
             </p>
           </div>
           <div className="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 text-center">
-            <div className="text-4xl mb-3">⭐</div>
+            <div className="flex justify-center mb-3"><Star className="w-10 h-10 text-amber-400" /></div>
             <h3 className="text-lg font-bold text-white mb-2">דרגו ושתפו</h3>
             <p className="text-zinc-400 text-sm leading-relaxed">
               דירוג ב-5 קטגוריות: בשר, לחם, תוספות, שירות ותמורה למחיר
             </p>
           </div>
           <div className="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 text-center">
-            <div className="text-4xl mb-3">🎉</div>
+            <div className="flex justify-center mb-3"><PartyPopper className="w-10 h-10 text-amber-400" /></div>
             <h3 className="text-lg font-bold text-white mb-2">שווארמה לאירוע</h3>
             <p className="text-zinc-400 text-sm leading-relaxed">
               מחפשים קייטרינג שווארמה? מצאו ספקים מומלצים באזור שלכם
@@ -130,8 +133,8 @@ export default function Home() {
       {/* ===== Marketing Section ===== */}
       <div className="max-w-7xl mx-auto px-4 mt-16 mb-16">
         <section className="bg-gradient-to-br from-orange-900/40 via-shawarma-900/60 to-amber-900/40 border border-shawarma-700/30 rounded-2xl p-8 md:p-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            🥙 קצת על שווארמה טרייל
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 flex items-center gap-2">
+            <img src="/images/logo.png" alt="" className="w-8 h-8" /> קצת על שווארמה טרייל
           </h2>
           <div className="space-y-4 text-shawarma-200 text-base md:text-lg leading-relaxed max-w-3xl">
             <p>
@@ -145,8 +148,8 @@ export default function Home() {
               סגנון ומחיר — תמצאו בדיוק מה שאתם מחפשים. כל מקום מדורג ב-5
               קטגוריות: טעם הבשר, הלחם, התוספות, השירות והתמורה למחיר.
             </p>
-            <p>
-              בואו להצטרף למהפכת השווארמה — דרגו, שתפו, וגלו טעמים חדשים. 🔥
+            <p className="inline-flex items-center gap-1 flex-wrap">
+              בואו להצטרף למהפכת השווארמה — דרגו, שתפו, וגלו טעמים חדשים. <Flame className="w-5 h-5 inline text-orange-400" />
             </p>
           </div>
         </section>

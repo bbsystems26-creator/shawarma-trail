@@ -6,6 +6,7 @@ import { api } from "../../../convex/_generated/api";
 import PlaceCard from "@/components/PlaceCard";
 import type { PlaceData } from "@/components/PlaceCard";
 import Filters, { EMPTY_FILTERS, type FilterState } from "@/components/Filters";
+import { Map } from "lucide-react";
 
 /* ── Sort options ─────────────────────────────────────────────── */
 type SortKey = "recommended" | "newest" | "topRated";
@@ -78,8 +79,8 @@ export default function ExplorePage() {
       {/* ── Header ─────────────────────────────────────────── */}
       <section className="bg-gradient-to-b from-shawarma-900 to-shawarma-950 border-b border-shawarma-800/40">
         <div className="container mx-auto px-4 py-10 text-center">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-shawarma-50">
-            🗺️ גלה מקומות
+          <h1 className="text-3xl md:text-4xl font-extrabold text-shawarma-50 inline-flex items-center gap-2">
+            <Map className="w-8 h-8 inline" /> גלה מקומות
           </h1>
           <p className="mt-2 text-shawarma-400 text-sm md:text-base max-w-xl mx-auto">
             כל מקומות השווארמה במקום אחד — סננו, מיינו ומצאו את הפיתה המושלמת

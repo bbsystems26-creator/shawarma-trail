@@ -204,22 +204,7 @@ export const REGIONS_DATA = [
 ] as const;
 
 // ==================== Tag Icons ====================
-export const TAG_ICONS: Record<string, string> = {
-  parking: "🅿️",
-  delivery: "🛵",
-  seating: "🪑",
-  wifi: "📶",
-  kids: "👶",
-  "open-friday": "🕯️",
-  "open-saturday": "📅",
-  accessible: "♿",
-  halal: "🔯",
-  "air-conditioned": "❄️",
-  "outdoor-seating": "☀️",
-  "pet-friendly": "🐕",
-  "reservist-discount": "🪖",
-  shelter: "☔",
-};
+// TAG_ICONS moved to src/components/TagIcon.tsx as React components (Lucide icons)
 
 // ==================== Aliases (backward compat) ====================
 export const UI_TEXT = {

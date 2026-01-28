@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect, type ReactNode } from "react";
 
 interface CarouselProps {
-  title: string;
+  title: ReactNode;
   children: ReactNode;
 }
 
