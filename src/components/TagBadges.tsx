@@ -1,6 +1,6 @@
 "use client";
 
-import { TAG_LABELS, TAG_COLORS } from "@/lib/constants";
+import { TAG_LABELS, TAG_COLORS, TAG_ICONS } from "@/lib/constants";
 
 interface TagBadgesProps {
   tags: string[];
@@ -19,7 +19,7 @@ export default function TagBadges({ tags, className = "" }: TagBadgesProps) {
             TAG_COLORS[tag] || "bg-zinc-700/50 text-zinc-300"
           }`}
         >
-          {TAG_LABELS[tag] || tag}
+          {TAG_ICONS[tag] ? `${TAG_ICONS[tag]} ` : ""}{TAG_LABELS[tag] || tag}
         </span>
       ))}
     </div>

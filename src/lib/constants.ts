@@ -203,6 +203,24 @@ export const REGIONS_DATA = [
   { name: "shfela", label: "שפלה", gradient: "from-rose-800 to-rose-950", image: "/images/regions/shephelah.png" },
 ] as const;
 
+// ==================== Tag Icons ====================
+export const TAG_ICONS: Record<string, string> = {
+  parking: "🅿️",
+  delivery: "🛵",
+  seating: "🪑",
+  wifi: "📶",
+  kids: "👶",
+  "open-friday": "🕯️",
+  "open-saturday": "📅",
+  accessible: "♿",
+  halal: "🔯",
+  "air-conditioned": "❄️",
+  "outdoor-seating": "☀️",
+  "pet-friendly": "🐕",
+  "reservist-discount": "🪖",
+  shelter: "☔",
+};
+
 // ==================== Aliases (backward compat) ====================
 export const UI_TEXT = {
   search: UI.heroSearch,

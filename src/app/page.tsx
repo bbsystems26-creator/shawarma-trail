@@ -6,7 +6,7 @@ import HeroSection from "@/components/HeroSection";
 import Carousel from "@/components/Carousel";
 import PlaceCard from "@/components/PlaceCard";
 import RegionCard from "@/components/RegionCard";
-import { REGIONS_DATA, TAG_LABELS, TAG_COLORS } from "@/lib/constants";
+import { REGIONS_DATA, TAG_LABELS, TAG_COLORS, TAG_ICONS } from "@/lib/constants";
 import Link from "next/link";
 
 export default function Home() {
@@ -91,9 +91,39 @@ export default function Home() {
                 TAG_COLORS[tag] || "bg-zinc-700/50 text-zinc-300"
               }`}
             >
-              {TAG_LABELS[tag] || tag}
+              {TAG_ICONS[tag] ? `${TAG_ICONS[tag]} ` : ""}{TAG_LABELS[tag] || tag}
             </Link>
           ))}
+        </div>
+      </div>
+
+      {/* ===== Value Propositions ===== */}
+      <div className="max-w-7xl mx-auto px-4 mt-14">
+        <h2 className="text-xl md:text-2xl font-bold text-white mb-5">
+          🥙 קצת על שווארמה טרייל
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 text-center">
+            <div className="text-4xl mb-3">🗺️</div>
+            <h3 className="text-lg font-bold text-white mb-2">מצאו את השווארמה שלכם</h3>
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              חפשו לפי מיקום, סוג בשר, כשרות ודירוג. מעל 500 מקומות ברחבי הארץ
+            </p>
+          </div>
+          <div className="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 text-center">
+            <div className="text-4xl mb-3">⭐</div>
+            <h3 className="text-lg font-bold text-white mb-2">דרגו ושתפו</h3>
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              דירוג ב-5 קטגוריות: בשר, לחם, תוספות, שירות ותמורה למחיר
+            </p>
+          </div>
+          <div className="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 text-center">
+            <div className="text-4xl mb-3">🎉</div>
+            <h3 className="text-lg font-bold text-white mb-2">שווארמה לאירוע</h3>
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              מחפשים קייטרינג שווארמה? מצאו ספקים מומלצים באזור שלכם
+            </p>
+          </div>
         </div>
       </div>
 

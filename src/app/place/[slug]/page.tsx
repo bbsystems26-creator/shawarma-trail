@@ -9,6 +9,8 @@ import StarRating from "@/components/StarRating";
 import ReviewForm from "@/components/ReviewForm";
 import ActionButtons from "@/components/ActionButtons";
 import TagBadges from "@/components/TagBadges";
+import OpenStatus from "@/components/OpenStatus";
+import SocialLinks from "@/components/SocialLinks";
 import {
   KASHRUT_LABELS,
   MEAT_TYPE_LABELS,
@@ -84,9 +86,12 @@ export default function PlacePage() {
       <div className="mb-8">
         <div className="flex items-start justify-between flex-wrap gap-4 mb-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-black text-white mb-1">
-              {place.name}
-            </h1>
+            <div className="flex items-center gap-3 flex-wrap mb-1">
+              <h1 className="text-3xl md:text-4xl font-black text-white">
+                {place.name}
+              </h1>
+              <OpenStatus openingHours={place.openingHours as Record<string, string> | undefined} />
+            </div>
             <p className="text-gray-400">{place.address}</p>
           </div>
           <div className="flex gap-2">
@@ -130,6 +135,14 @@ export default function PlacePage() {
         {place.description && (
           <p className="text-gray-300 text-lg mb-6">{place.description}</p>
         )}
+
+        {/* Social Links */}
+        <div className="mb-6">
+          <SocialLinks
+            socialLinks={place.socialLinks as { instagram?: string; facebook?: string; tiktok?: string } | undefined}
+            website={place.website as string | undefined}
+          />
+        </div>
 
         {/* Details Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -177,6 +190,46 @@ export default function PlacePage() {
                 )
               )}
             </div>
+          </div>
+        )}
+
+        {/* Menu Items */}
+        {place.menuItems && (place.menuItems as Array<{ category?: string; name: string; price?: number | string }>).length > 0 && (
+          <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mb-6">
+            <h3 className="text-amber-400 font-bold mb-4 text-lg">🍽️ תפריט</h3>
+            {(() => {
+              const items = place.menuItems as Array<{ category?: string; name: string; price?: number | string }>;
+              const grouped: Record<string, typeof items> = {};
+              items.forEach((item) => {
+                const cat = item.category || "כללי";
+                if (!grouped[cat]) grouped[cat] = [];
+                grouped[cat].push(item);
+              });
+              return Object.entries(grouped).map(([category, catItems]) => (
+                <div key={category} className="mb-4 last:mb-0">
+                  {Object.keys(grouped).length > 1 && (
+                    <h4 className="text-orange-400 font-bold text-sm mb-2 border-b border-zinc-700 pb-1">
+                      {category}
+                    </h4>
+                  )}
+                  <ul className="space-y-2">
+                    {catItems.map((item, i) => (
+                      <li
+                        key={i}
+                        className="flex justify-between items-center text-gray-300"
+                      >
+                        <span>{item.name}</span>
+                        {item.price != null && (
+                          <span className="text-orange-400 font-bold mr-4">
+                            ₪{item.price}
+                          </span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ));
+            })()}
           </div>
         )}
 
