@@ -4,7 +4,7 @@ import { useAuthActions } from "@convex-dev/auth/react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useState, useRef, useEffect } from "react";
-import { User, LogOut, Settings, ChevronDown } from "lucide-react";
+import { User, LogOut, Settings, ChevronDown, Star, Shield } from "lucide-react";
 import Link from "next/link";
 
 export default function UserMenu() {
@@ -51,6 +51,26 @@ export default function UserMenu() {
     .slice(0, 2)
     .toUpperCase();
 
+  // Role badge config
+  const isReviewer = user.role === "reviewer" || user.role === "senior_reviewer";
+  const isAdmin = user.role === "admin";
+  const showBadge = isReviewer || isAdmin;
+
+  const getRoleBadge = () => {
+    if (isAdmin) {
+      return { label: "מנהל", icon: Shield, color: "bg-red-500" };
+    }
+    if (user.role === "senior_reviewer") {
+      return { label: "מבקר בכיר", icon: Star, color: "bg-amber-500" };
+    }
+    if (user.role === "reviewer") {
+      return { label: "מבקר", icon: Star, color: "bg-green-500" };
+    }
+    return null;
+  };
+
+  const badge = getRoleBadge();
+
   return (
     <div className="relative" ref={menuRef}>
       <button
@@ -79,7 +99,15 @@ export default function UserMenu() {
         <div className="absolute left-0 md:left-auto md:right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
           {/* User info */}
           <div className="px-4 py-3 border-b border-gray-100">
-            <p className="font-medium text-gray-900">{displayName}</p>
+            <div className="flex items-center gap-2">
+              <p className="font-medium text-gray-900">{displayName}</p>
+              {badge && (
+                <span className={`inline-flex items-center gap-1 ${badge.color} text-white text-xs px-2 py-0.5 rounded-full`}>
+                  <badge.icon className="w-3 h-3" />
+                  {badge.label}
+                </span>
+              )}
+            </div>
             {user.email && (
               <p className="text-sm text-gray-500 truncate" dir="ltr">
                 {user.email}

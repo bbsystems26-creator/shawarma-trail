@@ -19,30 +19,73 @@ const OUTPUT_DIR = path.join(__dirname, "output");
 const OUTPUT_FILE = path.join(OUTPUT_DIR, "scraped-places.json");
 
 const CITIES = [
-  "תל אביב",
-  "ירושלים",
-  "חיפה",
-  "באר שבע",
-  "אשדוד",
-  "נתניה",
-  "פתח תקווה",
-  "ראשון לציון",
-  "הרצליה",
-  "רמת גן",
-  "עכו",
-  "טבריה",
-  "נצרת",
-  "אילת",
-  "כפר סבא",
-  "רעננה",
-  "מודיעין",
+  // ===== Already scraped (skip these) =====
+  // "תל אביב",
+  // "ירושלים",
+  // "חיפה",
+  // "באר שבע",
+  // "אשדוד",
+  // "נתניה",
+  // "פתח תקווה",
+  // "ראשון לציון",
+  // "הרצליה",
+  // "רמת גן",
+  // "עכו",
+  // "טבריה",
+  // "נצרת",
+  // "אילת",
+  // "כפר סבא",
+  // "מודיעין",
+  
+  // ===== NEW CITIES TO SCRAPE =====
+  // מרכז
+  // "רעננה",  // DONE
+  // "הוד השרון",  // DONE
+  // "גבעתיים",  // DONE
+  "לוד",
+  "רמלה",
+  "יבנה",
+  "נס ציונה",
+  "רחובות",
+  "גדרה",
+  // צפון
+  "קריית אתא",
+  "קריית מוצקין",
+  "קריית ביאליק",
+  "קריית ים",
+  "עפולה",
+  "נהריה",
+  "צפת",
+  "מגדל העמק",
+  "כרמיאל",
+  // דרום
+  "אשקלון",
+  "קריית גת",
+  "שדרות",
+  "ערד",
+  "אופקים",
+  // יו"ש
+  "אריאל",
+  "מעלה אדומים",
+  "ביתר עילית",
 ];
 
 const REGION_MAP: Record<string, "north" | "center" | "south" | "jerusalem" | "shfela"> = {
+  // צפון
   חיפה: "north",
   עכו: "north",
   טבריה: "north",
   נצרת: "north",
+  "קריית אתא": "north",
+  "קריית מוצקין": "north",
+  "קריית ביאליק": "north",
+  "קריית ים": "north",
+  עפולה: "north",
+  נהריה: "north",
+  צפת: "north",
+  "מגדל העמק": "north",
+  כרמיאל: "north",
+  // מרכז
   "תל אביב": "center",
   "פתח תקווה": "center",
   "ראשון לציון": "center",
@@ -51,19 +94,38 @@ const REGION_MAP: Record<string, "north" | "center" | "south" | "jerusalem" | "s
   נתניה: "center",
   "כפר סבא": "center",
   רעננה: "center",
+  "הוד השרון": "center",
+  גבעתיים: "center",
+  לוד: "center",
+  רמלה: "center",
+  // שפלה
+  יבנה: "shfela",
+  "נס ציונה": "shfela",
+  רחובות: "shfela",
+  גדרה: "shfela",
+  אשקלון: "shfela",
+  "קריית גת": "shfela",
+  // דרום
   "באר שבע": "south",
   אשדוד: "south",
   אילת: "south",
+  שדרות: "south",
+  ערד: "south",
+  אופקים: "south",
+  // ירושלים ויו"ש
   ירושלים: "jerusalem",
   מודיעין: "jerusalem",
+  אריאל: "jerusalem",
+  "מעלה אדומים": "jerusalem",
+  "ביתר עילית": "jerusalem",
 };
 
-// Delay between actions (ms) — respect rate limits
-const DELAY_BETWEEN_CITIES = 8000 + Math.random() * 5000;
-const DELAY_BETWEEN_PLACES = 3000 + Math.random() * 3000;
-const DELAY_AFTER_SCROLL = 2000;
+// Delay between actions (ms) — FAST MODE (no images)
+const DELAY_BETWEEN_CITIES = 2000;
+const DELAY_BETWEEN_PLACES = 1000;
+const DELAY_AFTER_SCROLL = 1000;
 const MAX_PLACES_PER_CITY = 15;
-const MAX_RETRIES = 3;
+const MAX_RETRIES = 2;
 
 // ─── Hebrew → Latin Transliteration ─────────────────────────────────────────
 
@@ -264,13 +326,50 @@ async function launchBrowser(headless: boolean): Promise<Browser> {
 async function dismissGoogleConsent(page: Page): Promise<void> {
   try {
     // Google consent dialog — click "Accept all" if present
-    const consentButton = await page.$(
-      'button[aria-label="Accept all"], form[action*="consent"] button, button:has-text("הכל")'
-    );
-    if (consentButton) {
-      await consentButton.click();
-      await sleep(2000);
-      log("✅ Dismissed consent dialog");
+    // Handle multiple languages: English, German, Hebrew
+    const consentSelectors = [
+      'button[aria-label="Accept all"]',
+      'button[aria-label="Alle akzeptieren"]',
+      'button:has-text("Accept all")',
+      'button:has-text("Alle akzeptieren")',
+      'button:has-text("הכל")',
+      'form[action*="consent"] button[type="submit"]',
+      // More specific selector for the consent buttons
+      'div[role="dialog"] button:nth-of-type(2)',
+    ];
+    
+    for (const selector of consentSelectors) {
+      try {
+        const consentButton = await page.$(selector);
+        if (consentButton) {
+          await consentButton.click();
+          await sleep(3000);
+          log("✅ Dismissed consent dialog");
+          return;
+        }
+      } catch {
+        // Try next selector
+      }
+    }
+    
+    // Try to find button by text content
+    const clicked = await page.evaluate(() => {
+      const buttons = Array.from(document.querySelectorAll('button'));
+      const acceptButton = buttons.find(b => 
+        b.textContent?.includes('Accept all') || 
+        b.textContent?.includes('Alle akzeptieren') ||
+        b.textContent?.includes('אישור')
+      );
+      if (acceptButton) {
+        acceptButton.click();
+        return true;
+      }
+      return false;
+    });
+    
+    if (clicked) {
+      await sleep(3000);
+      log("✅ Dismissed consent dialog via text search");
     }
   } catch {
     // Consent dialog not found — that's fine
@@ -280,10 +379,10 @@ async function dismissGoogleConsent(page: Page): Promise<void> {
 async function searchGoogleMaps(page: Page, query: string): Promise<void> {
   const url = `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
   log(`🔍 Navigating to: ${query}`);
-  await page.goto(url, { waitUntil: "networkidle2", timeout: 30000 });
-  await sleep(3000);
-  await dismissGoogleConsent(page);
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 20000 });
   await sleep(2000);
+  await dismissGoogleConsent(page);
+  await sleep(1500);
 }
 
 async function scrollResultsList(page: Page, maxScrolls: number = 5): Promise<void> {
@@ -365,8 +464,8 @@ async function extractPlaceData(
   city: string
 ): Promise<Partial<ScrapedPlace> | null> {
   try {
-    await page.goto(placeUrl, { waitUntil: "networkidle2", timeout: 30000 });
-    await sleep(randomDelay(2000, 2000));
+    await page.goto(placeUrl, { waitUntil: "domcontentloaded", timeout: 20000 });
+    await sleep(2000);
 
     // Wait for the place panel to load
     await page.waitForSelector('h1, [data-attrid="title"]', { timeout: 10000 }).catch(() => {});
@@ -448,18 +547,8 @@ async function extractPlaceData(
         }
       }
 
-      // Images
-      const images: string[] = [];
-      const imageEls = document.querySelectorAll(
-        'button[jsaction*="photo"] img, div.RZ66Rb img, img.p0Hhde, img[decoding="async"]'
-      );
-      imageEls.forEach((img) => {
-        const src = (img as HTMLImageElement).src;
-        if (src && src.startsWith("http") && !src.includes("google.com/maps/vt") && !src.includes("gstatic.com/mapfiles")) {
-          images.push(src);
-        }
-      });
-      result.images = images.slice(0, 5); // Limit to 5 images
+      // Images — SKIP for fast mode
+      result.images = [];
 
       // Price level ($ signs)
       const priceEl = document.querySelector('span[aria-label*="Price"], span[aria-label*="מחיר"]');

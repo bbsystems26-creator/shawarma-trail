@@ -98,6 +98,28 @@ export const deleteAllPlaces = mutation({
 });
 
 /**
+ * Delete a place by slug.
+ */
+export const deleteBySlug = mutation({
+  args: {
+    slug: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const place = await ctx.db
+      .query("places")
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
+      .first();
+
+    if (!place) {
+      return { success: false, error: "Place not found" };
+    }
+
+    await ctx.db.delete(place._id);
+    return { success: true, name: place.name };
+  },
+});
+
+/**
  * Update place images by slug.
  * Used by the photo-adding script.
  */

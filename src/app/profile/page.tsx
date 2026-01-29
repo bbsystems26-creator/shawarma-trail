@@ -40,10 +40,11 @@ export default function ProfilePage() {
     .toUpperCase();
 
   const roleLabels: Record<string, string> = {
-    user: "משתמש",
-    editor: "עורך",
+    visitor: "גולש",
+    applicant: "מועמד",
+    reviewer: "מבקר מאושר",
+    senior_reviewer: "מבקר בכיר",
     admin: "מנהל",
-    owner: "בעל עסק",
   };
 
   return (

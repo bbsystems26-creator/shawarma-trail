@@ -85,18 +85,37 @@ export default defineSchema({
     email: v.optional(v.string()),
     image: v.optional(v.string()),
     emailVerificationTime: v.optional(v.number()),
-    // App-specific fields
+
+    // Profile fields
     avatar: v.optional(v.string()),
-    reviewCount: v.optional(v.number()),
+    bio: v.optional(v.string()),
+    city: v.optional(v.string()),
+
+    // Role & Status - Reviewers Squad system
     role: v.optional(
       v.union(
-        v.literal("user"),
-        v.literal("editor"),
-        v.literal("admin"),
-        v.literal("owner")
+        v.literal("visitor"), // Default - can only view
+        v.literal("applicant"), // Submitted application, waiting approval
+        v.literal("reviewer"), // Approved reviewer - can write reviews
+        v.literal("senior_reviewer"), // 10+ quality reviews
+        v.literal("admin") // Full access
       )
     ),
-  }).index("email", ["email"]),
+    isActive: v.optional(v.boolean()),
+
+    // Stats (denormalized for performance)
+    reviewCount: v.optional(v.number()),
+    articleCount: v.optional(v.number()),
+    totalRaffleEntries: v.optional(v.number()),
+
+    // Timestamps
+    createdAt: v.optional(v.number()),
+    updatedAt: v.optional(v.number()),
+    lastLoginAt: v.optional(v.number()),
+  })
+    .index("email", ["email"])
+    .index("by_role", ["role"])
+    .index("by_reviewCount", ["reviewCount"]),
 
   lists: defineTable({
     title: v.string(),
