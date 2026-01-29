@@ -148,4 +148,31 @@ export default defineSchema({
     .index("by_slug", ["slug"])
     .index("by_category", ["category"])
     .index("by_published", ["isPublished"]),
+
+  // Reviewer applications - Phase 2 Reviewers Squad
+  reviewerApplications: defineTable({
+    userId: v.id("users"),
+
+    // Application content
+    whyJoin: v.string(), // Why do they want to join (min 50 chars)
+    favoritePlace: v.string(), // Their favorite shawarma place
+    experience: v.string(), // Experience with reviews/writing
+    socialLinks: v.optional(v.array(v.string())), // Optional social media links
+
+    // Status
+    status: v.union(
+      v.literal("pending"),
+      v.literal("approved"),
+      v.literal("rejected")
+    ),
+    reviewedBy: v.optional(v.id("users")), // Admin who reviewed
+    reviewedAt: v.optional(v.number()),
+    rejectionReason: v.optional(v.string()),
+
+    // Timestamps
+    createdAt: v.number(),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_status", ["status"])
+    .index("by_createdAt", ["createdAt"]),
 });
