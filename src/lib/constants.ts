@@ -253,3 +253,41 @@ export const RATING_LABELS = {
   service: RATING_CATEGORIES.ratingService,
   value: RATING_CATEGORIES.ratingValue,
 };
+
+// ==================== Leaderboard ====================
+export const LEADERBOARD = {
+  title: "טבלת מובילים",
+  subtitle: "המבקרים המובילים",
+  description: "הכירו את המבקרים הפעילים ביותר בקהילה. כתבו ביקורות וטפסו בדירוג!",
+  reviewers: "מבקרים",
+  reviews: "ביקורות",
+  articles: "כתבות",
+  rank: "דירוג",
+  badge: "תג",
+  badgeLevels: "רמות תגים",
+  badgeProgress: "צברו ביקורות וקבלו תגים מיוחדים",
+  podium: "פודיום",
+  joinCta: "רוצים להיכנס לדירוג?",
+  joinCtaDescription: "הצטרפו לנבחרת המבקרים וכתבו ביקורות על מקומות השווארמה האהובים עליכם",
+  joinNow: "הצטרפו עכשיו",
+  emptyTitle: "עדיין אין מבקרים בדירוג",
+  emptyDescription: "היו הראשונים לכתוב ביקורות ולהופיע בטבלה!",
+} as const;
+
+// ==================== Badge Labels ====================
+export const BADGE_LABELS = {
+  none: "",
+  bronze: "ברונזה",
+  silver: "כסף",
+  gold: "זהב",
+  platinum: "פלטינום",
+  diamond: "יהלום",
+} as const;
+
+export const BADGE_THRESHOLDS = {
+  bronze: 3,
+  silver: 10,
+  gold: 25,
+  platinum: 50,
+  diamond: 100,
+} as const;

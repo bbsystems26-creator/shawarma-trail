@@ -19,6 +19,7 @@ const NAV_LINKS = [
   { label: "גלה מקומות", href: "/explore" },
   { label: "מפה", href: "/map" },
   { label: "מגזין", href: "/blog" },
+  { label: "דירוג", href: "/leaderboard" },
   { label: "קייטרינג", href: "/catering" },
 ];
 
