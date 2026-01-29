@@ -7,9 +7,9 @@ export type UserRole = "visitor" | "applicant" | "reviewer" | "senior_reviewer" 
 
 // Role labels in Hebrew
 export const ROLE_LABELS: Record<UserRole, string> = {
-  visitor: "גולש",
+  visitor: "אורח",
   applicant: "מועמד",
-  reviewer: "מבקר מאושר",
+  reviewer: "מבקר",
   senior_reviewer: "מבקר בכיר",
   admin: "מנהל",
 };

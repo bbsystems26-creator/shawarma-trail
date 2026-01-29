@@ -4,9 +4,10 @@ import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { redirect } from "next/navigation";
 import { useConvexAuth } from "convex/react";
-import { Star, MapPin, Calendar, Edit2, Loader2 } from "lucide-react";
+import { Star, MapPin, FileText, Calendar, Edit2, Loader2 } from "lucide-react";
 import Link from "next/link";
 import ReviewerBadge from "@/components/ReviewerBadge";
+import { ROLE_LABELS, UserRole } from "@/lib/auth";
 
 export default function ProfilePage() {
   const { isAuthenticated, isLoading: authLoading } = useConvexAuth();
@@ -39,6 +40,8 @@ export default function ProfilePage() {
     .join("")
     .slice(0, 2)
     .toUpperCase();
+  const roleLabel =
+    ROLE_LABELS[(user.role as UserRole) || "visitor"] || ROLE_LABELS.visitor;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white py-8 px-4">
@@ -70,6 +73,19 @@ export default function ProfilePage() {
                 <p className="text-gray-500 mt-1" dir="ltr">
                   {user.email}
                 </p>
+              )}
+              <p className="text-gray-500 text-sm mt-1">תפקיד: {roleLabel}</p>
+              {user.city && (
+                <div className="flex items-center justify-center md:justify-start gap-1 text-gray-600 text-sm mt-2">
+                  <MapPin className="w-4 h-4 text-amber-500" />
+                  <span>{user.city}</span>
+                </div>
+              )}
+              {user.bio && (
+                <div className="flex items-start justify-center md:justify-start gap-2 text-gray-600 text-sm mt-3">
+                  <FileText className="w-4 h-4 text-amber-500 mt-0.5" />
+                  <p className="whitespace-pre-line">{user.bio}</p>
+                </div>
               )}
               <div className="flex items-center justify-center md:justify-start gap-4 mt-3">
                 <ReviewerBadge role={user.role} size="md" />

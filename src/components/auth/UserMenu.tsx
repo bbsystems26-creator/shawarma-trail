@@ -4,8 +4,10 @@ import { useAuthActions } from "@convex-dev/auth/react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useState, useRef, useEffect } from "react";
-import { User, LogOut, Settings, ChevronDown, Star, Shield } from "lucide-react";
+import { User, LogOut, Settings, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import ReviewerBadge from "@/components/ReviewerBadge";
+import { ROLE_LABELS, UserRole } from "@/lib/auth";
 
 export default function UserMenu() {
   const user = useQuery(api.users.viewer);
@@ -50,26 +52,16 @@ export default function UserMenu() {
     .join("")
     .slice(0, 2)
     .toUpperCase();
-
-  // Role badge config
-  const isReviewer = user.role === "reviewer" || user.role === "senior_reviewer";
-  const isAdmin = user.role === "admin";
-  const showBadge = isReviewer || isAdmin;
-
-  const getRoleBadge = () => {
-    if (isAdmin) {
-      return { label: "מנהל", icon: Shield, color: "bg-red-500" };
-    }
-    if (user.role === "senior_reviewer") {
-      return { label: "מבקר בכיר", icon: Star, color: "bg-amber-500" };
-    }
-    if (user.role === "reviewer") {
-      return { label: "מבקר", icon: Star, color: "bg-green-500" };
-    }
-    return null;
+  const safeRole = (user.role as UserRole) || "visitor";
+  const roleLabel = ROLE_LABELS[safeRole] || ROLE_LABELS.visitor;
+  const roleDotClass: Record<UserRole, string> = {
+    visitor: "bg-gray-400",
+    applicant: "bg-blue-500",
+    reviewer: "bg-amber-500",
+    senior_reviewer: "bg-purple-500",
+    admin: "bg-red-500",
   };
-
-  const badge = getRoleBadge();
+  const roleDot = roleDotClass[safeRole] || roleDotClass.visitor;
 
   return (
     <div className="relative" ref={menuRef}>
@@ -77,17 +69,24 @@ export default function UserMenu() {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 p-1 rounded-full hover:bg-gray-100 transition-colors"
       >
-        {avatarUrl ? (
-          <img
-            src={avatarUrl}
-            alt={displayName}
-            className="w-10 h-10 rounded-full object-cover border-2 border-amber-400"
+        <div className="relative">
+          {avatarUrl ? (
+            <img
+              src={avatarUrl}
+              alt={displayName}
+              className="w-10 h-10 rounded-full object-cover border-2 border-amber-400"
+            />
+          ) : (
+            <div className="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center text-white font-bold text-sm border-2 border-amber-400">
+              {initials}
+            </div>
+          )}
+          <span
+            className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white ${roleDot}`}
+            title={`תפקיד: ${roleLabel}`}
+            aria-label={`תפקיד: ${roleLabel}`}
           />
-        ) : (
-          <div className="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center text-white font-bold text-sm border-2 border-amber-400">
-            {initials}
-          </div>
-        )}
+        </div>
         <ChevronDown
           className={`w-4 h-4 text-gray-600 transition-transform hidden md:block ${
             isOpen ? "rotate-180" : ""
@@ -101,12 +100,7 @@ export default function UserMenu() {
           <div className="px-4 py-3 border-b border-gray-100">
             <div className="flex items-center gap-2">
               <p className="font-medium text-gray-900">{displayName}</p>
-              {badge && (
-                <span className={`inline-flex items-center gap-1 ${badge.color} text-white text-xs px-2 py-0.5 rounded-full`}>
-                  <badge.icon className="w-3 h-3" />
-                  {badge.label}
-                </span>
-              )}
+              <ReviewerBadge role={user.role} size="sm" />
             </div>
             {user.email && (
               <p className="text-sm text-gray-500 truncate" dir="ltr">
