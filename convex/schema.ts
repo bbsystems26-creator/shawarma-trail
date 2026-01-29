@@ -175,4 +175,60 @@ export default defineSchema({
     .index("by_userId", ["userId"])
     .index("by_status", ["status"])
     .index("by_createdAt", ["createdAt"]),
+
+  // Raffles - monthly prize drawings for reviewers
+  raffles: defineTable({
+    title: v.string(), // "הגרלת ינואר 2026"
+    description: v.string(),
+    prize: v.string(), // "שובר 200₪ לשווארמה"
+    prizeValue: v.number(), // 200
+
+    // Dates
+    month: v.string(), // "2026-01"
+    startDate: v.number(),
+    endDate: v.number(),
+    drawDate: v.optional(v.number()),
+
+    // Status
+    status: v.union(
+      v.literal("upcoming"),
+      v.literal("active"),
+      v.literal("drawing"),
+      v.literal("completed")
+    ),
+
+    // Winner
+    winnerId: v.optional(v.id("users")),
+    winnerEntryId: v.optional(v.id("raffleEntries")),
+    winnerAnnouncedAt: v.optional(v.number()),
+
+    // Stats
+    totalEntries: v.number(),
+    participantCount: v.number(),
+
+    // Timestamps
+    createdAt: v.number(),
+  })
+    .index("by_month", ["month"])
+    .index("by_status", ["status"]),
+
+  // Raffle entries - tickets earned by reviews/articles
+  raffleEntries: defineTable({
+    raffleId: v.id("raffles"),
+    userId: v.id("users"),
+
+    // Source of the entry
+    sourceType: v.union(
+      v.literal("review"),
+      v.literal("article"),
+      v.literal("bonus")
+    ),
+    sourceId: v.optional(v.string()), // review or article ID as string
+
+    // Timestamps
+    createdAt: v.number(),
+  })
+    .index("by_raffleId", ["raffleId"])
+    .index("by_userId", ["userId"])
+    .index("by_raffle_user", ["raffleId", "userId"]),
 });

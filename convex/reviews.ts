@@ -2,6 +2,7 @@ import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { auth } from "./auth";
 import { REVIEWER_ROLES, UserRole } from "./users";
+import { internal } from "./_generated/api";
 
 export const getByPlace = query({
   args: { placeId: v.id("places") },
@@ -116,6 +117,12 @@ export const create = mutation({
     await ctx.db.patch(userId, {
       reviewCount: (user.reviewCount || 0) + 1,
       updatedAt: Date.now(),
+    });
+
+    // Create raffle entry for this review
+    await ctx.scheduler.runAfter(0, internal.raffles.createEntryForReview, {
+      userId,
+      reviewId,
     });
 
     return reviewId;
