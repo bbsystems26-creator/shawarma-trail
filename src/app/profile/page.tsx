@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { useConvexAuth } from "convex/react";
 import { Star, MapPin, Calendar, Edit2, Loader2 } from "lucide-react";
 import Link from "next/link";
+import ReviewerBadge from "@/components/ReviewerBadge";
 
 export default function ProfilePage() {
   const { isAuthenticated, isLoading: authLoading } = useConvexAuth();
@@ -39,14 +40,6 @@ export default function ProfilePage() {
     .slice(0, 2)
     .toUpperCase();
 
-  const roleLabels: Record<string, string> = {
-    visitor: "גולש",
-    applicant: "מועמד",
-    reviewer: "מבקר מאושר",
-    senior_reviewer: "מבקר בכיר",
-    admin: "מנהל",
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white py-8 px-4">
       <div className="max-w-3xl mx-auto">
@@ -79,9 +72,7 @@ export default function ProfilePage() {
                 </p>
               )}
               <div className="flex items-center justify-center md:justify-start gap-4 mt-3">
-                <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-sm font-medium">
-                  {roleLabels[user.role || "user"]}
-                </span>
+                <ReviewerBadge role={user.role} size="md" />
                 <span className="text-gray-600 text-sm">
                   {user.reviewCount || 0} ביקורות
                 </span>
