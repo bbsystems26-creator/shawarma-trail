@@ -100,15 +100,17 @@ export const listAll = query({
       throw new Error("Admin access required");
     }
 
-    let query = ctx.db.query("reviewerApplications");
-
-    if (args.status) {
-      query = query.withIndex("by_status", (q) => q.eq("status", args.status!));
-    } else {
-      query = query.withIndex("by_createdAt");
-    }
-
-    const applications = await query.order("desc").collect();
+    const applications = args.status
+      ? await ctx.db
+          .query("reviewerApplications")
+          .withIndex("by_status", (q) => q.eq("status", args.status!))
+          .order("desc")
+          .collect()
+      : await ctx.db
+          .query("reviewerApplications")
+          .withIndex("by_createdAt")
+          .order("desc")
+          .collect();
 
     // Enrich with user data
     const enrichedApplications = await Promise.all(
